@@ -73,8 +73,6 @@ void exit() {
 
 // Load textures
 void LoadTextures(Mini2D * mini) {
-	Vector2 center = Vector2(0.5 * mini->MAXW, 0.5 * mini->MAXH);
-	
 	// Initialize locations
 	TEX_BGIMG_LOC.X *= mini->MAXW; TEX_BGIMG_LOC.Y *= mini->MAXH; 
 	TEX_BGIMG_DIM.X *= mini->MAXW; TEX_BGIMG_DIM.Y *= mini->MAXH;
@@ -184,158 +182,158 @@ void LoadTextures(Mini2D * mini) {
 
 	tex_cheat = new Image(mini);
 	tex_cheat->Load((void*)cheat_png, cheat_png_size, Image::IMAGE_TYPE_PNG);
-	tex_cheat->DrawRegion.Location.Set(center);
-	tex_cheat->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_cheat->DrawRegion.Location.Set(TEX_CHEAT_LOC);
+	tex_cheat->DrawRegion.Dimension.Set(TEX_CHEAT_DIM);
 
 	tex_circle_error_dark = new Image(mini);
 	tex_circle_error_dark->Load((void*)circle_error_dark_png, circle_error_dark_png_size, Image::IMAGE_TYPE_PNG);
-	tex_circle_error_dark->DrawRegion.Location.Set(center);
-	tex_circle_error_dark->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_circle_error_dark->DrawRegion.Location.Set(TEX_CIRCLE_ERROR_DARK_LOC);
+	tex_circle_error_dark->DrawRegion.Dimension.Set(TEX_CIRCLE_ERROR_DARK_DIM);
 
 	tex_circle_error_light = new Image(mini);
 	tex_circle_error_light->Load((void*)circle_error_light_png, circle_error_light_png_size, Image::IMAGE_TYPE_PNG);
-	tex_circle_error_light->DrawRegion.Location.Set(center);
-	tex_circle_error_light->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_circle_error_light->DrawRegion.Location.Set(TEX_CIRCLE_ERROR_LIGHT_LOC);
+	tex_circle_error_light->DrawRegion.Dimension.Set(TEX_CIRCLE_ERROR_LIGHT_DIM);
 
 	tex_circle_loading_bg = new Image(mini);
 	tex_circle_loading_bg->Load((void*)circle_loading_bg_png, circle_loading_bg_png_size, Image::IMAGE_TYPE_PNG);
-	tex_circle_loading_bg->DrawRegion.Location.Set(center);
-	tex_circle_loading_bg->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_circle_loading_bg->DrawRegion.Location.Set(TEX_CIRCLE_LOADING_BG_LOC);
+	tex_circle_loading_bg->DrawRegion.Dimension.Set(TEX_CIRCLE_LOADING_BG_DIM);
 
 	tex_circle_loading_seek = new Image(mini);
 	tex_circle_loading_seek->Load((void*)circle_loading_seek_png, circle_loading_seek_png_size, Image::IMAGE_TYPE_PNG);
-	tex_circle_loading_seek->DrawRegion.Location.Set(center);
-	tex_circle_loading_seek->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_circle_loading_seek->DrawRegion.Location.Set(TEX_CIRCLE_LOADING_SEEK_LOC);
+	tex_circle_loading_seek->DrawRegion.Dimension.Set(TEX_CIRCLE_LOADING_SEEK_DIM);
 
 	tex_edit_ico_add = new Image(mini);
 	tex_edit_ico_add->Load((void*)edit_ico_add_png, edit_ico_add_png_size, Image::IMAGE_TYPE_PNG);
-	tex_edit_ico_add->DrawRegion.Location.Set(center);
-	tex_edit_ico_add->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_edit_ico_add->DrawRegion.Location.Set(TEX_EDIT_ICO_ADD_LOC);
+	tex_edit_ico_add->DrawRegion.Dimension.Set(TEX_EDIT_ICO_ADD_DIM);
 
 	tex_edit_ico_del = new Image(mini);
 	tex_edit_ico_del->Load((void*)edit_ico_del_png, edit_ico_del_png_size, Image::IMAGE_TYPE_PNG);
-	tex_edit_ico_del->DrawRegion.Location.Set(center);
-	tex_edit_ico_del->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_edit_ico_del->DrawRegion.Location.Set(TEX_EDIT_ICO_DEL_LOC);
+	tex_edit_ico_del->DrawRegion.Dimension.Set(TEX_EDIT_ICO_DEL_DIM);
 
 	tex_edit_shadow = new Image(mini);
 	tex_edit_shadow->Load((void*)edit_shadow_png, edit_shadow_png_size, Image::IMAGE_TYPE_PNG);
-	tex_edit_shadow->DrawRegion.Location.Set(center);
-	tex_edit_shadow->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_edit_shadow->DrawRegion.Location.Set(TEX_EDIT_SHADOW_LOC);
+	tex_edit_shadow->DrawRegion.Dimension.Set(TEX_EDIT_SHADOW_DIM);
 
 	tex_footer_ico_circle = new Image(mini);
 	tex_footer_ico_circle->Load((void*)footer_ico_circle_png, footer_ico_circle_png_size, Image::IMAGE_TYPE_PNG);
-	tex_footer_ico_circle->DrawRegion.Location.Set(center);
-	tex_footer_ico_circle->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_footer_ico_circle->DrawRegion.Location.Set(TEX_FOOTER_ICO_CIRCLE_LOC);
+	tex_footer_ico_circle->DrawRegion.Dimension.Set(TEX_FOOTER_ICO_CIRCLE_DIM);
 
 	tex_footer_ico_cross = new Image(mini);
 	tex_footer_ico_cross->Load((void*)footer_ico_cross_png, footer_ico_cross_png_size, Image::IMAGE_TYPE_PNG);
-	tex_footer_ico_cross->DrawRegion.Location.Set(center);
-	tex_footer_ico_cross->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_footer_ico_cross->DrawRegion.Location.Set(TEX_FOOTER_ICO_CROSS_LOC);
+	tex_footer_ico_cross->DrawRegion.Dimension.Set(TEX_FOOTER_ICO_CROSS_DIM);
 
 	tex_footer_ico_lt = new Image(mini);
 	tex_footer_ico_lt->Load((void*)footer_ico_lt_png, footer_ico_lt_png_size, Image::IMAGE_TYPE_PNG);
-	tex_footer_ico_lt->DrawRegion.Location.Set(center);
-	tex_footer_ico_lt->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_footer_ico_lt->DrawRegion.Location.Set(TEX_FOOTER_ICO_LT_LOC);
+	tex_footer_ico_lt->DrawRegion.Dimension.Set(TEX_FOOTER_ICO_LT_DIM);
 
 	tex_footer_ico_rt = new Image(mini);
 	tex_footer_ico_rt->Load((void*)footer_ico_rt_png, footer_ico_rt_png_size, Image::IMAGE_TYPE_PNG);
-	tex_footer_ico_rt->DrawRegion.Location.Set(center);
-	tex_footer_ico_rt->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_footer_ico_rt->DrawRegion.Location.Set(TEX_FOOTER_ICO_RT_LOC);
+	tex_footer_ico_rt->DrawRegion.Dimension.Set(TEX_FOOTER_ICO_RT_DIM);
 
 	tex_footer_ico_square = new Image(mini);
 	tex_footer_ico_square->Load((void*)footer_ico_square_png, footer_ico_square_png_size, Image::IMAGE_TYPE_PNG);
-	tex_footer_ico_square->DrawRegion.Location.Set(center);
-	tex_footer_ico_square->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_footer_ico_square->DrawRegion.Location.Set(TEX_FOOTER_ICO_SQUARE_LOC);
+	tex_footer_ico_square->DrawRegion.Dimension.Set(TEX_FOOTER_ICO_SQUARE_DIM);
 
 	tex_footer_ico_triangle = new Image(mini);
 	tex_footer_ico_triangle->Load((void*)footer_ico_triangle_png, footer_ico_triangle_png_size, Image::IMAGE_TYPE_PNG);
-	tex_footer_ico_triangle->DrawRegion.Location.Set(center);
-	tex_footer_ico_triangle->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_footer_ico_triangle->DrawRegion.Location.Set(TEX_FOOTER_ICO_TRIANGLE_LOC);
+	tex_footer_ico_triangle->DrawRegion.Dimension.Set(TEX_FOOTER_ICO_TRIANGLE_DIM);
 
 	tex_header_dot = new Image(mini);
 	tex_header_dot->Load((void*)header_dot_png, header_dot_png_size, Image::IMAGE_TYPE_PNG);
-	tex_header_dot->DrawRegion.Location.Set(center);
-	tex_header_dot->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_header_dot->DrawRegion.Location.Set(TEX_HEADER_DOT_LOC);
+	tex_header_dot->DrawRegion.Dimension.Set(TEX_HEADER_DOT_DIM);
 
 	tex_header_ico_abt = new Image(mini);
 	tex_header_ico_abt->Load((void*)header_ico_abt_png, header_ico_abt_png_size, Image::IMAGE_TYPE_PNG);
-	tex_header_ico_abt->DrawRegion.Location.Set(center);
-	tex_header_ico_abt->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_header_ico_abt->DrawRegion.Location.Set(TEX_HEADER_ICO_ABT_LOC);
+	tex_header_ico_abt->DrawRegion.Dimension.Set(TEX_HEADER_ICO_ABT_DIM);
 
 	tex_header_ico_cht = new Image(mini);
 	tex_header_ico_cht->Load((void*)header_ico_cht_png, header_ico_cht_png_size, Image::IMAGE_TYPE_PNG);
-	tex_header_ico_cht->DrawRegion.Location.Set(center);
-	tex_header_ico_cht->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_header_ico_cht->DrawRegion.Location.Set(TEX_HEADER_ICO_CHT_LOC);
+	tex_header_ico_cht->DrawRegion.Dimension.Set(TEX_HEADER_ICO_CHT_DIM);
 
 	tex_header_ico_opt = new Image(mini);
 	tex_header_ico_opt->Load((void*)header_ico_opt_png, header_ico_opt_png_size, Image::IMAGE_TYPE_PNG);
-	tex_header_ico_opt->DrawRegion.Location.Set(center);
-	tex_header_ico_opt->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_header_ico_opt->DrawRegion.Location.Set(TEX_HEADER_ICO_OPT_LOC);
+	tex_header_ico_opt->DrawRegion.Dimension.Set(TEX_HEADER_ICO_OPT_DIM);
 
 	tex_header_ico_xmb = new Image(mini);
 	tex_header_ico_xmb->Load((void*)header_ico_xmb_png, header_ico_xmb_png_size, Image::IMAGE_TYPE_PNG);
-	tex_header_ico_xmb->DrawRegion.Location.Set(center);
-	tex_header_ico_xmb->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_header_ico_xmb->DrawRegion.Location.Set(TEX_HEADER_ICO_XMB_LOC);
+	tex_header_ico_xmb->DrawRegion.Dimension.Set(TEX_HEADER_ICO_XMB_DIM);
 
 	tex_header_line = new Image(mini);
 	tex_header_line->Load((void*)header_line_png, header_line_png_size, Image::IMAGE_TYPE_PNG);
-	tex_header_line->DrawRegion.Location.Set(center);
-	tex_header_line->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_header_line->DrawRegion.Location.Set(TEX_HEADER_LINE_LOC);
+	tex_header_line->DrawRegion.Dimension.Set(TEX_HEADER_LINE_DIM);
 
 	tex_help = new Image(mini);
 	tex_help->Load((void*)help_png, help_png_size, Image::IMAGE_TYPE_PNG);
-	tex_help->DrawRegion.Location.Set(center);
-	tex_help->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_help->DrawRegion.Location.Set(TEX_HELP_LOC);
+	tex_help->DrawRegion.Dimension.Set(TEX_HELP_DIM);
 
 	tex_mark_arrow = new Image(mini);
 	tex_mark_arrow->Load((void*)mark_arrow_png, mark_arrow_png_size, Image::IMAGE_TYPE_PNG);
-	tex_mark_arrow->DrawRegion.Location.Set(center);
-	tex_mark_arrow->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_mark_arrow->DrawRegion.Location.Set(TEX_MARK_ARROW_LOC);
+	tex_mark_arrow->DrawRegion.Dimension.Set(TEX_MARK_ARROW_DIM);
 
 	tex_mark_line = new Image(mini);
 	tex_mark_line->Load((void*)mark_line_png, mark_line_png_size, Image::IMAGE_TYPE_PNG);
-	tex_mark_line->DrawRegion.Location.Set(center);
-	tex_mark_line->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_mark_line->DrawRegion.Location.Set(TEX_MARK_LINE_LOC);
+	tex_mark_line->DrawRegion.Dimension.Set(TEX_MARK_LINE_DIM);
 
 	tex_opt_off = new Image(mini);
 	tex_opt_off->Load((void*)opt_off_png, opt_off_png_size, Image::IMAGE_TYPE_PNG);
-	tex_opt_off->DrawRegion.Location.Set(center);
-	tex_opt_off->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_opt_off->DrawRegion.Location.Set(TEX_OPT_OFF_LOC);
+	tex_opt_off->DrawRegion.Dimension.Set(TEX_OPT_OFF_DIM);
 
 	tex_opt_on = new Image(mini);
 	tex_opt_on->Load((void*)opt_on_png, opt_on_png_size, Image::IMAGE_TYPE_PNG);
-	tex_opt_on->DrawRegion.Location.Set(center);
-	tex_opt_on->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_opt_on->DrawRegion.Location.Set(TEX_OPT_ON_LOC);
+	tex_opt_on->DrawRegion.Dimension.Set(TEX_OPT_ON_DIM);
 
 	tex_scroll_bg = new Image(mini);
 	tex_scroll_bg->Load((void*)scroll_bg_png, scroll_bg_png_size, Image::IMAGE_TYPE_PNG);
-	tex_scroll_bg->DrawRegion.Location.Set(center);
-	tex_scroll_bg->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_scroll_bg->DrawRegion.Location.Set(TEX_SCROLL_BG_LOC);
+	tex_scroll_bg->DrawRegion.Dimension.Set(TEX_SCROLL_BG_DIM);
 
 	tex_scroll_lock = new Image(mini);
 	tex_scroll_lock->Load((void*)scroll_lock_png, scroll_lock_png_size, Image::IMAGE_TYPE_PNG);
-	tex_scroll_lock->DrawRegion.Location.Set(center);
-	tex_scroll_lock->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_scroll_lock->DrawRegion.Location.Set(TEX_SCROLL_LOCK_LOC);
+	tex_scroll_lock->DrawRegion.Dimension.Set(TEX_SCROLL_LOCK_DIM);
 
 	tex_titlescr_ico_abt = new Image(mini);
 	tex_titlescr_ico_abt->Load((void*)titlescr_ico_abt_png, titlescr_ico_abt_png_size, Image::IMAGE_TYPE_PNG);
-	tex_titlescr_ico_abt->DrawRegion.Location.Set(center);
-	tex_titlescr_ico_abt->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_titlescr_ico_abt->DrawRegion.Location.Set(TEX_TITLESCR_ICO_ABT_LOC);
+	tex_titlescr_ico_abt->DrawRegion.Dimension.Set(TEX_TITLESCR_ICO_ABT_DIM);
 
 	tex_titlescr_ico_cht = new Image(mini);
 	tex_titlescr_ico_cht->Load((void*)titlescr_ico_cht_png, titlescr_ico_cht_png_size, Image::IMAGE_TYPE_PNG);
-	tex_titlescr_ico_cht->DrawRegion.Location.Set(center);
-	tex_titlescr_ico_cht->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_titlescr_ico_cht->DrawRegion.Location.Set(TEX_TITLESCR_ICO_CHT_LOC);
+	tex_titlescr_ico_cht->DrawRegion.Dimension.Set(TEX_TITLESCR_ICO_CHT_DIM);
 
 	tex_titlescr_ico_opt = new Image(mini);
 	tex_titlescr_ico_opt->Load((void*)titlescr_ico_opt_png, titlescr_ico_opt_png_size, Image::IMAGE_TYPE_PNG);
-	tex_titlescr_ico_opt->DrawRegion.Location.Set(center);
-	tex_titlescr_ico_opt->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_titlescr_ico_opt->DrawRegion.Location.Set(TEX_TITLESCR_ICO_OPT_LOC);
+	tex_titlescr_ico_opt->DrawRegion.Dimension.Set(TEX_TITLESCR_ICO_OPT_DIM);
 
 	tex_titlescr_ico_xmb = new Image(mini);
 	tex_titlescr_ico_xmb->Load((void*)titlescr_ico_xmb_png, titlescr_ico_xmb_png_size, Image::IMAGE_TYPE_PNG);
-	tex_titlescr_ico_xmb->DrawRegion.Location.Set(center);
-	tex_titlescr_ico_xmb->DrawRegion.Dimension.Set(mini->MAXW, mini->MAXH);
+	tex_titlescr_ico_xmb->DrawRegion.Location.Set(TEX_TITLESCR_ICO_XMB_LOC);
+	tex_titlescr_ico_xmb->DrawRegion.Dimension.Set(TEX_TITLESCR_ICO_XMB_DIM);
 
 	tex_titlescr_logo = new Image(mini);
 	tex_titlescr_logo->Load((void*)titlescr_logo_png, titlescr_logo_png_size, Image::IMAGE_TYPE_PNG);
