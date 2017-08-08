@@ -22,8 +22,8 @@ void padUpdate(int changed, int port, padData pData);
 void exit();
 
 // 
-void LoadTextures(Mini2D * mini);
-void UnloadTextures();
+void loadData(Mini2D * mini);
+void unloadData();
 
 int main(s32 argc, const char* argv[]) {
 
@@ -31,7 +31,7 @@ int main(s32 argc, const char* argv[]) {
 	mini = new Mini2D((Mini2D::PadCallback_f)&padUpdate, (Mini2D::DrawCallback_f)&drawUpdate, (Mini2D::ExitCallback_f)&exit);
 
 	// Load our textures
-	LoadTextures(mini);
+	loadData(mini);
 
 	// Initialize the main menu
 	menuStart = new Menu::Start(mini, 1, 0);
@@ -41,7 +41,7 @@ int main(s32 argc, const char* argv[]) {
 	mini->SetAlphaState(1);
 	mini->BeginDrawLoop();
 
-	UnloadTextures();
+	unloadData();
 
 	return 0;
 }
@@ -72,8 +72,8 @@ void exit() {
 	}
 }
 
-// Load textures
-void LoadTextures(Mini2D * mini) {
+// Load textures, fonts
+void loadData(Mini2D * mini) {
 
 	// Load fonts
 	font_comfortaa_regular = new Font(mini);
@@ -356,8 +356,24 @@ void LoadTextures(Mini2D * mini) {
 	printf("Artemis Lite::Loaded Textures\n");
 }
 
-// Unload textures
-void UnloadTextures() {
+// Unload textures, fonts
+void unloadData() {
+	if (font_comfortaa_regular) {
+		delete font_comfortaa_regular;
+		font_comfortaa_regular = NULL;
+	}
+	
+	if (font_comfortaa_bold) {
+		delete font_comfortaa_bold;
+		font_comfortaa_bold = NULL;
+	}
+	
+	if (font_comfortaa_light) {
+		delete font_comfortaa_light;
+		font_comfortaa_light = NULL;
+	}
+
+
 	if (tex_bgimg) {
 		delete tex_bgimg;
 		tex_bgimg = NULL;
