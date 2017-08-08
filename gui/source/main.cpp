@@ -58,7 +58,7 @@ void padUpdate(int changed, int port, padData pData) {
 }
 
 void exit() {
-	printf("exiting\n");
+	printf("Artemis Lite::Exiting\n");
 
 	if (menuStart) {
 		delete menuStart;
@@ -343,7 +343,7 @@ void LoadTextures(Mini2D * mini) {
 	tex_titlescr_logo->DrawRegion.Dimension.Set(TEX_TITLESCR_LOGO_DIM);
 
 
-	printf("Loaded Textures\n");
+	printf("Artemis Lite::Loaded Textures\n");
 }
 
 // Unload textures
