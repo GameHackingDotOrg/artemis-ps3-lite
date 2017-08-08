@@ -3,6 +3,7 @@
 
 #include <Mini2D/Mini2D.hpp>
 #include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
 
 #include "Menu.hpp"
 #include "Globals.hpp"
@@ -73,6 +74,17 @@ void exit() {
 
 // Load textures
 void LoadTextures(Mini2D * mini) {
+
+	// Load fonts
+	font_comfortaa_regular = new Font(mini);
+	font_comfortaa_regular->Load((void*)comfortaa_regular_ttf, comfortaa_regular_ttf_size);
+
+	font_comfortaa_bold = new Font(mini);
+	font_comfortaa_bold->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size);
+
+	font_comfortaa_light = new Font(mini);
+	font_comfortaa_light->Load((void*)comfortaa_light_ttf, comfortaa_light_ttf_size);
+
 	// Initialize locations
 	TEX_BGIMG_LOC.X *= mini->MAXW; TEX_BGIMG_LOC.Y *= mini->MAXH; 
 	TEX_BGIMG_DIM.X *= mini->MAXW; TEX_BGIMG_DIM.Y *= mini->MAXH;

@@ -1,6 +1,11 @@
 #ifndef GLOBALS_HPP_
 #define GLOBALS_HPP_
 
+#include <Mini2D/Mini2D.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
+#include <Mini2D/Units.hpp>
+
 // Textures
 #include "bgimg_png.h"						// 
 #include "cheat_png.h"						// 
@@ -36,6 +41,10 @@
 #include "titlescr_ico_xmb_png.h"			// 
 #include "titlescr_logo_png.h"				// 
 
+#include "comfortaa_regular_ttf.h"			// 
+#include "comfortaa_bold_ttf.h"				// 
+#include "comfortaa_light_ttf.h"			// 
+
 extern Image * tex_bgimg;
 extern Image * tex_cheat;
 extern Image * tex_circle_error_dark;
@@ -69,6 +78,10 @@ extern Image * tex_titlescr_ico_cht;
 extern Image * tex_titlescr_ico_opt;
 extern Image * tex_titlescr_ico_xmb;
 extern Image * tex_titlescr_logo;
+
+extern Font * font_comfortaa_regular;
+extern Font * font_comfortaa_bold;
+extern Font * font_comfortaa_light;
 
 extern Vector2 CENTER_LOC;
 extern Vector2 TEX_BGIMG_LOC;

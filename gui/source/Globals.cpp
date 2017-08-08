@@ -1,5 +1,6 @@
 #include <Mini2D/Mini2D.hpp>
 #include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
 #include <Mini2D/Units.hpp>
 
 Image * tex_bgimg;
@@ -35,6 +36,10 @@ Image * tex_titlescr_ico_cht;
 Image * tex_titlescr_ico_opt;
 Image * tex_titlescr_ico_xmb;
 Image * tex_titlescr_logo;
+
+Font * font_comfortaa_regular;
+Font * font_comfortaa_bold;
+Font * font_comfortaa_light;
 
 Vector2 CENTER_LOC =					Vector2(0.5, 0.5);
 Vector2 FULL_DIM =						Vector2(1.0, 1.0);
