@@ -13,9 +13,15 @@ Frontend of Artemis PS3 Lite.
 make
 ~~~~
 
-# Run
+# Run with PS3Load
 ~~~~
 make run
+~~~~
+
+# Run with RPCS3
+You need RPCS3 installed and the environment variable 'RPCS3' set to the path of your RPCS3 executable.
+~~~~
+make rpcs3
 ~~~~
 
 # Package
