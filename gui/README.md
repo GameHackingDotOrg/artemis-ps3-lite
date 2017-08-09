@@ -20,6 +20,13 @@ make run
 
 # Run with RPCS3
 You need RPCS3 installed and the environment variable 'RPCS3' set to the path of your RPCS3 executable.
+
+You can do this by adding the following to your /etc/profile (MinGW) or .bashrc (linux)
+~~~~
+export RPCS3="PATH_TO_RPCS3_EXECUTABLE"
+~~~~
+
+Finally you can build and run.
 ~~~~
 make rpcs3
 ~~~~
