@@ -41,6 +41,10 @@ Font * font_comfortaa_regular;
 Font * font_comfortaa_bold;
 Font * font_comfortaa_light;
 
+Vector2 FONT_SMALL =					Vector2(0.01, 0.01);
+Vector2 FONT_MEDIUM =					Vector2(0.03, 0.03);
+Vector2 FONT_LARGE =					Vector2(0.05, 0.05);
+
 Vector2 CENTER_LOC =					Vector2(0.5, 0.5);
 Vector2 FULL_DIM =						Vector2(1.0, 1.0);
 Vector2 TEX_BGIMG_LOC = 				CENTER_LOC;
