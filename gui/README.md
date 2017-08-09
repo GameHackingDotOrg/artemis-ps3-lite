@@ -1,5 +1,12 @@
-# alphatest
-Alpha Test draws an image with alpha blending enabled.
+# gui
+Frontend of Artemis PS3 Lite.
+
+
+# Dependencies
+	        PSL1GHT SDK (https://github.com/HACKERCHANNEL/PSL1GHT)
+	        Tiny3D (https://github.com/wargio/tiny3D)
+	        Mini2D (https://github.com/Dnawrkshp/mini2d)
+
 
 # Build
 ~~~~
