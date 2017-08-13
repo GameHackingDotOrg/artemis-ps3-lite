@@ -14,19 +14,24 @@
 // 
 Mini2D * mini = NULL;
 Menu::Start * menuStart = NULL;
-int doExit = 0;
 
 // 
+padData psuedoPadData[MAX_PORT_NUM];
+float dpadIgnore = 0;
+unsigned long dpadIgnoreState = 0;
+int doExit = 0;
+
+// Mini2D Callbacks
 int drawUpdate(float deltaTime, unsigned long frame);
 void padUpdate(int changed, int port, padData pData);
 void exit();
 
-// 
+// Misc
+void padCopy(padData * destination, padData * source, bool copyDpadOnly);
 void loadData(Mini2D * mini);
 void unloadData();
 
 int main(s32 argc, const char* argv[]) {
-
 	// Initialize Mini2D
 	mini = new Mini2D((Mini2D::PadCallback_f)&padUpdate, (Mini2D::DrawCallback_f)&drawUpdate, (Mini2D::ExitCallback_f)&exit);
 
@@ -51,15 +56,58 @@ int main(s32 argc, const char* argv[]) {
 }
 
 int drawUpdate(float deltaTime, unsigned long frame) {
+
+	if (dpadIgnore >= 0)
+		dpadIgnore -= deltaTime;
+
 	menuStart->Draw(deltaTime);
+
 	return doExit;
 }
 
 void padUpdate(int changed, int port, padData pData) {
+	// If L3 and R3 are pressed, close Artemis Lite
 	if (pData.BTN_L3 && pData.BTN_R3 && (changed & Mini2D::BTN_CHANGED_L3 || changed & Mini2D::BTN_CHANGED_R3))
 		doExit = -1;
 
-	menuStart->Pad(changed, port, pData);
+	// If the psuedoPadData isn't initialized, copy data from pData
+	if (psuedoPadData[port].len == 0)
+		memcpy(&psuedoPadData[port], &pData, sizeof(padData));
+
+	// Determine if dpad is in use or not
+	if (changed & (Mini2D::BTN_CHANGED_UP | Mini2D::BTN_CHANGED_DOWN | Mini2D::BTN_CHANGED_LEFT | Mini2D::BTN_CHANGED_RIGHT)) {
+		dpadIgnoreState = pData.BTN_UP || pData.BTN_DOWN || pData.BTN_LEFT || pData.BTN_RIGHT;
+		dpadIgnore = 0;
+	}
+
+	// Disable dpad input
+	psuedoPadData[port].BTN_UP = 0;
+	psuedoPadData[port].BTN_DOWN = 0;
+	psuedoPadData[port].BTN_LEFT = 0;
+	psuedoPadData[port].BTN_RIGHT = 0;
+
+	// If we have a dpad held down, then pass dpad values everytime dpadIgnore hits <= 0
+	// Otherwise if no dpad button is held down, then just copy everything
+	if (dpadIgnoreState && dpadIgnore <= 0) {
+		// Copy the dpad data from pData to our buffer
+		padCopy(&psuedoPadData[port], &pData, 1);
+
+		// Increment the state
+		dpadIgnoreState++;
+
+		// Here, we have developing stages of scrolling speed
+		// From 1 - 6, we send the dpad 4 times a second; lasting a total of 1.5 seconds
+		// From 6 - 20, we send the dpad 10 times a second; lasting a total of 1.5 seconds
+		// From 20 - Infinity, we send the dpad 40 times a second
+		dpadIgnore = dpadIgnoreState > 20 ? 0.025 : (dpadIgnoreState > 6 ? 0.1 : 0.25);
+	}
+	else if (!dpadIgnoreState) {
+		padCopy(&psuedoPadData[port], &pData, 0);
+
+
+	}
+
+	menuStart->Pad(0, port, psuedoPadData[port]);
 }
 
 void exit() {
@@ -76,6 +124,23 @@ void exit() {
 		delete mini;
 		mini = NULL;
 	}
+}
+
+void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
+	if (!source || !destination)
+		return;
+
+	// Copy dpad values from source
+	if (copyDpadOnly) {
+		destination->BTN_UP = source->BTN_UP;
+		destination->BTN_DOWN = source->BTN_DOWN;
+		destination->BTN_LEFT = source->BTN_LEFT;
+		destination->BTN_RIGHT = source->BTN_RIGHT;
+		return;
+	}
+
+	// Copy entire struct
+	memcpy(destination, source, sizeof(padData));
 }
 
 // Load textures, fonts

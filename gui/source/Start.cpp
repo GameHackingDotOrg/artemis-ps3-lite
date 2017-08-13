@@ -133,7 +133,16 @@ namespace Menu
 	}
 
 	void Start::Pad(int changed, int port, padData pData) {
-
+		if (pData.BTN_LEFT && !pData.BTN_RIGHT) {
+			selectedIndex--;
+			if (selectedIndex < 0)
+				selectedIndex = 3;
+		}
+		else if (pData.BTN_RIGHT && !pData.BTN_LEFT) {
+			selectedIndex++;
+			if (selectedIndex > 3)
+				selectedIndex = 0;
+		}
 	}
 
 	long Start::ID() {
