@@ -47,10 +47,13 @@
 
 
 
-#define LocToScreen(loc) loc.X *= _mini->MAXW; loc.Y *= _mini->MAXH;
-#define DimToScreen(dim) dim *= _mini->MAXW;
-#define LocToScreen2(loc, mini) loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
-#define DimToScreen2(dim, mini) dim *= mini->MAXW;
+#define LocToScreen(loc) 			loc.X *= _mini->MAXW; loc.Y *= _mini->MAXH;
+#define DimToScreen(dim) 			dim *= _mini->MAXW;
+#define LocToScreen2(loc, mini) 	loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
+#define DimToScreen2(dim, mini) 	dim *= mini->MAXW;
+
+#define MENU_SELECTED 				0x000000FF
+#define MENU_UNSELECTED 			0x00000040
 
 extern Image * TEX_BGIMG;
 extern Image * TEX_CHEAT;

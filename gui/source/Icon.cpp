@@ -41,6 +41,7 @@ namespace Menu
 
 			// Print the label
 			_font->TextAlign = Font::PRINT_ALIGN_CENTER;
+			_font->ForeColor = RGBA;
 			_font->PrintLine(NULL, &_label, NULL, textLoc + LabelOffset, FontSize);
 		}
 	}

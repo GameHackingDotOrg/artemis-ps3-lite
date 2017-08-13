@@ -20,7 +20,7 @@ namespace Menu {
 			Icon(Image * icon, Font * font, std::wstring label);
 			~Icon();
 
-			void Draw(unsigned int RGBA = 0xFFFFFFFF);
+			void Draw(unsigned int RGBA = 0x000000FF);
 
 		private:
 			Image * _icon;

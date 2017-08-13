@@ -109,23 +109,23 @@ namespace Menu
 		iconXmb->Location.Set(locXmb);
 		iconXmb->Dimension.Set(dimIco);
 		iconXmb->FontSize.Set(fontIco);
-		iconXmb->Draw();
+		iconXmb->Draw(selectedIndex == 0 ? MENU_SELECTED : MENU_UNSELECTED);
 
 		iconCht->Location.Set(locCht);
 		iconCht->Dimension.Set(dimIco);
 		iconCht->FontSize.Set(fontIco);
-		iconCht->Draw();
+		iconCht->Draw(selectedIndex == 1 ? MENU_SELECTED : MENU_UNSELECTED);
 
 		iconOpt->Location.Set(locOpt);
 		iconOpt->Dimension.Set(dimIco);
 		iconOpt->FontSize.Set(fontIco);
 		iconOpt->LabelOffset.Set(0.01 * _mini->MAXW, 0);
-		iconOpt->Draw();
+		iconOpt->Draw(selectedIndex == 2 ? MENU_SELECTED : MENU_UNSELECTED);
 
 		iconAbt->Location.Set(locAbt);
 		iconAbt->Dimension.Set(dimIco);
 		iconAbt->FontSize.Set(fontIco);
-		iconAbt->Draw();
+		iconAbt->Draw(selectedIndex == 3 ? MENU_SELECTED : MENU_UNSELECTED);
 
 		// Print link
 		FONT_COMFORTAA_LIGHT->TextAlign = Font::PRINT_ALIGN_BOTTOMCENTER;
