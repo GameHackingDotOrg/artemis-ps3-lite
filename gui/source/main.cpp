@@ -5,7 +5,7 @@
 #include <Mini2D/Image.hpp>
 #include <Mini2D/Font.hpp>
 
-#include "Menu.hpp"
+#include "Menu/Menus.hpp"
 #include "Globals.hpp"
 
 // Data
@@ -36,6 +36,10 @@ int main(s32 argc, const char* argv[]) {
 	// Initialize the main menu
 	menuStart = new Menu::Start(mini, 1, 0);
 
+	// Here we set the deadzone of the analog sticks
+	// The clear color
+	// Enable alpha blending
+	// And begin the draw loop (which will call our padUpdate and drawUpdate callbacks regularly)
 	mini->SetAnalogDeadzone(15);
 	mini->SetClearColor(0x23B2D7FF);
 	mini->SetAlphaState(1);
@@ -66,6 +70,8 @@ void exit() {
 		menuStart = NULL;
 	}
 
+	unloadData();
+
 	if (mini) {
 		delete mini;
 		mini = NULL;
@@ -76,18 +82,18 @@ void exit() {
 void loadData(Mini2D * mini) {
 
 	// Load fonts
-	font_comfortaa_regular = new Font(mini);
-	font_comfortaa_regular->Load((void*)comfortaa_regular_ttf, comfortaa_regular_ttf_size, 64, 64);
+	FONT_COMFORTAA_REGULAR = new Font(mini);
+	FONT_COMFORTAA_REGULAR->Load((void*)comfortaa_regular_ttf, comfortaa_regular_ttf_size, 64, 64);
 
-	font_comfortaa_bold = new Font(mini);
-	font_comfortaa_bold->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 64, 64);
+	FONT_COMFORTAA_BOLD = new Font(mini);
+	FONT_COMFORTAA_BOLD->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 64, 64);
 
-	font_comfortaa_light = new Font(mini);
-	font_comfortaa_light->Load((void*)comfortaa_light_ttf, comfortaa_light_ttf_size, 64, 64);
+	FONT_COMFORTAA_LIGHT = new Font(mini);
+	FONT_COMFORTAA_LIGHT->Load((void*)comfortaa_light_ttf, comfortaa_light_ttf_size, 64, 64);
 
 	// Initialize default variables
-	CENTER_LOC.X *= mini->MAXW; CENTER_LOC.Y *= mini->MAXH;
-	FULL_DIM.X *= mini->MAXW; FULL_DIM.Y *= mini->MAXH;
+	LocToScreen2(LOC_CENTER, mini);
+	LocToScreen2(DIM_FULL, mini);
 
 	// Initialize font sizes
 	FONT_SMALL.X *= mini->MAXW; FONT_SMALL.Y *= mini->MAXH;
@@ -95,104 +101,104 @@ void loadData(Mini2D * mini) {
 	FONT_LARGE.X *= mini->MAXW; FONT_LARGE.Y *= mini->MAXH;
 
 	// Load textures
-	tex_bgimg = new Image(mini);
-	tex_bgimg->Load((void*)bgimg_png, bgimg_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_BGIMG = new Image(mini);
+	TEX_BGIMG->Load((void*)bgimg_png, bgimg_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_cheat = new Image(mini);
-	tex_cheat->Load((void*)cheat_png, cheat_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_CHEAT = new Image(mini);
+	TEX_CHEAT->Load((void*)cheat_png, cheat_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_circle_error_dark = new Image(mini);
-	tex_circle_error_dark->Load((void*)circle_error_dark_png, circle_error_dark_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_CIRCLE_ERROR_DARK = new Image(mini);
+	TEX_CIRCLE_ERROR_DARK->Load((void*)circle_error_dark_png, circle_error_dark_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_circle_error_light = new Image(mini);
-	tex_circle_error_light->Load((void*)circle_error_light_png, circle_error_light_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_CIRCLE_ERROR_LIGHT = new Image(mini);
+	TEX_CIRCLE_ERROR_LIGHT->Load((void*)circle_error_light_png, circle_error_light_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_circle_loading_bg = new Image(mini);
-	tex_circle_loading_bg->Load((void*)circle_loading_bg_png, circle_loading_bg_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_CIRCLE_LOADING_BG = new Image(mini);
+	TEX_CIRCLE_LOADING_BG->Load((void*)circle_loading_bg_png, circle_loading_bg_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_circle_loading_seek = new Image(mini);
-	tex_circle_loading_seek->Load((void*)circle_loading_seek_png, circle_loading_seek_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_CIRCLE_LOADING_SEEK = new Image(mini);
+	TEX_CIRCLE_LOADING_SEEK->Load((void*)circle_loading_seek_png, circle_loading_seek_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_edit_ico_add = new Image(mini);
-	tex_edit_ico_add->Load((void*)edit_ico_add_png, edit_ico_add_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_EDIT_ICO_ADD = new Image(mini);
+	TEX_EDIT_ICO_ADD->Load((void*)edit_ico_add_png, edit_ico_add_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_edit_ico_del = new Image(mini);
-	tex_edit_ico_del->Load((void*)edit_ico_del_png, edit_ico_del_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_EDIT_ICO_DEL = new Image(mini);
+	TEX_EDIT_ICO_DEL->Load((void*)edit_ico_del_png, edit_ico_del_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_edit_shadow = new Image(mini);
-	tex_edit_shadow->Load((void*)edit_shadow_png, edit_shadow_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_EDIT_SHADOW = new Image(mini);
+	TEX_EDIT_SHADOW->Load((void*)edit_shadow_png, edit_shadow_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_footer_ico_circle = new Image(mini);
-	tex_footer_ico_circle->Load((void*)footer_ico_circle_png, footer_ico_circle_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_FOOTER_ICO_CIRCLE = new Image(mini);
+	TEX_FOOTER_ICO_CIRCLE->Load((void*)footer_ico_circle_png, footer_ico_circle_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_footer_ico_cross = new Image(mini);
-	tex_footer_ico_cross->Load((void*)footer_ico_cross_png, footer_ico_cross_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_FOOTER_ICO_CROSS = new Image(mini);
+	TEX_FOOTER_ICO_CROSS->Load((void*)footer_ico_cross_png, footer_ico_cross_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_footer_ico_lt = new Image(mini);
-	tex_footer_ico_lt->Load((void*)footer_ico_lt_png, footer_ico_lt_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_FOOTER_ICO_LT = new Image(mini);
+	TEX_FOOTER_ICO_LT->Load((void*)footer_ico_lt_png, footer_ico_lt_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_footer_ico_rt = new Image(mini);
-	tex_footer_ico_rt->Load((void*)footer_ico_rt_png, footer_ico_rt_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_FOOTER_ICO_RT = new Image(mini);
+	TEX_FOOTER_ICO_RT->Load((void*)footer_ico_rt_png, footer_ico_rt_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_footer_ico_square = new Image(mini);
-	tex_footer_ico_square->Load((void*)footer_ico_square_png, footer_ico_square_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_FOOTER_ICO_SQUARE = new Image(mini);
+	TEX_FOOTER_ICO_SQUARE->Load((void*)footer_ico_square_png, footer_ico_square_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_footer_ico_triangle = new Image(mini);
-	tex_footer_ico_triangle->Load((void*)footer_ico_triangle_png, footer_ico_triangle_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_FOOTER_ICO_TRIANGLE = new Image(mini);
+	TEX_FOOTER_ICO_TRIANGLE->Load((void*)footer_ico_triangle_png, footer_ico_triangle_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_header_dot = new Image(mini);
-	tex_header_dot->Load((void*)header_dot_png, header_dot_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HEADER_DOT = new Image(mini);
+	TEX_HEADER_DOT->Load((void*)header_dot_png, header_dot_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_header_ico_abt = new Image(mini);
-	tex_header_ico_abt->Load((void*)header_ico_abt_png, header_ico_abt_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HEADER_ICO_ABT = new Image(mini);
+	TEX_HEADER_ICO_ABT->Load((void*)header_ico_abt_png, header_ico_abt_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_header_ico_cht = new Image(mini);
-	tex_header_ico_cht->Load((void*)header_ico_cht_png, header_ico_cht_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HEADER_ICO_CHT = new Image(mini);
+	TEX_HEADER_ICO_CHT->Load((void*)header_ico_cht_png, header_ico_cht_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_header_ico_opt = new Image(mini);
-	tex_header_ico_opt->Load((void*)header_ico_opt_png, header_ico_opt_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HEADER_ICO_OPT = new Image(mini);
+	TEX_HEADER_ICO_OPT->Load((void*)header_ico_opt_png, header_ico_opt_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_header_ico_xmb = new Image(mini);
-	tex_header_ico_xmb->Load((void*)header_ico_xmb_png, header_ico_xmb_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HEADER_ICO_XMB = new Image(mini);
+	TEX_HEADER_ICO_XMB->Load((void*)header_ico_xmb_png, header_ico_xmb_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_header_line = new Image(mini);
-	tex_header_line->Load((void*)header_line_png, header_line_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HEADER_LINE = new Image(mini);
+	TEX_HEADER_LINE->Load((void*)header_line_png, header_line_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_help = new Image(mini);
-	tex_help->Load((void*)help_png, help_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_HELP = new Image(mini);
+	TEX_HELP->Load((void*)help_png, help_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_mark_arrow = new Image(mini);
-	tex_mark_arrow->Load((void*)mark_arrow_png, mark_arrow_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_MARK_ARROW = new Image(mini);
+	TEX_MARK_ARROW->Load((void*)mark_arrow_png, mark_arrow_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_mark_line = new Image(mini);
-	tex_mark_line->Load((void*)mark_line_png, mark_line_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_MARK_LINE = new Image(mini);
+	TEX_MARK_LINE->Load((void*)mark_line_png, mark_line_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_opt_off = new Image(mini);
-	tex_opt_off->Load((void*)opt_off_png, opt_off_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_OPT_OFF = new Image(mini);
+	TEX_OPT_OFF->Load((void*)opt_off_png, opt_off_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_opt_on = new Image(mini);
-	tex_opt_on->Load((void*)opt_on_png, opt_on_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_OPT_ON = new Image(mini);
+	TEX_OPT_ON->Load((void*)opt_on_png, opt_on_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_scroll_bg = new Image(mini);
-	tex_scroll_bg->Load((void*)scroll_bg_png, scroll_bg_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_SCROLL_BG = new Image(mini);
+	TEX_SCROLL_BG->Load((void*)scroll_bg_png, scroll_bg_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_scroll_lock = new Image(mini);
-	tex_scroll_lock->Load((void*)scroll_lock_png, scroll_lock_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_SCROLL_LOCK = new Image(mini);
+	TEX_SCROLL_LOCK->Load((void*)scroll_lock_png, scroll_lock_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_titlescr_ico_abt = new Image(mini);
-	tex_titlescr_ico_abt->Load((void*)titlescr_ico_abt_png, titlescr_ico_abt_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_TITLESCR_ICO_ABT = new Image(mini);
+	TEX_TITLESCR_ICO_ABT->Load((void*)titlescr_ico_abt_png, titlescr_ico_abt_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_titlescr_ico_cht = new Image(mini);
-	tex_titlescr_ico_cht->Load((void*)titlescr_ico_cht_png, titlescr_ico_cht_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_TITLESCR_ICO_CHT = new Image(mini);
+	TEX_TITLESCR_ICO_CHT->Load((void*)titlescr_ico_cht_png, titlescr_ico_cht_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_titlescr_ico_opt = new Image(mini);
-	tex_titlescr_ico_opt->Load((void*)titlescr_ico_opt_png, titlescr_ico_opt_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_TITLESCR_ICO_OPT = new Image(mini);
+	TEX_TITLESCR_ICO_OPT->Load((void*)titlescr_ico_opt_png, titlescr_ico_opt_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_titlescr_ico_xmb = new Image(mini);
-	tex_titlescr_ico_xmb->Load((void*)titlescr_ico_xmb_png, titlescr_ico_xmb_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_TITLESCR_ICO_XMB = new Image(mini);
+	TEX_TITLESCR_ICO_XMB->Load((void*)titlescr_ico_xmb_png, titlescr_ico_xmb_png_size, Image::IMAGE_TYPE_PNG);
 
-	tex_titlescr_logo = new Image(mini);
-	tex_titlescr_logo->Load((void*)titlescr_logo_png, titlescr_logo_png_size, Image::IMAGE_TYPE_PNG);
+	TEX_TITLESCR_LOGO = new Image(mini);
+	TEX_TITLESCR_LOGO->Load((void*)titlescr_logo_png, titlescr_logo_png_size, Image::IMAGE_TYPE_PNG);
 
 
 	printf("Artemis Lite::Loaded Textures\n");
@@ -200,184 +206,184 @@ void loadData(Mini2D * mini) {
 
 // Unload textures, fonts
 void unloadData() {
-	if (font_comfortaa_regular) {
-		delete font_comfortaa_regular;
-		font_comfortaa_regular = NULL;
+	if (FONT_COMFORTAA_REGULAR) {
+		delete FONT_COMFORTAA_REGULAR;
+		FONT_COMFORTAA_REGULAR = NULL;
 	}
 	
-	if (font_comfortaa_bold) {
-		delete font_comfortaa_bold;
-		font_comfortaa_bold = NULL;
+	if (FONT_COMFORTAA_BOLD) {
+		delete FONT_COMFORTAA_BOLD;
+		FONT_COMFORTAA_BOLD = NULL;
 	}
 	
-	if (font_comfortaa_light) {
-		delete font_comfortaa_light;
-		font_comfortaa_light = NULL;
+	if (FONT_COMFORTAA_LIGHT) {
+		delete FONT_COMFORTAA_LIGHT;
+		FONT_COMFORTAA_LIGHT = NULL;
 	}
 
 
-	if (tex_bgimg) {
-		delete tex_bgimg;
-		tex_bgimg = NULL;
+	if (TEX_BGIMG) {
+		delete TEX_BGIMG;
+		TEX_BGIMG = NULL;
 	}
 
-	if (tex_cheat) {
-		delete tex_cheat;
-		tex_cheat = NULL;
+	if (TEX_CHEAT) {
+		delete TEX_CHEAT;
+		TEX_CHEAT = NULL;
 	}
 
-	if (tex_circle_error_dark) {
-		delete tex_circle_error_dark;
-		tex_circle_error_dark = NULL;
+	if (TEX_CIRCLE_ERROR_DARK) {
+		delete TEX_CIRCLE_ERROR_DARK;
+		TEX_CIRCLE_ERROR_DARK = NULL;
 	}
 
-	if (tex_circle_error_light) {
-		delete tex_circle_error_light;
-		tex_circle_error_light = NULL;
+	if (TEX_CIRCLE_ERROR_LIGHT) {
+		delete TEX_CIRCLE_ERROR_LIGHT;
+		TEX_CIRCLE_ERROR_LIGHT = NULL;
 	}
 
-	if (tex_circle_loading_bg) {
-		delete tex_circle_loading_bg;
-		tex_circle_loading_bg = NULL;
+	if (TEX_CIRCLE_LOADING_BG) {
+		delete TEX_CIRCLE_LOADING_BG;
+		TEX_CIRCLE_LOADING_BG = NULL;
 	}
 
-	if (tex_circle_loading_seek) {
-		delete tex_circle_loading_seek;
-		tex_circle_loading_seek = NULL;
+	if (TEX_CIRCLE_LOADING_SEEK) {
+		delete TEX_CIRCLE_LOADING_SEEK;
+		TEX_CIRCLE_LOADING_SEEK = NULL;
 	}
 
-	if (tex_edit_ico_add) {
-		delete tex_edit_ico_add;
-		tex_edit_ico_add = NULL;
+	if (TEX_EDIT_ICO_ADD) {
+		delete TEX_EDIT_ICO_ADD;
+		TEX_EDIT_ICO_ADD = NULL;
 	}
 
-	if (tex_edit_ico_del) {
-		delete tex_edit_ico_del;
-		tex_edit_ico_del = NULL;
+	if (TEX_EDIT_ICO_DEL) {
+		delete TEX_EDIT_ICO_DEL;
+		TEX_EDIT_ICO_DEL = NULL;
 	}
 
-	if (tex_edit_shadow) {
-		delete tex_edit_shadow;
-		tex_edit_shadow = NULL;
+	if (TEX_EDIT_SHADOW) {
+		delete TEX_EDIT_SHADOW;
+		TEX_EDIT_SHADOW = NULL;
 	}
 
-	if (tex_footer_ico_circle) {
-		delete tex_footer_ico_circle;
-		tex_footer_ico_circle = NULL;
+	if (TEX_FOOTER_ICO_CIRCLE) {
+		delete TEX_FOOTER_ICO_CIRCLE;
+		TEX_FOOTER_ICO_CIRCLE = NULL;
 	}
 
-	if (tex_footer_ico_cross) {
-		delete tex_footer_ico_cross;
-		tex_footer_ico_cross = NULL;
+	if (TEX_FOOTER_ICO_CROSS) {
+		delete TEX_FOOTER_ICO_CROSS;
+		TEX_FOOTER_ICO_CROSS = NULL;
 	}
 
-	if (tex_footer_ico_lt) {
-		delete tex_footer_ico_lt;
-		tex_footer_ico_lt = NULL;
+	if (TEX_FOOTER_ICO_LT) {
+		delete TEX_FOOTER_ICO_LT;
+		TEX_FOOTER_ICO_LT = NULL;
 	}
 
-	if (tex_footer_ico_rt) {
-		delete tex_footer_ico_rt;
-		tex_footer_ico_rt = NULL;
+	if (TEX_FOOTER_ICO_RT) {
+		delete TEX_FOOTER_ICO_RT;
+		TEX_FOOTER_ICO_RT = NULL;
 	}
 
-	if (tex_footer_ico_square) {
-		delete tex_footer_ico_square;
-		tex_footer_ico_square = NULL;
+	if (TEX_FOOTER_ICO_SQUARE) {
+		delete TEX_FOOTER_ICO_SQUARE;
+		TEX_FOOTER_ICO_SQUARE = NULL;
 	}
 
-	if (tex_footer_ico_triangle) {
-		delete tex_footer_ico_triangle;
-		tex_footer_ico_triangle = NULL;
+	if (TEX_FOOTER_ICO_TRIANGLE) {
+		delete TEX_FOOTER_ICO_TRIANGLE;
+		TEX_FOOTER_ICO_TRIANGLE = NULL;
 	}
 
-	if (tex_header_dot) {
-		delete tex_header_dot;
-		tex_header_dot = NULL;
+	if (TEX_HEADER_DOT) {
+		delete TEX_HEADER_DOT;
+		TEX_HEADER_DOT = NULL;
 	}
 
-	if (tex_header_ico_abt) {
-		delete tex_header_ico_abt;
-		tex_header_ico_abt = NULL;
+	if (TEX_HEADER_ICO_ABT) {
+		delete TEX_HEADER_ICO_ABT;
+		TEX_HEADER_ICO_ABT = NULL;
 	}
 
-	if (tex_header_ico_cht) {
-		delete tex_header_ico_cht;
-		tex_header_ico_cht = NULL;
+	if (TEX_HEADER_ICO_CHT) {
+		delete TEX_HEADER_ICO_CHT;
+		TEX_HEADER_ICO_CHT = NULL;
 	}
 
-	if (tex_header_ico_opt) {
-		delete tex_header_ico_opt;
-		tex_header_ico_opt = NULL;
+	if (TEX_HEADER_ICO_OPT) {
+		delete TEX_HEADER_ICO_OPT;
+		TEX_HEADER_ICO_OPT = NULL;
 	}
 
-	if (tex_header_ico_xmb) {
-		delete tex_header_ico_xmb;
-		tex_header_ico_xmb = NULL;
+	if (TEX_HEADER_ICO_XMB) {
+		delete TEX_HEADER_ICO_XMB;
+		TEX_HEADER_ICO_XMB = NULL;
 	}
 
-	if (tex_header_line) {
-		delete tex_header_line;
-		tex_header_line = NULL;
+	if (TEX_HEADER_LINE) {
+		delete TEX_HEADER_LINE;
+		TEX_HEADER_LINE = NULL;
 	}
 
-	if (tex_help) {
-		delete tex_help;
-		tex_help = NULL;
+	if (TEX_HELP) {
+		delete TEX_HELP;
+		TEX_HELP = NULL;
 	}
 
-	if (tex_mark_arrow) {
-		delete tex_mark_arrow;
-		tex_mark_arrow = NULL;
+	if (TEX_MARK_ARROW) {
+		delete TEX_MARK_ARROW;
+		TEX_MARK_ARROW = NULL;
 	}
 
-	if (tex_mark_line) {
-		delete tex_mark_line;
-		tex_mark_line = NULL;
+	if (TEX_MARK_LINE) {
+		delete TEX_MARK_LINE;
+		TEX_MARK_LINE = NULL;
 	}
 
-	if (tex_opt_off) {
-		delete tex_opt_off;
-		tex_opt_off = NULL;
+	if (TEX_OPT_OFF) {
+		delete TEX_OPT_OFF;
+		TEX_OPT_OFF = NULL;
 	}
 
-	if (tex_opt_on) {
-		delete tex_opt_on;
-		tex_opt_on = NULL;
+	if (TEX_OPT_ON) {
+		delete TEX_OPT_ON;
+		TEX_OPT_ON = NULL;
 	}
 
-	if (tex_scroll_bg) {
-		delete tex_scroll_bg;
-		tex_scroll_bg = NULL;
+	if (TEX_SCROLL_BG) {
+		delete TEX_SCROLL_BG;
+		TEX_SCROLL_BG = NULL;
 	}
 
-	if (tex_scroll_lock) {
-		delete tex_scroll_lock;
-		tex_scroll_lock = NULL;
+	if (TEX_SCROLL_LOCK) {
+		delete TEX_SCROLL_LOCK;
+		TEX_SCROLL_LOCK = NULL;
 	}
 
-	if (tex_titlescr_ico_abt) {
-		delete tex_titlescr_ico_abt;
-		tex_titlescr_ico_abt = NULL;
+	if (TEX_TITLESCR_ICO_ABT) {
+		delete TEX_TITLESCR_ICO_ABT;
+		TEX_TITLESCR_ICO_ABT = NULL;
 	}
 
-	if (tex_titlescr_ico_cht) {
-		delete tex_titlescr_ico_cht;
-		tex_titlescr_ico_cht = NULL;
+	if (TEX_TITLESCR_ICO_CHT) {
+		delete TEX_TITLESCR_ICO_CHT;
+		TEX_TITLESCR_ICO_CHT = NULL;
 	}
 
-	if (tex_titlescr_ico_opt) {
-		delete tex_titlescr_ico_opt;
-		tex_titlescr_ico_opt = NULL;
+	if (TEX_TITLESCR_ICO_OPT) {
+		delete TEX_TITLESCR_ICO_OPT;
+		TEX_TITLESCR_ICO_OPT = NULL;
 	}
 
-	if (tex_titlescr_ico_xmb) {
-		delete tex_titlescr_ico_xmb;
-		tex_titlescr_ico_xmb = NULL;
+	if (TEX_TITLESCR_ICO_XMB) {
+		delete TEX_TITLESCR_ICO_XMB;
+		TEX_TITLESCR_ICO_XMB = NULL;
 	}
 
-	if (tex_titlescr_logo) {
-		delete tex_titlescr_logo;
-		tex_titlescr_logo = NULL;
+	if (TEX_TITLESCR_LOGO) {
+		delete TEX_TITLESCR_LOGO;
+		TEX_TITLESCR_LOGO = NULL;
 	}
 }

@@ -45,49 +45,56 @@
 #include "comfortaa_bold_ttf.h"				// 
 #include "comfortaa_light_ttf.h"			// 
 
-extern Image * tex_bgimg;
-extern Image * tex_cheat;
-extern Image * tex_circle_error_dark;
-extern Image * tex_circle_error_light;
-extern Image * tex_circle_loading_bg;
-extern Image * tex_circle_loading_seek;
-extern Image * tex_edit_ico_add;
-extern Image * tex_edit_ico_del;
-extern Image * tex_edit_shadow;
-extern Image * tex_footer_ico_circle;
-extern Image * tex_footer_ico_cross;
-extern Image * tex_footer_ico_lt;
-extern Image * tex_footer_ico_rt;
-extern Image * tex_footer_ico_square;
-extern Image * tex_footer_ico_triangle;
-extern Image * tex_header_dot;
-extern Image * tex_header_ico_abt;
-extern Image * tex_header_ico_cht;
-extern Image * tex_header_ico_opt;
-extern Image * tex_header_ico_xmb;
-extern Image * tex_header_line;
-extern Image * tex_help;
-extern Image * tex_mark_arrow;
-extern Image * tex_mark_line;
-extern Image * tex_opt_off;
-extern Image * tex_opt_on;
-extern Image * tex_scroll_bg;
-extern Image * tex_scroll_lock;
-extern Image * tex_titlescr_ico_abt;
-extern Image * tex_titlescr_ico_cht;
-extern Image * tex_titlescr_ico_opt;
-extern Image * tex_titlescr_ico_xmb;
-extern Image * tex_titlescr_logo;
 
-extern Font * font_comfortaa_regular;
-extern Font * font_comfortaa_bold;
-extern Font * font_comfortaa_light;
+
+#define LocToScreen(loc) loc.X *= _mini->MAXW; loc.Y *= _mini->MAXH;
+#define DimToScreen(dim) dim *= _mini->MAXW;
+#define LocToScreen2(loc, mini) loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
+#define DimToScreen2(dim, mini) dim *= mini->MAXW;
+
+extern Image * TEX_BGIMG;
+extern Image * TEX_CHEAT;
+extern Image * TEX_CIRCLE_ERROR_DARK;
+extern Image * TEX_CIRCLE_ERROR_LIGHT;
+extern Image * TEX_CIRCLE_LOADING_BG;
+extern Image * TEX_CIRCLE_LOADING_SEEK;
+extern Image * TEX_EDIT_ICO_ADD;
+extern Image * TEX_EDIT_ICO_DEL;
+extern Image * TEX_EDIT_SHADOW;
+extern Image * TEX_FOOTER_ICO_CIRCLE;
+extern Image * TEX_FOOTER_ICO_CROSS;
+extern Image * TEX_FOOTER_ICO_LT;
+extern Image * TEX_FOOTER_ICO_RT;
+extern Image * TEX_FOOTER_ICO_SQUARE;
+extern Image * TEX_FOOTER_ICO_TRIANGLE;
+extern Image * TEX_HEADER_DOT;
+extern Image * TEX_HEADER_ICO_ABT;
+extern Image * TEX_HEADER_ICO_CHT;
+extern Image * TEX_HEADER_ICO_OPT;
+extern Image * TEX_HEADER_ICO_XMB;
+extern Image * TEX_HEADER_LINE;
+extern Image * TEX_HELP;
+extern Image * TEX_MARK_ARROW;
+extern Image * TEX_MARK_LINE;
+extern Image * TEX_OPT_OFF;
+extern Image * TEX_OPT_ON;
+extern Image * TEX_SCROLL_BG;
+extern Image * TEX_SCROLL_LOCK;
+extern Image * TEX_TITLESCR_ICO_ABT;
+extern Image * TEX_TITLESCR_ICO_CHT;
+extern Image * TEX_TITLESCR_ICO_OPT;
+extern Image * TEX_TITLESCR_ICO_XMB;
+extern Image * TEX_TITLESCR_LOGO;
+
+extern Font * FONT_COMFORTAA_REGULAR;
+extern Font * FONT_COMFORTAA_BOLD;
+extern Font * FONT_COMFORTAA_LIGHT;
 
 extern Vector2 FONT_SMALL;
 extern Vector2 FONT_MEDIUM;
 extern Vector2 FONT_LARGE;
 
-extern Vector2 CENTER_LOC;
-extern Vector2 FULL_DIM;
+extern Vector2 LOC_CENTER;
+extern Vector2 DIM_FULL;
 
 #endif /* GLOBALS_HPP_ */
