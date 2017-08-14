@@ -1,7 +1,7 @@
 
 
-#ifndef MENU_HPP_
-#define MENU_HPP_
+#ifndef MENUS_HPP_
+#define MENUS_HPP_
 
 #include <Mini2D/Mini2D.hpp>				// Mini2D class
 #include <Mini2D/Image.hpp>					// Image class
@@ -44,4 +44,4 @@ namespace Menu {
 	};
 }
 
-#endif /* MENU_HPP_ */
+#endif /* MENUS_HPP_ */
