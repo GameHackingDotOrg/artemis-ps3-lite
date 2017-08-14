@@ -107,7 +107,7 @@ void padUpdate(int changed, int port, padData pData) {
 
 	}
 
-	menuStart->Pad(0, port, psuedoPadData[port]);
+	menuStart->Pad(port, psuedoPadData[port]);
 }
 
 void exit() {

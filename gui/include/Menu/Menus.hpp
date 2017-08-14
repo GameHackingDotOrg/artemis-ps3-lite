@@ -20,7 +20,7 @@ namespace Menu {
 		virtual void Draw(float deltaTime) = 0;
 
 		// Process controller inputs
-		virtual void Pad(int changed, int port, padData pData) = 0;
+		virtual void Pad(int port, padData pData) = 0;
 
 		// Returns the ID of this menu instance
 		virtual long ID() = 0;
@@ -37,7 +37,7 @@ namespace Menu {
 		~Start();
 
 		virtual void Draw(float deltaTime);
-		virtual void Pad(int changed, int port, padData pData);
+		virtual void Pad(int port, padData pData);
 		virtual long ID();
 
 	private:

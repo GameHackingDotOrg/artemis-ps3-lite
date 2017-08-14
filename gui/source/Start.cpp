@@ -132,7 +132,7 @@ namespace Menu
 		FONT_COMFORTAA_LIGHT->PrintLine(NULL, &textLink, NULL, locLINK, FONT_SMALL * 2.5);
 	}
 
-	void Start::Pad(int changed, int port, padData pData) {
+	void Start::Pad(int port, padData pData) {
 		if (pData.BTN_LEFT && !pData.BTN_RIGHT) {
 			selectedIndex--;
 			if (selectedIndex < 0)
