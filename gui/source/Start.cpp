@@ -1,5 +1,7 @@
+
 #include <math.h>
 
+#include "Menu/IMenu.hpp"
 #include "Menu/Menus.hpp"
 #include "Menu/Elements/Icon.hpp"
 #include "Globals.hpp"
@@ -14,86 +16,85 @@ namespace Menu
 	static std::wstring textOpt = 				L"Options";
 	static std::wstring textAbt = 				L"About";
 
-	// Icons
-	Elements::Icon * iconLogo;
-	Elements::Icon * iconXmb;
-	Elements::Icon * iconCht;
-	Elements::Icon * iconOpt;
-	Elements::Icon * iconAbt;
-
-	// Locations
-	Vector2 locLogo =							Vector2(0.5, 0.25);
-	Vector2 locXmb =							Vector2(0.3, 0.6);
-	Vector2 locCht =							Vector2(0.433, 0.6);
-	Vector2 locOpt =							Vector2(0.558, 0.6);
-	Vector2 locAbt =							Vector2(0.7, 0.6);
-	Vector2 locLINK = 							Vector2(0.5, 0.96);
-
-	Vector2 dimIco =							Vector2(0.09375, 0.075);
-	Vector2 dimLogo =							Vector2(0.6, 0.105);
-
-	Vector2 fontIco;
-	
-	// Selected index
-	int selectedIndex = 0;
-
-	Start::Start(Mini2D * mini, long id, long prevId) {
-		if (!mini)
+	Start::Start(Mini2D * mini, WindowManager * windowManager, long prevId) : _mini(mini), _windowManager(windowManager) {
+		if (!_mini || !_windowManager)
 			return;
 
-		_mini = mini;
-		_id = id;
-		_prevId = prevId;
+		// Set PreviousID
+		PreviousID = prevId;
+
+		// Set WindowState to WINDOW_STATE_INACTIVE
+		State = IMenu::WINDOW_STATE_INACTIVE;
 
 		// Define out icon font size
-		fontIco = FONT_SMALL * 2;
+		_fontIco = FONT_SMALL * 2;
+
+		// Set to default
+		_selectedIndex = 0;
+
+		// Set locations
+		_locLogo.Set(0.5, 0.25);
+		_locXmb.Set(0.3, 0.6);
+		_locCht.Set(0.433, 0.6);
+		_locOpt.Set(0.558, 0.6);
+		_locAbt.Set(0.7, 0.6);
+		_locLink.Set(0.5, 0.96);
+
+		_dimIco.Set(0.09375, 0.075);
+		_dimLogo.Set(0.6, 0.105);
 
 		// Initialize our icons
-		iconLogo = new Elements::Icon(TEX_TITLESCR_LOGO, FONT_COMFORTAA_LIGHT, textLogo);
-		iconXmb  = new Elements::Icon(TEX_TITLESCR_ICO_XMB, FONT_COMFORTAA_BOLD, textXmb);
-		iconCht  = new Elements::Icon(TEX_TITLESCR_ICO_CHT, FONT_COMFORTAA_BOLD, textCht);
-		iconOpt  = new Elements::Icon(TEX_TITLESCR_ICO_OPT, FONT_COMFORTAA_BOLD, textOpt);
-		iconAbt  = new Elements::Icon(TEX_TITLESCR_ICO_ABT, FONT_COMFORTAA_BOLD, textAbt);
+		_iconLogo = new Elements::Icon(TEX_TITLESCR_LOGO,    FONT_COMFORTAA_LIGHT, textLogo);
+		_iconXmb  = new Elements::Icon(TEX_TITLESCR_ICO_XMB, FONT_COMFORTAA_BOLD,  textXmb);
+		_iconCht  = new Elements::Icon(TEX_TITLESCR_ICO_CHT, FONT_COMFORTAA_BOLD,  textCht);
+		_iconOpt  = new Elements::Icon(TEX_TITLESCR_ICO_OPT, FONT_COMFORTAA_BOLD,  textOpt);
+		_iconAbt  = new Elements::Icon(TEX_TITLESCR_ICO_ABT, FONT_COMFORTAA_BOLD,  textAbt);
 
 		// Translate location and dimension to screen space
-		LocToScreen(locLogo);
-		LocToScreen(locXmb);
-		LocToScreen(locCht);
-		LocToScreen(locOpt);
-		LocToScreen(locAbt);
-		LocToScreen(locLINK);
+		LocToScreen(_locLogo);
+		LocToScreen(_locXmb);
+		LocToScreen(_locCht);
+		LocToScreen(_locOpt);
+		LocToScreen(_locAbt);
+		LocToScreen(_locLink);
 
-		DimToScreen(dimIco);
-		DimToScreen(dimLogo);
+		DimToScreen(_dimIco);
+		DimToScreen(_dimLogo);
 	}
 
 	Start::~Start() {
-		// Unload all our allocations
-
-		if (iconXmb) {
-			delete iconXmb;
-			iconXmb = NULL;
+		// Delete all our allocations
+		if (_iconXmb) {
+			delete _iconXmb;
+			_iconXmb = NULL;
 		}
 
-		if (iconCht) {
-			delete iconXmb;
-			iconXmb = NULL;
+		if (_iconCht) {
+			delete _iconXmb;
+			_iconXmb = NULL;
 		}
 
-		if (iconOpt) {
-			delete iconOpt;
-			iconOpt = NULL;
+		if (_iconOpt) {
+			delete _iconOpt;
+			_iconOpt = NULL;
 		}
 
-		if (iconAbt) {
-			delete iconAbt;
-			iconAbt = NULL;
+		if (_iconAbt) {
+			delete _iconAbt;
+			_iconAbt = NULL;
 		}
 	}
 
 	void Start::Draw(float deltaTime) {
-		if (!TEX_BGIMG || !iconLogo || !iconXmb || !iconCht || !iconOpt || !iconAbt)
+		if (!TEX_BGIMG || !_iconLogo || !_iconXmb || !_iconCht || !_iconOpt || !_iconAbt)
 			return;
+
+		// For now we aren't going to have open/closing animations
+		// We can just set these to ACTIVE and INACTIVE immediately
+		if (State == IMenu::WINDOW_STATE_OPENING)
+			State = IMenu::WINDOW_STATE_ACTIVE;
+		if (State == IMenu::WINDOW_STATE_CLOSING)
+			State = IMenu::WINDOW_STATE_INACTIVE;
 
 		// Draw Background
 		TEX_BGIMG->DrawRegion.Location.Set(LOC_CENTER);
@@ -101,51 +102,53 @@ namespace Menu
 		TEX_BGIMG->Draw();
 
 		// Print icons
-		iconLogo->Location.Set(locLogo);
-		iconLogo->Dimension.Set(dimLogo);
-		iconLogo->FontSize.Set(FONT_MEDIUM);
-		iconLogo->Draw();
+		_iconLogo->Location.Set(_locLogo);
+		_iconLogo->Dimension.Set(_dimLogo);
+		_iconLogo->FontSize.Set(FONT_MEDIUM);
+		_iconLogo->Draw();
 
-		iconXmb->Location.Set(locXmb);
-		iconXmb->Dimension.Set(dimIco);
-		iconXmb->FontSize.Set(fontIco);
-		iconXmb->Draw(selectedIndex == 0 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconXmb->Location.Set(_locXmb);
+		_iconXmb->Dimension.Set(_dimIco);
+		_iconXmb->FontSize.Set(_fontIco);
+		_iconXmb->Draw(_selectedIndex == 0 ? MENU_SELECTED : MENU_UNSELECTED);
 
-		iconCht->Location.Set(locCht);
-		iconCht->Dimension.Set(dimIco);
-		iconCht->FontSize.Set(fontIco);
-		iconCht->Draw(selectedIndex == 1 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconCht->Location.Set(_locCht);
+		_iconCht->Dimension.Set(_dimIco);
+		_iconCht->FontSize.Set(_fontIco);
+		_iconCht->Draw(_selectedIndex == 1 ? MENU_SELECTED : MENU_UNSELECTED);
 
-		iconOpt->Location.Set(locOpt);
-		iconOpt->Dimension.Set(dimIco);
-		iconOpt->FontSize.Set(fontIco);
-		iconOpt->LabelOffset.Set(0.01 * _mini->MAXW, 0);
-		iconOpt->Draw(selectedIndex == 2 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconOpt->Location.Set(_locOpt);
+		_iconOpt->Dimension.Set(_dimIco);
+		_iconOpt->FontSize.Set(_fontIco);
+		_iconOpt->LabelOffset.Set(0.01 * _mini->MAXW, 0);
+		_iconOpt->Draw(_selectedIndex == 2 ? MENU_SELECTED : MENU_UNSELECTED);
 
-		iconAbt->Location.Set(locAbt);
-		iconAbt->Dimension.Set(dimIco);
-		iconAbt->FontSize.Set(fontIco);
-		iconAbt->Draw(selectedIndex == 3 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconAbt->Location.Set(_locAbt);
+		_iconAbt->Dimension.Set(_dimIco);
+		_iconAbt->FontSize.Set(_fontIco);
+		_iconAbt->Draw(_selectedIndex == 3 ? MENU_SELECTED : MENU_UNSELECTED);
 
 		// Print link
 		FONT_COMFORTAA_LIGHT->TextAlign = Font::PRINT_ALIGN_BOTTOMCENTER;
-		FONT_COMFORTAA_LIGHT->PrintLine(NULL, &textLink, NULL, locLINK, FONT_SMALL * 2.5);
+		FONT_COMFORTAA_LIGHT->PrintLine(NULL, &textLink, NULL, _locLink, FONT_SMALL * 2.5);
 	}
 
 	void Start::Pad(int port, padData pData) {
+
+		// Scroll through the list of icons
 		if (pData.BTN_LEFT && !pData.BTN_RIGHT) {
-			selectedIndex--;
-			if (selectedIndex < 0)
-				selectedIndex = 3;
+			_selectedIndex--;
+			if (_selectedIndex < 0)
+				_selectedIndex = 3;
 		}
 		else if (pData.BTN_RIGHT && !pData.BTN_LEFT) {
-			selectedIndex++;
-			if (selectedIndex > 3)
-				selectedIndex = 0;
+			_selectedIndex++;
+			if (_selectedIndex > 3)
+				_selectedIndex = 0;
 		}
 	}
 
-	long Start::ID() {
-		return _id;
+	bool Start::IsSubmenu() {
+		return false;
 	}
 }

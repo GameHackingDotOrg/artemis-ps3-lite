@@ -7,40 +7,48 @@
 #include <Mini2D/Image.hpp>					// Image class
 #include <Mini2D/Units.hpp>					// RectangleF, Vector2
 
+#include "Menu/IMenu.hpp"					// IMenu declaration
+#include "Menu/Elements/Icon.hpp"			// Icon declaration
+#include "Menu/WindowManager.hpp"			// WindowManager class
+
 namespace Menu {
-
-	class IMenu
-	{
-	public:
-		long State;								// Whether or not the menu is opening, closing, or idle
-
-		virtual ~IMenu() { }
-
-		// Draws the menu
-		virtual void Draw(float deltaTime) = 0;
-
-		// Process controller inputs
-		virtual void Pad(int port, padData pData) = 0;
-
-		// Returns the ID of this menu instance
-		virtual long ID() = 0;
-
-	protected:
-		Mini2D * _mini;
-		long  _id;
-		long _prevId;
-	};
 
 	class Start : public IMenu {
 	public:
-		Start(Mini2D * mini, long id, long prevId);
+		Start(Mini2D * mini, WindowManager * windowManager, long prevId);
 		~Start();
 
 		virtual void Draw(float deltaTime);
 		virtual void Pad(int port, padData pData);
-		virtual long ID();
+		virtual bool IsSubmenu();
 
 	private:
+		Mini2D * _mini;
+		WindowManager * _windowManager;
+
+		// Icons
+		Elements::Icon * _iconLogo;
+		Elements::Icon * _iconXmb;
+		Elements::Icon * _iconCht;
+		Elements::Icon * _iconOpt;
+		Elements::Icon * _iconAbt;
+
+		// Locations
+		Vector2 _locLogo;
+		Vector2 _locXmb;
+		Vector2 _locCht;
+		Vector2 _locOpt;
+		Vector2 _locAbt;
+		Vector2 _locLink;
+
+		// Dimensions
+		Vector2 _dimIco;
+		Vector2 _dimLogo;
+
+		Vector2 _fontIco;
+		
+		// Selected index
+		int _selectedIndex;
 	};
 }
 

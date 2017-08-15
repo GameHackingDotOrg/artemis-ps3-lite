@@ -5,7 +5,9 @@
 #include <Mini2D/Image.hpp>
 #include <Mini2D/Font.hpp>
 
+#include "Menu/IMenu.hpp"
 #include "Menu/Menus.hpp"
+#include "Menu/WindowManager.hpp"
 #include "Globals.hpp"
 
 // Data
@@ -13,7 +15,9 @@
 
 // 
 Mini2D * mini = NULL;
-Menu::Start * menuStart = NULL;
+
+// 
+Menu::WindowManager * windowManager = NULL;
 
 // 
 padData psuedoPadData[MAX_PORT_NUM];
@@ -38,8 +42,9 @@ int main(s32 argc, const char* argv[]) {
 	// Load our textures
 	loadData(mini);
 
-	// Initialize the main menu
-	menuStart = new Menu::Start(mini, 1, 0);
+	// Initialize our Window Manager with a fresh instance of the Start Menu
+	windowManager = new Menu::WindowManager();
+	windowManager->OpenWindow(windowManager->AddWindow(new Menu::Start(mini, windowManager, -1)));
 
 	// Here we set the deadzone of the analog sticks
 	// The clear color
@@ -50,7 +55,7 @@ int main(s32 argc, const char* argv[]) {
 	mini->SetAlphaState(1);
 	mini->BeginDrawLoop();
 
-	unloadData();
+	exit();
 
 	return 0;
 }
@@ -59,8 +64,9 @@ int drawUpdate(float deltaTime, unsigned long frame) {
 
 	if (dpadIgnore >= 0)
 		dpadIgnore -= deltaTime;
-
-	menuStart->Draw(deltaTime);
+		
+	if (windowManager->Draw(deltaTime))
+		return -1;
 
 	return doExit;
 }
@@ -107,15 +113,15 @@ void padUpdate(int changed, int port, padData pData) {
 
 	}
 
-	menuStart->Pad(port, psuedoPadData[port]);
+	windowManager->Pad(port, &psuedoPadData[port]);
 }
 
 void exit() {
 	printf("Artemis Lite::Exiting\n");
 
-	if (menuStart) {
-		delete menuStart;
-		menuStart = NULL;
+	if (windowManager) {
+		delete windowManager;
+		windowManager = NULL;
 	}
 
 	unloadData();
@@ -124,6 +130,8 @@ void exit() {
 		delete mini;
 		mini = NULL;
 	}
+
+	exit(0);
 }
 
 void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
