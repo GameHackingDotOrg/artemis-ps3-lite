@@ -17,7 +17,7 @@ namespace Menu {
 	}
 
 	WindowManager::~WindowManager() {
-		
+
 		// Delete all of our windows
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
 			if ((*it))
@@ -37,11 +37,11 @@ namespace Menu {
 			return false;
 
 		// Find new active window if current is inactive
-		if (window->State == WINDOW_STATE_INACTIVE) {
+		if (window->State() == WINDOW_STATE_INACTIVE) {
 
 			// Set window to previous Window
 			// The previous Window opened the current (inactive) Window
-			window = getWindowById(window->PreviousID);
+			window = getWindowById(window->PreviousId());
 			
 			// Remove inactive window from _windows
 			removeWindowById(_activeWindow);
@@ -51,10 +51,10 @@ namespace Menu {
 				return true;
 
 			// Set _activeWindow
-			_activeWindow = window->ID;
+			_activeWindow = window->Id();
 
 			// Set WindowState to WINDOW_STATE_OPENING
-			window->State = WINDOW_STATE_OPENING;
+			window->State(WINDOW_STATE_OPENING);
 		}
 
 		// Draw all windows
@@ -81,8 +81,8 @@ namespace Menu {
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then make it active
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->ID == id) {
-				(*it)->State = WINDOW_STATE_OPENING;
+			if ((*it)->Id() == id) {
+				(*it)->State(WINDOW_STATE_OPENING);
 				_activeWindow = id;
 				return true;
 			}
@@ -97,8 +97,8 @@ namespace Menu {
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then set its state to WINDOW_STATE_CLOSING
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->ID == id) {
-				(*it)->State = WINDOW_STATE_CLOSING;
+			if ((*it)->Id() == id) {
+				(*it)->State(WINDOW_STATE_CLOSING);
 				return true;
 			}
 		}
@@ -118,10 +118,10 @@ namespace Menu {
 				return -2;
 
 		// Set the ID and add to _windows
-		window->ID = uniqueCounter++;
+		window->Id(uniqueCounter++);
 		_windows.push_back(window);
 
-		return window->ID;
+		return window->Id();
 	}
 
 	// Returns the Window given an ID
@@ -130,7 +130,7 @@ namespace Menu {
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then return the pointer to the Window
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->ID == id)
+			if ((*it)->Id() == id)
 				return *it;
 		}
 
@@ -143,7 +143,7 @@ namespace Menu {
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then delete that Window and remove it from _windows
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->ID == id) {
+			if ((*it)->Id() == id) {
 				delete *it;
 				_windows.erase(it);
 				return;
@@ -155,8 +155,8 @@ namespace Menu {
 	// It will draw multiple layers of submenus
 	void WindowManager::recursiveDrawWindows(IMenu * window, float deltaTime) {
 
-		if (window->PreviousID >= 0 && window->IsSubmenu())
-			recursiveDrawWindows(getWindowById(window->PreviousID), deltaTime);
+		if (window->PreviousId() >= 0 && window->IsSubmenu())
+			recursiveDrawWindows(getWindowById(window->PreviousId()), deltaTime);
 
 		window->Draw(deltaTime);
 	}

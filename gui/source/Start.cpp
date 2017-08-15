@@ -13,7 +13,9 @@
 
 namespace Menu
 {
+	//---------------------------------------------------------------------------
 	// Text
+	//---------------------------------------------------------------------------
 	static std::wstring textLogo = 				L"Playstation 3 Hacking System";
 	static std::wstring textLink = 				L"www.gamehacking.org/artemis";
 	static std::wstring textXmb = 				L"Start Game";
@@ -21,22 +23,16 @@ namespace Menu
 	static std::wstring textOpt = 				L"Options";
 	static std::wstring textAbt = 				L"About";
 
-	Start::Start(Mini2D * mini, WindowManager * windowManager, long prevId) : _mini(mini), _windowManager(windowManager) {
+	//---------------------------------------------------------------------------
+	// Constructor and Deconstructor
+	//---------------------------------------------------------------------------
+	Start::Start(Mini2D * mini, WindowManager * windowManager, long prevId) : _mini(mini), _windowManager(windowManager), _windowState(WINDOW_STATE_INACTIVE), _id(-1), _previousId(prevId), _selectedIndex(0) {
 
 		if (!_mini || !_windowManager)
 			return;
 
-		// Set PreviousID
-		PreviousID = prevId;
-
-		// Set WindowState to WINDOW_STATE_INACTIVE
-		State = WINDOW_STATE_INACTIVE;
-
 		// Define out icon font size
 		_fontIco = FONT_SMALL * 2;
-
-		// Set to default
-		_selectedIndex = 0;
 
 		// Set locations
 		_locLogo.Set(0.5, 0.25);
@@ -92,17 +88,47 @@ namespace Menu
 		}
 	}
 
+	//---------------------------------------------------------------------------
+	// Getters and Setters
+	//---------------------------------------------------------------------------
+	const WindowState& Start::State() const {
+		return _windowState;
+	}
+
+	void Start::State(const WindowState& newState) {
+		_windowState = newState;
+	}
+
+	const long& Start::Id() const {
+		return _id;
+	}
+
+	void Start::Id(const long& newId) {
+		_id = newId;
+	}
+
+	const long& Start::PreviousId() const {
+		return _previousId;
+	}
+
+	void Start::PreviousId(const long& newPreviousId) {
+		_previousId = newPreviousId;
+	}
+
+	//---------------------------------------------------------------------------
+	// Draw() and Pad()
+	//---------------------------------------------------------------------------
 	void Start::Draw(float deltaTime) {
-		
+
 		if (!TEX_BGIMG || !_iconLogo || !_iconXmb || !_iconCht || !_iconOpt || !_iconAbt)
 			return;
 
 		// For now we aren't going to have open/closing animations
 		// We can just set these to ACTIVE and INACTIVE immediately
-		if (State == WINDOW_STATE_OPENING)
-			State = WINDOW_STATE_ACTIVE;
-		if (State == WINDOW_STATE_CLOSING)
-			State = WINDOW_STATE_INACTIVE;
+		if (State() == WINDOW_STATE_OPENING)
+			State(WINDOW_STATE_ACTIVE);
+		if (State() == WINDOW_STATE_CLOSING)
+			State(WINDOW_STATE_INACTIVE);
 
 		// Draw Background
 		TEX_BGIMG->DrawRegion.Location.Set(LOC_CENTER);
@@ -156,7 +182,11 @@ namespace Menu
 		}
 	}
 
+	//---------------------------------------------------------------------------
+	// Misc
+	//---------------------------------------------------------------------------
 	bool Start::IsSubmenu() {
 		return false;
 	}
+
 }

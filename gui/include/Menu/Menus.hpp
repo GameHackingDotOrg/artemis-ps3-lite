@@ -35,6 +35,16 @@ namespace Menu {
 
 		~Start();
 
+		// Getters and Setters
+		virtual const WindowState& State() const;
+  		virtual void State(const WindowState& newState);
+
+  		virtual const long& Id() const;
+  		virtual void Id(const long& newId);
+
+  		virtual const long& PreviousId() const;
+  		virtual void PreviousId(const long& newPreviousId);
+
 		// Implementations of pure virtual methods from IMenu
 		virtual void Draw(float deltaTime);
 		virtual void Pad(int port, padData pData);
@@ -43,6 +53,10 @@ namespace Menu {
 	private:
 		Mini2D * _mini;						// Mini2D instance
 		WindowManager * _windowManager;		// Manager of the Windows
+
+		WindowState _windowState;			// State of the Window
+		long _id;							// Unique identifier of the Window
+		long _previousId;					// Unique identifier of the Window that opened this Window
 
 		// Icons
 		Elements::Icon * _iconLogo;			// Artemis logo icon

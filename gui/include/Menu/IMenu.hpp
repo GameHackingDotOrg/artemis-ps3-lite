@@ -2,7 +2,7 @@
  * IMenu.hpp
  *
  * 
- *  All menus must inherit this interface and implement its methods and variables.
+ *  All menus must inherit this interface and implement its virtual methods.
  */
 
 #ifndef IMENU_HPP_
@@ -25,12 +25,20 @@ namespace Menu {
 	{
 	public:
 
-		WindowState State;					// State of the Window (IMenu instance)
-		long ID;							// Unique identifier of the Window
-		long PreviousID;					// Unique identifier of the Window that opened this Window
-
 		// Deconstructor
 		virtual ~IMenu() { }
+
+		// State of the Window (IMenu instance)
+		virtual const WindowState& State() const = 0;
+  		virtual void State(const WindowState& newState) = 0;
+
+  		// Unique identifier of the Window
+  		virtual const long& Id() const = 0;
+  		virtual void Id(const long& newId) = 0;
+
+  		// Unique identifier of the Window that opened this Window
+  		virtual const long& PreviousId() const = 0;
+  		virtual void PreviousId(const long& newPreviousId) = 0;
 
 		/*
 		 * Draw:
