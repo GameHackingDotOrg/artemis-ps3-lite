@@ -20,9 +20,6 @@
 #include "Menu/WindowManager.hpp"			// WindowManager declaration
 #include "Globals.hpp"						// Images, Fonts
 
-// Data
-#include "background_music_mp3_bin.h"
-
 // Mini2D instance
 Mini2D * mini = NULL;
 
