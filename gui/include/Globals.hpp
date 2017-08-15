@@ -1,3 +1,11 @@
+/*
+ * Globals.hpp
+ *
+ * 
+ *  Serves as a place for common methods and variables.
+ *  The variables referenced in here with 'extern' are defined in Globals.cpp to avoid duplication when linking.
+ */
+
 #ifndef GLOBALS_HPP_
 #define GLOBALS_HPP_
 

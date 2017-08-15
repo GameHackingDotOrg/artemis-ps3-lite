@@ -1,10 +1,15 @@
+/*
+ * Start.cpp
+ *
+ * 
+ *  Start is the initial menu displayed to the user.
+ *  It displays the base icons to navigate throughout Artemis Lite.
+ */
 
-#include <math.h>
-
-#include "Menu/IMenu.hpp"
-#include "Menu/Menus.hpp"
-#include "Menu/Elements/Icon.hpp"
-#include "Globals.hpp"
+#include "Menu/IMenu.hpp"					// IMenu declaration
+#include "Menu/Menus.hpp"					// Start declaration
+#include "Menu/Elements/Icon.hpp"			// Icon declaration
+#include "Globals.hpp"						// Images, LocToScreen(), DimToScreen(), LOC_CENTER, DIM_FULL, Font Sizes
 
 namespace Menu
 {

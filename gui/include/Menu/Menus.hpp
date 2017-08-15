@@ -1,4 +1,9 @@
-
+/*
+ * Menus.hpp
+ *
+ * 
+ *  Contains all the class declarations inheriting the IMenu interface.
+ */
 
 #ifndef MENUS_HPP_
 #define MENUS_HPP_

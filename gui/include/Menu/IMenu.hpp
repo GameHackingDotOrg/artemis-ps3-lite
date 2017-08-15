@@ -1,4 +1,9 @@
-
+/*
+ * IMenu.hpp
+ *
+ * 
+ *  All menus must inherit this interface and implement its methods and variables.
+ */
 
 #ifndef IMENU_HPP_
 #define IMENU_HPP_

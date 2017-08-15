@@ -1,3 +1,10 @@
+/*
+ * Globals.hpp
+ *
+ * 
+ *  Serves as a place for common methods and variables.
+ */
+
 #include <Mini2D/Mini2D.hpp>
 #include <Mini2D/Image.hpp>
 #include <Mini2D/Font.hpp>

@@ -1,3 +1,9 @@
+/*
+ * Icon.cpp
+ *
+ * 
+ *  Serves as a place for common methods and variables.
+ */
 
 #include "Menu/Elements/Icon.hpp"
 

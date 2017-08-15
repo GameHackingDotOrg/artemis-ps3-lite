@@ -1,3 +1,9 @@
+/*
+ * Icon.cpp
+ *
+ * 
+ *  A simple class for drawing an Image with a label under it.
+ */
 
 #ifndef ICON_HPP_
 #define ICON_HPP_

@@ -1,3 +1,13 @@
+/*
+ * main.cpp
+ *
+ * 
+ *  The program start.
+ * 
+ *  Video and sound are initialized, data is loaded, and drawing starts.
+ *  Also contains methods for dpad acceleration and other pad effects.
+ */
+
 #include <stdio.h>
 #include <io/pad.h>
 
@@ -64,7 +74,7 @@ int drawUpdate(float deltaTime, unsigned long frame) {
 
 	if (dpadIgnore >= 0)
 		dpadIgnore -= deltaTime;
-		
+
 	if (windowManager->Draw(deltaTime))
 		return -1;
 
