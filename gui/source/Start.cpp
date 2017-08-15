@@ -30,7 +30,7 @@ namespace Menu
 		PreviousID = prevId;
 
 		// Set WindowState to WINDOW_STATE_INACTIVE
-		State = IMenu::WINDOW_STATE_INACTIVE;
+		State = WINDOW_STATE_INACTIVE;
 
 		// Define out icon font size
 		_fontIco = FONT_SMALL * 2;
@@ -99,10 +99,10 @@ namespace Menu
 
 		// For now we aren't going to have open/closing animations
 		// We can just set these to ACTIVE and INACTIVE immediately
-		if (State == IMenu::WINDOW_STATE_OPENING)
-			State = IMenu::WINDOW_STATE_ACTIVE;
-		if (State == IMenu::WINDOW_STATE_CLOSING)
-			State = IMenu::WINDOW_STATE_INACTIVE;
+		if (State == WINDOW_STATE_OPENING)
+			State = WINDOW_STATE_ACTIVE;
+		if (State == WINDOW_STATE_CLOSING)
+			State = WINDOW_STATE_INACTIVE;
 
 		// Draw Background
 		TEX_BGIMG->DrawRegion.Location.Set(LOC_CENTER);

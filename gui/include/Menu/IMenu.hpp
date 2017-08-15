@@ -14,15 +14,16 @@
 
 namespace Menu {
 
+	enum WindowState {
+		WINDOW_STATE_INACTIVE = 0,			// Window not actively drawn
+		WINDOW_STATE_CLOSING,				// Window is closing
+		WINDOW_STATE_ACTIVE,				// Window is active
+		WINDOW_STATE_OPENING				// Window is opening
+	};
+
 	class IMenu
 	{
 	public:
-		enum WindowState {
-			WINDOW_STATE_INACTIVE = 0,		// Window not actively drawn
-			WINDOW_STATE_CLOSING,			// Window is closing
-			WINDOW_STATE_ACTIVE,			// Window is active
-			WINDOW_STATE_OPENING			// Window is opening
-		};
 
 		WindowState State;					// State of the Window (IMenu instance)
 		long ID;							// Unique identifier of the Window

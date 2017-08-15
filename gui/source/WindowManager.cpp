@@ -37,7 +37,7 @@ namespace Menu {
 			return false;
 
 		// Find new active window if current is inactive
-		if (window->State == IMenu::WINDOW_STATE_INACTIVE) {
+		if (window->State == WINDOW_STATE_INACTIVE) {
 
 			// Set window to previous Window
 			// The previous Window opened the current (inactive) Window
@@ -54,7 +54,7 @@ namespace Menu {
 			_activeWindow = window->ID;
 
 			// Set WindowState to WINDOW_STATE_OPENING
-			window->State = IMenu::WINDOW_STATE_OPENING;
+			window->State = WINDOW_STATE_OPENING;
 		}
 
 		// Draw all windows
@@ -82,7 +82,7 @@ namespace Menu {
 		// If a Window's ID matches 'id' then make it active
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
 			if ((*it)->ID == id) {
-				(*it)->State = IMenu::WINDOW_STATE_OPENING;
+				(*it)->State = WINDOW_STATE_OPENING;
 				_activeWindow = id;
 				return true;
 			}
@@ -98,7 +98,7 @@ namespace Menu {
 		// If a Window's ID matches 'id' then set its state to WINDOW_STATE_CLOSING
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
 			if ((*it)->ID == id) {
-				(*it)->State = IMenu::WINDOW_STATE_CLOSING;
+				(*it)->State = WINDOW_STATE_CLOSING;
 				return true;
 			}
 		}
