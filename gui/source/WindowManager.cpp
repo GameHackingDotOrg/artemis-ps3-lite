@@ -17,6 +17,7 @@ namespace Menu {
 	}
 
 	WindowManager::~WindowManager() {
+		
 		// Delete all of our windows
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
 			if ((*it))
@@ -29,6 +30,7 @@ namespace Menu {
 	// Draws the active window (and any windows it hovers over)
 	// Returns true when the main window is closed (signalling to close the app)
 	bool WindowManager::Draw(float deltaTime) {
+
 		IMenu * window = getWindowById(_activeWindow);
 
 		if (!window)
@@ -63,6 +65,7 @@ namespace Menu {
 
 	// Forwards the pad data to the active Window
 	void WindowManager::Pad(int port, padData * pData) {
+
 		IMenu * window = getWindowById(_activeWindow);
 
 		if (!window)
@@ -74,6 +77,7 @@ namespace Menu {
 
 	// Set WindowState of Window with ID 'id' to WINDOW_STATE_OPENING
 	bool WindowManager::OpenWindow(long id) {
+
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then make it active
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
@@ -89,6 +93,7 @@ namespace Menu {
 
 	// Set WindowState of Window with ID 'id' to WINDOW_STATE_CLOSING
 	bool WindowManager::CloseWindow(long id) {
+
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then set its state to WINDOW_STATE_CLOSING
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
@@ -103,6 +108,7 @@ namespace Menu {
 
 	// Add Window to _windows
 	long WindowManager::AddWindow(Menu::IMenu * window) {
+
 		if (!window)
 			return -1;
 
@@ -120,6 +126,7 @@ namespace Menu {
 
 	// Returns the Window given an ID
 	IMenu * WindowManager::getWindowById(long id) {
+
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then return the pointer to the Window
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
@@ -132,6 +139,7 @@ namespace Menu {
 
 	// Removes the window from _windows given an ID
 	void WindowManager::removeWindowById(long id) {
+
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then delete that Window and remove it from _windows
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
@@ -146,6 +154,7 @@ namespace Menu {
 	// Draws the previous window if the current window is a submenu
 	// It will draw multiple layers of submenus
 	void WindowManager::recursiveDrawWindows(IMenu * window, float deltaTime) {
+
 		if (window->PreviousID >= 0 && window->IsSubmenu())
 			recursiveDrawWindows(getWindowById(window->PreviousID), deltaTime);
 

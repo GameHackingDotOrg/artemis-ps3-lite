@@ -28,15 +28,36 @@ namespace Menu {
 		long ID;							// Unique identifier of the Window
 		long PreviousID;					// Unique identifier of the Window that opened this Window
 
+		// Deconstructor
 		virtual ~IMenu() { }
 
-		// Draws the menu
+		/*
+		 * Draw:
+		 *		Draws the Window
+		 *		
+		 * deltaTime:
+		 *		Milliseconds since last frame
+		 */
 		virtual void Draw(float deltaTime) = 0;
 
-		// Process controller inputs
+		/*
+		 * Pad:
+		 *		Process controller input
+		 *		
+		 * port:
+		 *		Which controller pData is coming from
+		 * pData:
+		 *		Pad information
+		 */
 		virtual void Pad(int port, padData pData) = 0;
 
-		// Returns true if the window is drawn over the previous window
+		/*
+		 * IsSubmenu:
+		 *		Whether or not this Menu is a submenu
+		 *		
+		 * Return:
+		 *		True if the Window is to bo drawn over the previous Window
+		 */
 		virtual bool IsSubmenu() = 0;
 	};
 }

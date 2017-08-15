@@ -2,36 +2,40 @@
  * Icon.cpp
  *
  * 
- *  Serves as a place for common methods and variables.
+ *  A simple class for drawing an Image with a label under it.
  */
 
-#include "Menu/Elements/Icon.hpp"
+#include "Menu/Elements/Icon.hpp"			// Icon class declaration
 
 
 namespace Menu
 {
 	namespace Elements {
 
+		// Constructor
 		Icon::Icon(Image * icon, Font * font, std::wstring label) : _icon(icon), _font(font), _label(label) {
+
+			// Set defaults
 			Location.X = 0;
 			Location.Y = 0;
-
 			Dimension.X = 0;
 			Dimension.Y = 0;
-
 			FontSize.X = 0;
 			FontSize.Y = 0;
-
 			LabelOffset.X = 0;
 			LabelOffset.Y = 0;
 		}
 
+		// Deconstructor
 		Icon::~Icon() {
+
 			_icon = NULL;
 			_font = NULL;
 		}
 
+		// Draw the Icon
 		void Icon::Draw(unsigned int RGBA) {
+
 			// We're just gonna move the label under the image and add the FontSize.Y for some extra buffering
 			// This is mostly arbitrary
 			// But I like the look of it and it scales well

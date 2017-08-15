@@ -9,10 +9,10 @@
 #ifndef GLOBALS_HPP_
 #define GLOBALS_HPP_
 
-#include <Mini2D/Mini2D.hpp>
-#include <Mini2D/Image.hpp>
-#include <Mini2D/Font.hpp>
-#include <Mini2D/Units.hpp>
+#include <Mini2D/Mini2D.hpp>				// Mini2D class
+#include <Mini2D/Image.hpp>					// Image class
+#include <Mini2D/Font.hpp>					// Font class
+#include <Mini2D/Units.hpp>					// Vector2
 
 // Textures
 #include "bgimg_png.h"						// 
@@ -54,14 +54,50 @@
 #include "comfortaa_light_ttf.h"			// 
 
 
-
+/*
+ * LocToScreen:
+ *		Multiplies a Vector2's X and Y by _mini->MAXW and _mini->MAXH respectively
+ *		
+ * loc:
+ *		Vector2 to scale
+ */
 #define LocToScreen(loc) 			loc.X *= _mini->MAXW; loc.Y *= _mini->MAXH;
+
+/*
+ * DimToScreen:
+ *		Multiplies a Vector2's X and Y by _mini->MAXW
+ *		
+ * dim:
+ *		Vector2 to scale
+ */
 #define DimToScreen(dim) 			dim *= _mini->MAXW;
+
+/*
+ * LocToScreen2:
+ *		Multiplies a Vector2's X and Y by the max screen width and height respectively
+ *		
+ * loc:
+ *		Vector2 to scale
+ * mini:
+ *		Mini2D instance
+ */
 #define LocToScreen2(loc, mini) 	loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
+
+/*
+ * LocToScreen2:
+ *		Multiplies a Vector2's X and Y by the max screen width
+ *		
+ * dim:
+ *		Vector2 to scale
+ * mini:
+ *		Mini2D instance
+ */
 #define DimToScreen2(dim, mini) 	dim *= mini->MAXW;
+
 
 #define MENU_SELECTED 				0x000000FF
 #define MENU_UNSELECTED 			0x00000040
+
 
 extern Image * TEX_BGIMG;
 extern Image * TEX_CHEAT;

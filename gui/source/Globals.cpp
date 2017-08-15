@@ -5,10 +5,10 @@
  *  Serves as a place for common methods and variables.
  */
 
-#include <Mini2D/Mini2D.hpp>
-#include <Mini2D/Image.hpp>
-#include <Mini2D/Font.hpp>
-#include <Mini2D/Units.hpp>
+#include <Mini2D/Mini2D.hpp>				// Mini2D class
+#include <Mini2D/Image.hpp>					// Image class
+#include <Mini2D/Font.hpp>					// Font class
+#include <Mini2D/Units.hpp>					// Vector2
 
 Image * TEX_BGIMG;
 Image * TEX_CHEAT;

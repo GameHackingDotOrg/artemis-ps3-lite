@@ -8,28 +8,28 @@
  *  Also contains methods for dpad acceleration and other pad effects.
  */
 
-#include <stdio.h>
-#include <io/pad.h>
+#include <stdio.h>							// printf()
+#include <io/pad.h>							// Pad stuff
 
-#include <Mini2D/Mini2D.hpp>
-#include <Mini2D/Image.hpp>
-#include <Mini2D/Font.hpp>
+#include <Mini2D/Mini2D.hpp>				// Mini2D
+#include <Mini2D/Image.hpp>					// Image class from Mini2D
+#include <Mini2D/Font.hpp>					// Font class from Mini2D
 
-#include "Menu/IMenu.hpp"
-#include "Menu/Menus.hpp"
-#include "Menu/WindowManager.hpp"
-#include "Globals.hpp"
+#include "Menu/IMenu.hpp"					// IMenu interface declaration
+#include "Menu/Menus.hpp"					// Declaration of all menus
+#include "Menu/WindowManager.hpp"			// WindowManager declaration
+#include "Globals.hpp"						// Images, Fonts
 
 // Data
 #include "background_music_mp3_bin.h"
 
-// 
+// Mini2D instance
 Mini2D * mini = NULL;
 
-// 
+// WindowManager instance
 Menu::WindowManager * windowManager = NULL;
 
-// 
+// Pad related variables
 padData psuedoPadData[MAX_PORT_NUM];
 float dpadIgnore = 0;
 unsigned long dpadIgnoreState = 0;
@@ -40,12 +40,14 @@ int drawUpdate(float deltaTime, unsigned long frame);
 void padUpdate(int changed, int port, padData pData);
 void exit();
 
-// Misc
+// Misc methods
 void padCopy(padData * destination, padData * source, bool copyDpadOnly);
 void loadData(Mini2D * mini);
 void unloadData();
 
+// Program Start
 int main(s32 argc, const char* argv[]) {
+
 	// Initialize Mini2D
 	mini = new Mini2D((Mini2D::PadCallback_f)&padUpdate, (Mini2D::DrawCallback_f)&drawUpdate, (Mini2D::ExitCallback_f)&exit);
 
@@ -65,23 +67,29 @@ int main(s32 argc, const char* argv[]) {
 	mini->SetAlphaState(1);
 	mini->BeginDrawLoop();
 
+	// Unload and exit the application
 	exit();
 
 	return 0;
 }
 
+// Called every frame to draw contents onto screen
 int drawUpdate(float deltaTime, unsigned long frame) {
 
+	// Decrement dpadIgnore timer
 	if (dpadIgnore >= 0)
 		dpadIgnore -= deltaTime;
 
+	// Draw active Window
 	if (windowManager->Draw(deltaTime))
 		return -1;
 
 	return doExit;
 }
 
+// Processes pad and forwards the result to the window manager
 void padUpdate(int changed, int port, padData pData) {
+
 	// If L3 and R3 are pressed, close Artemis Lite
 	if (pData.BTN_L3 && pData.BTN_R3 && (changed & Mini2D::BTN_CHANGED_L3 || changed & Mini2D::BTN_CHANGED_R3))
 		doExit = -1;
@@ -123,10 +131,13 @@ void padUpdate(int changed, int port, padData pData) {
 
 	}
 
+	// Forward pad to active Window
 	windowManager->Pad(port, &psuedoPadData[port]);
 }
 
+// Unload and exit
 void exit() {
+
 	printf("Artemis Lite::Exiting\n");
 
 	if (windowManager) {
@@ -144,11 +155,13 @@ void exit() {
 	exit(0);
 }
 
+// Copies the pad data from source to destination
 void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
+
 	if (!source || !destination)
 		return;
 
-	// Copy dpad values from source
+	// Copy only the dpad values from source
 	if (copyDpadOnly) {
 		destination->BTN_UP = source->BTN_UP;
 		destination->BTN_DOWN = source->BTN_DOWN;
@@ -289,6 +302,7 @@ void loadData(Mini2D * mini) {
 
 // Unload textures, fonts
 void unloadData() {
+
 	if (FONT_COMFORTAA_REGULAR) {
 		delete FONT_COMFORTAA_REGULAR;
 		FONT_COMFORTAA_REGULAR = NULL;

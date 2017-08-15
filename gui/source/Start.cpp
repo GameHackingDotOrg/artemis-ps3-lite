@@ -22,6 +22,7 @@ namespace Menu
 	static std::wstring textAbt = 				L"About";
 
 	Start::Start(Mini2D * mini, WindowManager * windowManager, long prevId) : _mini(mini), _windowManager(windowManager) {
+
 		if (!_mini || !_windowManager)
 			return;
 
@@ -68,6 +69,7 @@ namespace Menu
 	}
 
 	Start::~Start() {
+
 		// Delete all our allocations
 		if (_iconXmb) {
 			delete _iconXmb;
@@ -91,6 +93,7 @@ namespace Menu
 	}
 
 	void Start::Draw(float deltaTime) {
+		
 		if (!TEX_BGIMG || !_iconLogo || !_iconXmb || !_iconCht || !_iconOpt || !_iconAbt)
 			return;
 
