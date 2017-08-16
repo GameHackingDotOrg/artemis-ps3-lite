@@ -42,16 +42,19 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Compiled source #
-###################
+# Build objects
+# =========================
 *.a
 *.o
 *.self
 *.elf
 *.pkg
+sfo.xml
 build/
 ppu/
 lib/
 obj/
+
+# Miscellaneous
+# =========================
 *.zip
-sfo.xml
