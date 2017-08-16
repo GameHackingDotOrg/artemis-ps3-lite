@@ -98,6 +98,13 @@
 #define MENU_SELECTED 				0x000000FF
 #define MENU_UNSELECTED 			0x00000040
 
+#define CHAR_CROSS					(wchar_t)0x0010
+#define CHAR_TRIANGLE				(wchar_t)0x0011
+#define CHAR_CIRCLE					(wchar_t)0x0012
+#define CHAR_SQUARE					(wchar_t)0x0013
+#define CHAR_LEFT					(wchar_t)0x0014
+#define CHAR_RIGHT					(wchar_t)0x0015
+
 
 extern Image * TEX_BGIMG;
 extern Image * TEX_CHEAT;
