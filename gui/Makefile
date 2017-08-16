@@ -4,7 +4,7 @@
 .SUFFIXES:
 #---------------------------------------------------------------------------------
 ifeq ($(strip $(PSL1GHT)),)
-$(error "Please set PSL1GHT in your environment. export PSL1GHT=<path>")
+$(error \"Please set PSL1GHT in your environment. export PSL1GHT=<path>\")
 endif
 
 TC_ADD		:=	`date +%d%H%M`
@@ -29,17 +29,27 @@ BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
 INCLUDES	:=	include
-PKGFILES 	:= $(CURDIR)/pkgdata
+PKGFILES 	:=	$(CURDIR)/pkgdata
 
-TITLE		:=	Artemis PS3 Lite
-APPID		:=	ARTPS3002
+APP_VER		:=	01.00
+VERSIONSTR	:=	1.0.0-alpha
+TITLE		:=	Artemis PS3 Lite ($(VERSIONSTR))
+APPID		:=	ARTP30002
 CONTENTID	:=	UP0001-$(APPID)_00-0000000000000000
+
+
+#---------------------------------------------------------------------------------
+# sfo contents generated with the supplied variables above
+#---------------------------------------------------------------------------------
+define SFOCONTENTS
+<?xml version="1.0" ?>\n<sfo>\n	<value name="APP_VER" type="string"> \n		$(APP_VER) \n	</value>\n	<value name="ATTRIBUTE" type="integer">\n		133\n	</value>\n	<value name="BOOTABLE" type="integer">\n		1\n	</value>\n	<value name="CATEGORY" type="string">\n		HG\n	</value>\n	<value name="LICENSE" type="string">\n		This application was created with the official non-official SDK called PSL1GHT, for more information visit http://www.psl1ght.com/ . This is in no way associated with Sony Computer Entertainment Inc., please do not contact them for help, they will not be able to provide it.\n	</value>\n	<value name="PARENTAL_LEVEL" type="integer">\n		0\n	</value>\n	<value name="PS3_SYSTEM_VER" type="string">\n		03.4000\n	</value>\n	<value name="RESOLUTION" type="integer">\n		63\n	</value>\n	<value name="SOUND_FORMAT" type="integer">\n		279\n	</value>\n	<value name="TITLE" type="string">\n		$(TITLE)\n	</value>\n	<value name="TITLE_ID" type="string">\n		$(APPID)\n	</value>\n	<value name="VERSION" type="string">\n		01.00\n	</value>\n</sfo>
+endef
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-O3 -Wall -mcpu=cell $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-O3 -Wall -mcpu=cell -DARTEMIS_VERSION=\"$(VERSIONSTR)\" $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 
 LDFLAGS		=	$(MACHDEP) -Wl,-Map,$(notdir $@).map
@@ -120,6 +130,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
+	@echo -e '$(SFOCONTENTS)' > $(SFOXML)
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
@@ -158,22 +169,22 @@ $(OUTPUT).elf:	$(OFILES)
 #---------------------------------------------------------------------------------
 %.bin.o	:	%.bin
 #---------------------------------------------------------------------------------
-	@echo "[BIN2O]  $(notdir $<)"
+	@echo '[BIN2O]  $(notdir $<)'
 	@$(bin2o)
 #---------------------------------------------------------------------------------
 %.jpg.o	:	%.jpg
 #---------------------------------------------------------------------------------
-	@echo "[BIN2O]  $(notdir $<)"
+	@echo '[BIN2O]  $(notdir $<)'
 	@$(bin2o)
 #---------------------------------------------------------------------------------
 %.png.o	:	%.png
 #---------------------------------------------------------------------------------
-	@echo "[BIN2O]  $(notdir $<)"
+	@echo '[BIN2O]  $(notdir $<)'
 	@$(bin2o)
 #---------------------------------------------------------------------------------
 %.o:		%.cpp
 #---------------------------------------------------------------------------------
-	@echo "[CC]  $(notdir $<)"
+	@echo '[CC]  $(notdir $<)'
 	@$(CC) $(DEPSOPTIONS) $(CFLAGS) -c $< -o $@
 
 

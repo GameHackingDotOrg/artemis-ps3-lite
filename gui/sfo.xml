@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sfo>
-	<value name="APP_VER" type="string">
-		01.00
+	<value name="APP_VER" type="string"> 
+		01.00 
 	</value>
 	<value name="ATTRIBUTE" type="integer">
 		133
@@ -31,7 +31,7 @@
 		Artemis PS3 Lite (1.0.0-alpha)
 	</value>
 	<value name="TITLE_ID" type="string">
-		ARTPS3002
+		ARTP30002
 	</value>
 	<value name="VERSION" type="string">
 		01.00

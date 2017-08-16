@@ -54,3 +54,4 @@ ppu/
 lib/
 obj/
 *.zip
+sfo.xml
