@@ -1,0 +1,14 @@
+# Translation File for Artemis PS3 Lite
+#
+# American English
+
+NAME						American English
+FONT						default
+
+# Main Menu
+START_XMB_ICON				Start Game
+START_CHT_ICON				Cheats
+START_OPT_ICON				Options
+START_ABT_ICON				About
+
+# Cheats Menu

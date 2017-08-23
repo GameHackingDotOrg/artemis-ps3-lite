@@ -1,9 +1,9 @@
 /*
  * main.cpp
  *
- * 
+ *
  *  The program start.
- * 
+ *
  *  Video and sound are initialized, data is loaded, and drawing starts.
  *  Also contains methods for dpad acceleration and other pad effects.
  */
@@ -11,7 +11,7 @@
 #include <stdio.h>							// printf()
 #include <io/pad.h>							// Pad stuff
 
-#include <Mini2D/Mini2D.hpp>				// Mini2D
+#include <Mini2D/Mini.hpp>					// Mini
 #include <Mini2D/Image.hpp>					// Image class from Mini2D
 #include <Mini2D/Font.hpp>					// Font class from Mini2D
 
@@ -20,8 +20,10 @@
 #include "Menu/WindowManager.hpp"			// WindowManager declaration
 #include "Globals.hpp"						// Images, Fonts
 
+using namespace Mini2D;
+
 // Mini2D instance
-Mini2D * mini = NULL;
+Mini * mini = NULL;
 
 // WindowManager instance
 Menu::WindowManager * windowManager = NULL;
@@ -39,20 +41,20 @@ void exit();
 
 // Misc methods
 void padCopy(padData * destination, padData * source, bool copyDpadOnly);
-void loadData(Mini2D * mini);
+void loadData(Mini2D::Mini * mini);
 void unloadData();
 
 // Program Start
 int main(s32 argc, const char* argv[]) {
 
 	// Initialize Mini2D
-	mini = new Mini2D((Mini2D::PadCallback_f)&padUpdate, (Mini2D::DrawCallback_f)&drawUpdate, (Mini2D::ExitCallback_f)&exit);
+	mini = new Mini((Mini::PadCallback_f)&padUpdate, (Mini::DrawCallback_f)&drawUpdate, (Mini::ExitCallback_f)&exit);
 
 	// Load our textures
 	loadData(mini);
 
 	// Initialize our Window Manager with a fresh instance of the Start Menu
-	windowManager = new Menu::WindowManager();
+	windowManager = new Menu::WindowManager(mini);
 	windowManager->OpenWindow(windowManager->AddWindow(new Menu::Start(mini, windowManager, -1)));
 
 	// Here we set the deadzone of the analog sticks
@@ -88,7 +90,7 @@ int drawUpdate(float deltaTime, unsigned long frame) {
 void padUpdate(int changed, int port, padData pData) {
 
 	// If L3 and R3 are pressed, close Artemis Lite
-	if (pData.BTN_L3 && pData.BTN_R3 && (changed & Mini2D::BTN_CHANGED_L3 || changed & Mini2D::BTN_CHANGED_R3))
+	if (pData.BTN_L3 && pData.BTN_R3 && (changed & Mini::BTN_CHANGED_L3 || changed & Mini::BTN_CHANGED_R3))
 		doExit = -1;
 
 	// If the psuedoPadData isn't initialized, copy data from pData
@@ -96,7 +98,7 @@ void padUpdate(int changed, int port, padData pData) {
 		memcpy(&psuedoPadData[port], &pData, sizeof(padData));
 
 	// Determine if dpad is in use or not
-	if (changed & (Mini2D::BTN_CHANGED_UP | Mini2D::BTN_CHANGED_DOWN | Mini2D::BTN_CHANGED_LEFT | Mini2D::BTN_CHANGED_RIGHT)) {
+	if (changed & (Mini::BTN_CHANGED_UP | Mini::BTN_CHANGED_DOWN | Mini::BTN_CHANGED_LEFT | Mini::BTN_CHANGED_RIGHT)) {
 		dpadIgnoreState = pData.BTN_UP || pData.BTN_DOWN || pData.BTN_LEFT || pData.BTN_RIGHT;
 		dpadIgnore = 0;
 	}
@@ -172,26 +174,20 @@ void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
 }
 
 // Load textures, fonts
-void loadData(Mini2D * mini) {
+void loadData(Mini2D::Mini * mini) {
 
 	// Load fonts
-	FONT_COMFORTAA_REGULAR = new Font(mini);
-	FONT_COMFORTAA_REGULAR->Load((void*)comfortaa_regular_ttf, comfortaa_regular_ttf_size, 64, 64);
-
-	FONT_COMFORTAA_BOLD = new Font(mini);
-	FONT_COMFORTAA_BOLD->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 64, 64);
-
-	FONT_COMFORTAA_LIGHT = new Font(mini);
-	FONT_COMFORTAA_LIGHT->Load((void*)comfortaa_light_ttf, comfortaa_light_ttf_size, 64, 64);
+	FONT_DEFAULT = new Font(mini);
+	FONT_DEFAULT->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 48);
 
 	// Initialize default variables
 	LocToScreen2(LOC_CENTER, mini);
 	LocToScreen2(DIM_FULL, mini);
 
 	// Initialize font sizes
-	FONT_SMALL.X *= mini->MAXW; FONT_SMALL.Y *= mini->MAXH;
-	FONT_MEDIUM.X *= mini->MAXW; FONT_MEDIUM.Y *= mini->MAXH;
-	FONT_LARGE.X *= mini->MAXW; FONT_LARGE.Y *= mini->MAXH;
+	FONT_SMALL *= mini->MAXW;
+	FONT_MEDIUM *= mini->MAXW;
+	FONT_LARGE *= mini->MAXW;
 
 	// Load textures
 	TEX_BGIMG = new Image(mini);
@@ -293,52 +289,28 @@ void loadData(Mini2D * mini) {
 	TEX_TITLESCR_LOGO = new Image(mini);
 	TEX_TITLESCR_LOGO->Load((void*)titlescr_logo_png, titlescr_logo_png_size, Image::IMAGE_TYPE_PNG);
 
-	// Load custom characters into fonts
-	FONT_COMFORTAA_LIGHT->AddChar(CHAR_CROSS, TEX_FOOTER_ICO_CROSS, 4);
-	FONT_COMFORTAA_BOLD->AddChar(CHAR_CROSS, TEX_FOOTER_ICO_CROSS, 4);
-	FONT_COMFORTAA_REGULAR->AddChar(CHAR_CROSS, TEX_FOOTER_ICO_CROSS, 4);
+	TEX_TITLESCR_LABEL = new Image(mini);
+	TEX_TITLESCR_LABEL->Load((void*)titlescr_label_png, titlescr_label_png_size, Image::IMAGE_TYPE_PNG);
 
-	FONT_COMFORTAA_LIGHT->AddChar(CHAR_SQUARE, TEX_FOOTER_ICO_SQUARE, 4);
-	FONT_COMFORTAA_BOLD->AddChar(CHAR_SQUARE, TEX_FOOTER_ICO_SQUARE, 4);
-	FONT_COMFORTAA_REGULAR->AddChar(CHAR_SQUARE, TEX_FOOTER_ICO_SQUARE, 4);
+	TEX_TITLESCR_LINK = new Image(mini);
+	TEX_TITLESCR_LINK->Load((void*)titlescr_link_png, titlescr_link_png_size, Image::IMAGE_TYPE_PNG);
 
-	FONT_COMFORTAA_LIGHT->AddChar(CHAR_TRIANGLE, TEX_FOOTER_ICO_TRIANGLE, 4);
-	FONT_COMFORTAA_BOLD->AddChar(CHAR_TRIANGLE, TEX_FOOTER_ICO_TRIANGLE, 4);
-	FONT_COMFORTAA_REGULAR->AddChar(CHAR_TRIANGLE, TEX_FOOTER_ICO_TRIANGLE, 4); 
-
-	FONT_COMFORTAA_LIGHT->AddChar(CHAR_CIRCLE, TEX_FOOTER_ICO_CIRCLE, 4);
-	FONT_COMFORTAA_BOLD->AddChar(CHAR_CIRCLE, TEX_FOOTER_ICO_CIRCLE, 4);
-	FONT_COMFORTAA_REGULAR->AddChar(CHAR_CIRCLE, TEX_FOOTER_ICO_CIRCLE, 4);
-
-	FONT_COMFORTAA_LIGHT->AddChar(CHAR_LEFT, TEX_FOOTER_ICO_LT, 4);
-	FONT_COMFORTAA_BOLD->AddChar(CHAR_LEFT, TEX_FOOTER_ICO_LT, 4);
-	FONT_COMFORTAA_REGULAR->AddChar(CHAR_LEFT, TEX_FOOTER_ICO_LT, 4);
-
-	FONT_COMFORTAA_LIGHT->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
-	FONT_COMFORTAA_BOLD->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
-	FONT_COMFORTAA_REGULAR->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
-
-	printf("Artemis Lite::Loaded Textures\n");
+	// Load custom characters into font
+	FONT_DEFAULT->AddChar(CHAR_CROSS, TEX_FOOTER_ICO_CROSS, 4);
+	FONT_DEFAULT->AddChar(CHAR_SQUARE, TEX_FOOTER_ICO_SQUARE, 4);
+	FONT_DEFAULT->AddChar(CHAR_TRIANGLE, TEX_FOOTER_ICO_TRIANGLE, 4);
+	FONT_DEFAULT->AddChar(CHAR_CIRCLE, TEX_FOOTER_ICO_CIRCLE, 4);
+	FONT_DEFAULT->AddChar(CHAR_LEFT, TEX_FOOTER_ICO_LT, 4);
+	FONT_DEFAULT->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
 }
 
 // Unload textures, fonts
 void unloadData() {
 
-	if (FONT_COMFORTAA_REGULAR) {
-		delete FONT_COMFORTAA_REGULAR;
-		FONT_COMFORTAA_REGULAR = NULL;
+	if (FONT_DEFAULT) {
+		delete FONT_DEFAULT;
+		FONT_DEFAULT = NULL;
 	}
-	
-	if (FONT_COMFORTAA_BOLD) {
-		delete FONT_COMFORTAA_BOLD;
-		FONT_COMFORTAA_BOLD = NULL;
-	}
-	
-	if (FONT_COMFORTAA_LIGHT) {
-		delete FONT_COMFORTAA_LIGHT;
-		FONT_COMFORTAA_LIGHT = NULL;
-	}
-
 
 	if (TEX_BGIMG) {
 		delete TEX_BGIMG;
@@ -503,5 +475,15 @@ void unloadData() {
 	if (TEX_TITLESCR_LOGO) {
 		delete TEX_TITLESCR_LOGO;
 		TEX_TITLESCR_LOGO = NULL;
+	}
+
+	if (TEX_TITLESCR_LABEL) {
+		delete TEX_TITLESCR_LABEL;
+		TEX_TITLESCR_LABEL = NULL;
+	}
+
+	if (TEX_TITLESCR_LINK) {
+		delete TEX_TITLESCR_LINK;
+		TEX_TITLESCR_LINK = NULL;
 	}
 }

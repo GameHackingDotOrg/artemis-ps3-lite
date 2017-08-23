@@ -1,14 +1,14 @@
 /*
  * IMenu.hpp
  *
- * 
+ *
  *  All menus must inherit this interface and implement its virtual methods.
  */
 
 #ifndef IMENU_HPP_
 #define IMENU_HPP_
 
-#include <Mini2D/Mini2D.hpp>				// Mini2D class
+#include <Mini2D/Mini.hpp>					// Mini class
 #include <Mini2D/Image.hpp>					// Image class
 #include <Mini2D/Units.hpp>					// RectangleF, Vector2
 
@@ -43,7 +43,7 @@ namespace Menu {
 		/*
 		 * Draw:
 		 *		Draws the Window
-		 *		
+		 *
 		 * deltaTime:
 		 *		Milliseconds since last frame
 		 */
@@ -52,7 +52,7 @@ namespace Menu {
 		/*
 		 * Pad:
 		 *		Process controller input
-		 *		
+		 *
 		 * port:
 		 *		Which controller pData is coming from
 		 * pData:
@@ -63,7 +63,7 @@ namespace Menu {
 		/*
 		 * IsSubmenu:
 		 *		Whether or not this Menu is a submenu
-		 *		
+		 *
 		 * Return:
 		 *		True if the Window is to bo drawn over the previous Window
 		 */

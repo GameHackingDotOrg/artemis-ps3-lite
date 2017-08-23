@@ -49,7 +49,7 @@ endef
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-O3 -Wall -mcpu=cell -DARTEMIS_VERSION=\"$(VERSIONSTR)\" $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-O3 -Wall -mcpu=cell -DARTEMIS_VERSION=\"$(VERSIONSTR)\" -DARTEMIS_PATH=\"//dev_hdd0/game/$(APPID)/USRDIR/\" $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 
 LDFLAGS		=	$(MACHDEP) -Wl,-Map,$(notdir $@).map
@@ -57,7 +57,7 @@ LDFLAGS		=	$(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	-lMini2D -lspu_sound -ltiny3d -lfreetype -lgcm_sys -lrsx -lsysutil -lio -lnet -lz -laudioplayer -laudio -lmpg123 -logg -lsysmodule -lm \
+LIBS	:=	-lMini2D -lspu_sound -ltiny3d -lfreetype -lconfig -lgcm_sys -lrsx -lsysutil -lio -lnet -lz -laudioplayer -laudio -lmpg123 -logg -lsysmodule -lm \
 			-lpngdec -ljpgdec
 
 #---------------------------------------------------------------------------------

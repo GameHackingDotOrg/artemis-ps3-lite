@@ -1,19 +1,35 @@
 /*
  * WindowManager.cpp
  *
- * 
+ *
  *  WindowManager draws the active Window and any parent Windows it may hover over.
  *  It handles all Window transitions.
  */
 
 #include "Menu/WindowManager.hpp"			// WindowManager class
+#include "IO/UTF8.hpp"						//
+#include "Globals.hpp"						//
+
+using namespace Mini2D;
 
 namespace Menu {
 
 	static long uniqueCounter = 0;
 
-	WindowManager::WindowManager() : _activeWindow(-1) {
+	WindowManager::WindowManager(Mini * mini) : _mini(mini), _activeWindow(-1) {
+		if (!_mini) {
+			printf("Artemis Lite::WindowManager::Invalid Mini\n");
+			return;
+		}
 
+		_config = new Config::Config("artemis-ps3-lite.cfg");
+		_locale = NULL;
+		_font = NULL;
+		_texturePointer = _mini->TexturePointer;
+
+		Update();
+
+		Update();
 	}
 
 	WindowManager::~WindowManager() {
@@ -42,7 +58,7 @@ namespace Menu {
 			// Set window to previous Window
 			// The previous Window opened the current (inactive) Window
 			window = getWindowById(window->PreviousId());
-			
+
 			// Remove inactive window from _windows
 			removeWindowById(_activeWindow);
 
@@ -123,6 +139,59 @@ namespace Menu {
 
 		return window->Id();
 	}
+
+	// Update all settings from _config
+	void WindowManager::Update() {
+		std::wstring fontPath;
+
+		if (_locale)
+			delete _locale;
+
+		if (_font && _font != FONT_DEFAULT) {
+			delete _font;
+			_font = NULL;
+
+			// Reset RSX texture pointer to before the last font was loaded
+			// This allows us to reuse the memory
+			_mini->TexturePointer = _texturePointer;
+		}
+
+		_locale = new Config::Locale(_config->GetCString("translation"));
+		if (_locale) {
+
+			// Load FONT parameter from locale and attempt to load it
+			// If it is set to 'default' then load the default font
+			if ((fontPath = _locale->GetValue(L"FONT")) != L"default" && fontPath.size() > 0) {
+				_font = new Font(_mini);
+				if (_font->Load((char*)(ARTEMIS_PATH "Locales/" + IO::UTF8::FromUTF32(fontPath)).c_str(), 48) != Font::FONT_SUCCESS)
+					printf("Artemis Lite::WindowManager::Error loading font %s\n", IO::UTF8::FromUTF32(_locale->GetValue(L"FONT")).c_str());
+
+				// Load custom characters into font
+				_font->AddChar(CHAR_CROSS, TEX_FOOTER_ICO_CROSS, 4);
+				_font->AddChar(CHAR_SQUARE, TEX_FOOTER_ICO_SQUARE, 4);
+				_font->AddChar(CHAR_TRIANGLE, TEX_FOOTER_ICO_TRIANGLE, 4);
+				_font->AddChar(CHAR_CIRCLE, TEX_FOOTER_ICO_CIRCLE, 4);
+				_font->AddChar(CHAR_LEFT, TEX_FOOTER_ICO_LT, 4);
+				_font->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
+			}
+			else {
+				_font = FONT_DEFAULT;
+			}
+		}
+	}
+
+	Config::Locale * WindowManager::GetLocale() {
+		return _locale;
+	}
+
+	Config::Config * WindowManager::GetConfig() {
+		return _config;
+	}
+
+	Font * WindowManager::GetFont() {
+		return _font;
+	}
+
 
 	// Returns the Window given an ID
 	IMenu * WindowManager::getWindowById(long id) {

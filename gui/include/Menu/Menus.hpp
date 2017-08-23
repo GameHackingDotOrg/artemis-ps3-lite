@@ -1,14 +1,14 @@
 /*
  * Menus.hpp
  *
- * 
- *  Contains all the class declarations inheriting the IMenu interface.
+ *
+ *  Contains all the declarations of classes inheriting the IMenu interface.
  */
 
 #ifndef MENUS_HPP_
 #define MENUS_HPP_
 
-#include <Mini2D/Mini2D.hpp>				// Mini2D class
+#include <Mini2D/Mini.hpp>					// Mini class
 #include <Mini2D/Image.hpp>					// Image class
 #include <Mini2D/Units.hpp>					// RectangleF, Vector2
 
@@ -23,7 +23,7 @@ namespace Menu {
 
 		/*
 		 * Start Constructor
-		 *		
+		 *
 		 * mini:
 		 *		Instance of Mini2D
 		 * windowManager:
@@ -31,7 +31,7 @@ namespace Menu {
 		 * prevId:
 		 *		The 64-bit id of the Window opening this new Window
 		 */
-		Start(Mini2D * mini, WindowManager * windowManager, long prevId);
+		Start(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
 
 		~Start();
 
@@ -51,7 +51,7 @@ namespace Menu {
 		virtual bool IsSubmenu();
 
 	private:
-		Mini2D * _mini;						// Mini2D instance
+		Mini2D::Mini * _mini;				// Mini2D instance
 		WindowManager * _windowManager;		// Manager of the Windows
 
 		WindowState _windowState;			// State of the Window
@@ -59,26 +59,28 @@ namespace Menu {
 		long _previousId;					// Unique identifier of the Window that opened this Window
 
 		// Icons
-		Elements::Icon * _iconLogo;			// Artemis logo icon
 		Elements::Icon * _iconXmb;			// Disc icon
 		Elements::Icon * _iconCht;			// Cheats icon
 		Elements::Icon * _iconOpt;			// Gears icon
 		Elements::Icon * _iconAbt;			// Question mark icon
 
 		// Locations
-		Vector2 _locLogo;					// Location of _iconLogo on screen
-		Vector2 _locXmb;					// Location of _iconXmb on screen
-		Vector2 _locCht;					// Location of _iconCht on screen
-		Vector2 _locOpt;					// Location of _iconOpt on screen
-		Vector2 _locAbt;					// Location of _iconAbt on screen
-		Vector2 _locLink;					// Location of Artemis web link on screen
+		Mini2D::Vector2 _locLogo;			// Location of Artemis logo on screen
+		Mini2D::Vector2 _locLabel;			// Location of Artemis logo label on screen
+		Mini2D::Vector2 _locLink;			// Location of Artemis web link on screen
+		Mini2D::Vector2 _locXmb;			// Location of _iconXmb on screen
+		Mini2D::Vector2 _locCht;			// Location of _iconCht on screen
+		Mini2D::Vector2 _locOpt;			// Location of _iconOpt on screen
+		Mini2D::Vector2 _locAbt;			// Location of _iconAbt on screen
 
 		// Dimensions
-		Vector2 _dimIco;					// Size of disc, cheats, gears, and question mark icons
-		Vector2 _dimLogo;					// Size of Artemis logo icon
+		Mini2D::Vector2 _dimIco;			// Size of disc, cheats, gears, and question mark icons
+		Mini2D::Vector2 _dimLogo;			// Size of Artemis logo icon
+		Mini2D::Vector2 _dimLabel;			// Size of Artemis logo label
+		Mini2D::Vector2 _dimLink;			// Size of Artemis page link
 
-		Vector2 _fontIco;					// Font size of label for disc, cheats, gears, and question mark icons
-		
+		float _fontIco;						// Font size of label for disc, cheats, gears, and question mark icons
+
 
 		int _selectedIndex;					// Actively selected icon
 	};
