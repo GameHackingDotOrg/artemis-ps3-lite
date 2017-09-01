@@ -14,16 +14,16 @@
 using namespace Mini2D;
 
 namespace Menu {
-	
+
 	//---------------------------------------------------------------------------
-	// Constructor and Deconstructor
+	// Setup all menu variables
 	//---------------------------------------------------------------------------
 	Start::Start(Mini * mini, WindowManager * windowManager, long prevId) : _mini(mini), _windowManager(windowManager), _windowState(WINDOW_STATE_INACTIVE), _id(-1), _previousId(prevId), _selectedIndex(0) {
 
 		if (!_mini || !_windowManager)
 			return;
 
-		// Define out icon font size
+		// Define our icon font size
 		_fontIco = FONT_MEDIUM;
 
 		// Set dimensions
@@ -61,9 +61,13 @@ namespace Menu {
 		DimToScreen(_dimLabel);
 		DimToScreen(_dimLink);
 
+		// Move the description label down below the logo
 		_locLabel.Y += _locLogo.Y + _dimLogo.Y * 0.5;
 	}
 
+	//---------------------------------------------------------------------------
+	// Clean up
+	//---------------------------------------------------------------------------
 	Start::~Start() {
 
 		// Delete all our allocations
@@ -116,7 +120,7 @@ namespace Menu {
 	}
 
 	//---------------------------------------------------------------------------
-	// Draw() and Pad()
+	// Draws the menu
 	//---------------------------------------------------------------------------
 	void Start::Draw(float deltaTime) {
 		Font * font;
@@ -177,6 +181,9 @@ namespace Menu {
 		TEX_TITLESCR_LINK->Draw(0x000000FF);
 	}
 
+	//---------------------------------------------------------------------------
+	// Updates the selected icon based on pad input
+	//---------------------------------------------------------------------------
 	void Start::Pad(int port, padData pData) {
 
 		// Scroll through the list of icons
@@ -193,7 +200,7 @@ namespace Menu {
 	}
 
 	//---------------------------------------------------------------------------
-	// Misc
+	// Tells the WindowManager that this is not drawn on top of the previous window
 	//---------------------------------------------------------------------------
 	bool Start::IsSubmenu() {
 		return false;

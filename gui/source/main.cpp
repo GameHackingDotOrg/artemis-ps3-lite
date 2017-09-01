@@ -44,7 +44,9 @@ void padCopy(padData * destination, padData * source, bool copyDpadOnly);
 void loadData(Mini2D::Mini * mini);
 void unloadData();
 
+//---------------------------------------------------------------------------
 // Program Start
+//---------------------------------------------------------------------------
 int main(s32 argc, const char* argv[]) {
 
 	// Initialize Mini2D
@@ -72,7 +74,9 @@ int main(s32 argc, const char* argv[]) {
 	return 0;
 }
 
+//---------------------------------------------------------------------------
 // Called every frame to draw contents onto screen
+//---------------------------------------------------------------------------
 int drawUpdate(float deltaTime, unsigned long frame) {
 
 	// Decrement dpadIgnore timer
@@ -86,7 +90,9 @@ int drawUpdate(float deltaTime, unsigned long frame) {
 	return doExit;
 }
 
+//---------------------------------------------------------------------------
 // Processes pad and forwards the result to the window manager
+//---------------------------------------------------------------------------
 void padUpdate(int changed, int port, padData pData) {
 
 	// If L3 and R3 are pressed, close Artemis Lite
@@ -134,7 +140,9 @@ void padUpdate(int changed, int port, padData pData) {
 	windowManager->Pad(port, &psuedoPadData[port]);
 }
 
+//---------------------------------------------------------------------------
 // Unload and exit
+//---------------------------------------------------------------------------
 void exit() {
 
 	printf("Artemis Lite::Exiting\n");
@@ -154,7 +162,9 @@ void exit() {
 	exit(0);
 }
 
+//---------------------------------------------------------------------------
 // Copies the pad data from source to destination
+//---------------------------------------------------------------------------
 void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
 
 	if (!source || !destination)
@@ -173,7 +183,9 @@ void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
 	memcpy(destination, source, sizeof(padData));
 }
 
+//---------------------------------------------------------------------------
 // Load textures, fonts
+//---------------------------------------------------------------------------
 void loadData(Mini2D::Mini * mini) {
 
 	// Load fonts
@@ -304,7 +316,9 @@ void loadData(Mini2D::Mini * mini) {
 	FONT_DEFAULT->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
 }
 
+//---------------------------------------------------------------------------
 // Unload textures, fonts
+//---------------------------------------------------------------------------
 void unloadData() {
 
 	if (FONT_DEFAULT) {

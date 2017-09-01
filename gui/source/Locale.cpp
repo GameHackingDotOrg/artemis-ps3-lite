@@ -18,7 +18,7 @@ namespace Config {
 	static const std::wstring wstringEmpty = L"";
 
 	//---------------------------------------------------------------------------
-	// Constructor and Deconstructor
+	// Process locale at filePath
 	//---------------------------------------------------------------------------
 	Locale::Locale(const char * filePath) : _filePath(filePath) {
 
@@ -26,12 +26,15 @@ namespace Config {
 		processFile((ARTEMIS_PATH "Locales/" + std::string(filePath)).c_str());
 	}
 
+	//---------------------------------------------------------------------------
+	// Clean up
+	//---------------------------------------------------------------------------
 	Locale::~Locale() {
 		_map.clear();
 	}
 
 	//---------------------------------------------------------------------------
-	// Public Methods
+	// Returns the value of the given key
 	//---------------------------------------------------------------------------
 	const std::wstring& Locale::GetValue(const std::wstring& key) {
 		if (_map.count(key))
@@ -40,12 +43,15 @@ namespace Config {
 		return wstringEmpty;
 	}
 
+	//---------------------------------------------------------------------------
+	// Gets the file path
+	//---------------------------------------------------------------------------
 	const char * Locale::FilePath() {
 		return _filePath;
 	}
 
 	//---------------------------------------------------------------------------
-	// Private Methods
+	// Process the locale character by character
 	//---------------------------------------------------------------------------
 	void Locale::processFile(const char * filePath) {
 		bool ignoreLine = false, isKey = false, isValue = false;
@@ -58,9 +64,8 @@ namespace Config {
 		for (std::wstring::iterator i = contents.begin(); i != contents.end(); i++) {
 
 			// If we hit a comment, ignore the rest of the line
-			if (*i == '#') {
+			if (*i == '#')
 				ignoreLine = true;
-			}
 
 			// Check if we hit a new line
 			// If we do let's add a key value pair if we can

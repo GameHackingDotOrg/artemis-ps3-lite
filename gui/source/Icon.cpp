@@ -13,7 +13,9 @@ namespace Menu
 {
 	namespace Elements {
 
-		// Constructor
+		//---------------------------------------------------------------------------
+		// Setup
+		//---------------------------------------------------------------------------
 		Icon::Icon(Image * icon, const std::wstring& label) : _icon(icon), _label(label) {
 
 			// Set defaults
@@ -26,13 +28,17 @@ namespace Menu
 			FontSize = 0;
 		}
 
-		// Deconstructor
+		//---------------------------------------------------------------------------
+		// Clean clean
+		//---------------------------------------------------------------------------
 		Icon::~Icon() {
 
 			_icon = NULL;
 		}
 
+		//---------------------------------------------------------------------------
 		// Draw the Icon
+		//---------------------------------------------------------------------------
 		void Icon::Draw(Font * font, unsigned int RGBA) {
 
 			// We're just gonna move the label under the image and add the FontSize for some extra buffering

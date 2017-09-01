@@ -6,9 +6,9 @@
  *  It handles all Window transitions.
  */
 
-#include "Menu/WindowManager.hpp"			// WindowManager class
-#include "IO/UTF8.hpp"						//
-#include "Globals.hpp"						//
+#include "Menu/WindowManager.hpp"
+#include "IO/UTF8.hpp"
+#include "Globals.hpp"
 
 using namespace Mini2D;
 
@@ -16,7 +16,11 @@ namespace Menu {
 
 	static long uniqueCounter = 0;
 
+	//---------------------------------------------------------------------------
+	// Load up the config, locale, and font
+	//---------------------------------------------------------------------------
 	WindowManager::WindowManager(Mini * mini) : _mini(mini), _activeWindow(-1) {
+
 		if (!_mini) {
 			printf("Artemis Lite::WindowManager::Invalid Mini\n");
 			return;
@@ -28,10 +32,11 @@ namespace Menu {
 		_texturePointer = _mini->TexturePointer;
 
 		Update();
-
-		Update();
 	}
 
+	//---------------------------------------------------------------------------
+	// Clean up
+	//---------------------------------------------------------------------------
 	WindowManager::~WindowManager() {
 
 		// Delete all of our windows
@@ -41,14 +46,36 @@ namespace Menu {
 
 		// Clear vector
 		_windows.clear();
+
+		// Delete our config
+		if (_config) {
+			delete _config;
+			_config = NULL;
+		}
+
+		// Delete our config
+		if (_locale) {
+			delete _locale;
+			_locale = NULL;
+		}
+
+		if (_font && _font != FONT_DEFAULT) {
+			delete _font;
+			_font = NULL;
+
+			// Reset RSX texture pointer to before the last font was loaded
+			// This allows us to reuse the memory
+			_mini->TexturePointer = _texturePointer;
+		}
 	}
 
+	//---------------------------------------------------------------------------
 	// Draws the active window (and any windows it hovers over)
 	// Returns true when the main window is closed (signalling to close the app)
+	//---------------------------------------------------------------------------
 	bool WindowManager::Draw(float deltaTime) {
 
 		IMenu * window = getWindowById(_activeWindow);
-
 		if (!window)
 			return false;
 
@@ -79,11 +106,12 @@ namespace Menu {
 		return false;
 	}
 
+	//---------------------------------------------------------------------------
 	// Forwards the pad data to the active Window
+	//---------------------------------------------------------------------------
 	void WindowManager::Pad(int port, padData * pData) {
 
 		IMenu * window = getWindowById(_activeWindow);
-
 		if (!window)
 			return;
 
@@ -91,7 +119,9 @@ namespace Menu {
 		window->Pad(port, *pData);
 	}
 
+	//---------------------------------------------------------------------------
 	// Set WindowState of Window with ID 'id' to WINDOW_STATE_OPENING
+	//---------------------------------------------------------------------------
 	bool WindowManager::OpenWindow(long id) {
 
 		// Iterate through _windows
@@ -107,7 +137,9 @@ namespace Menu {
 		return false;
 	}
 
+	//---------------------------------------------------------------------------
 	// Set WindowState of Window with ID 'id' to WINDOW_STATE_CLOSING
+	//---------------------------------------------------------------------------
 	bool WindowManager::CloseWindow(long id) {
 
 		// Iterate through _windows
@@ -122,7 +154,9 @@ namespace Menu {
 		return false;
 	}
 
+	//---------------------------------------------------------------------------
 	// Add Window to _windows
+	//---------------------------------------------------------------------------
 	long WindowManager::AddWindow(Menu::IMenu * window) {
 
 		if (!window)
@@ -140,7 +174,9 @@ namespace Menu {
 		return window->Id();
 	}
 
+	//---------------------------------------------------------------------------
 	// Update all settings from _config
+	//---------------------------------------------------------------------------
 	void WindowManager::Update() {
 		std::wstring fontPath;
 
@@ -180,20 +216,29 @@ namespace Menu {
 		}
 	}
 
+
+	//---------------------------------------------------------------------------
+	// Get Methods
+	//---------------------------------------------------------------------------
 	Config::Locale * WindowManager::GetLocale() {
+
 		return _locale;
 	}
 
 	Config::Config * WindowManager::GetConfig() {
+
 		return _config;
 	}
 
 	Font * WindowManager::GetFont() {
+
 		return _font;
 	}
 
 
+	//---------------------------------------------------------------------------
 	// Returns the Window given an ID
+	//---------------------------------------------------------------------------
 	IMenu * WindowManager::getWindowById(long id) {
 
 		// Iterate through _windows
@@ -206,7 +251,9 @@ namespace Menu {
 		return NULL;
 	}
 
+	//---------------------------------------------------------------------------
 	// Removes the window from _windows given an ID
+	//---------------------------------------------------------------------------
 	void WindowManager::removeWindowById(long id) {
 
 		// Iterate through _windows
@@ -220,8 +267,10 @@ namespace Menu {
 		}
 	}
 
+	//---------------------------------------------------------------------------
 	// Draws the previous window if the current window is a submenu
 	// It will draw multiple layers of submenus
+	//---------------------------------------------------------------------------
 	void WindowManager::recursiveDrawWindows(IMenu * window, float deltaTime) {
 
 		if (window->PreviousId() >= 0 && window->IsSubmenu())
