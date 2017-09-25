@@ -42,10 +42,10 @@ namespace Menu {
 		_locAbt.Set(0.7, 0.6);
 
 		// Initialize our icons
-		_iconXmb  = new Elements::Icon(TEX_TITLESCR_ICO_XMB, _windowManager->GetLocale()->GetValue(START_XMB_ICON));
-		_iconCht  = new Elements::Icon(TEX_TITLESCR_ICO_CHT, _windowManager->GetLocale()->GetValue(START_CHT_ICON));
-		_iconOpt  = new Elements::Icon(TEX_TITLESCR_ICO_OPT, _windowManager->GetLocale()->GetValue(START_OPT_ICON));
-		_iconAbt  = new Elements::Icon(TEX_TITLESCR_ICO_ABT, _windowManager->GetLocale()->GetValue(START_ABT_ICON));
+		_iconXmb  = new Elements::Icon(TEX_TITLESCR_ICO_XMB, _windowManager->GetLocale()->GetValue(LOCALE_GEN_LAUNCH));
+		_iconCht  = new Elements::Icon(TEX_TITLESCR_ICO_CHT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_CHEATS));
+		_iconOpt  = new Elements::Icon(TEX_TITLESCR_ICO_OPT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_OPTIONS));
+		_iconAbt  = new Elements::Icon(TEX_TITLESCR_ICO_ABT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_ABOUT));
 
 		// Translate location and dimension to screen space
 		LocToScreen(_locLogo);

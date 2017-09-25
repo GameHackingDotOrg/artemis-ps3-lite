@@ -2,13 +2,30 @@
 #
 # American English
 
-NAME						American English
-FONT						default
+# Cross       ''
+# Triangle    ''
+# Square      ''
+# Circle      ''
+# Left        ''
+# Right       ''
 
-# Main Menu
-START_XMB_ICON				Start Game
-START_CHT_ICON				Cheats
-START_OPT_ICON				Options
-START_ABT_ICON				About
+
+NAME                        American English
+FONT                        default
+
+# General
+GENERAL_HELP                press  to view help
+GENERAL_LAUNCH              Start Game
+GENERAL_CHEATS              Cheats
+GENERAL_OPTIONS             Options
+GENERAL_ABOUT               About
 
 # Cheats Menu
+
+
+# Options Menu
+
+
+# About Menu
+ABOUT_THANKS                Thank you for using Artemis!
+ABOUT_ARTEMIS               a cross platform hacking system

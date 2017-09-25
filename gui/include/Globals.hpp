@@ -105,10 +105,15 @@
 #define CHAR_LEFT							(wchar_t)0x0014
 #define CHAR_RIGHT							(wchar_t)0x0015
 
-const std::wstring START_XMB_ICON =			L"START_XMB_ICON";
-const std::wstring START_CHT_ICON =			L"START_CHT_ICON";
-const std::wstring START_OPT_ICON =			L"START_OPT_ICON";
-const std::wstring START_ABT_ICON =			L"START_ABT_ICON";
+const std::wstring LOCALE_GEN_LAUNCH =		L"GENERAL_LAUNCH";
+const std::wstring LOCALE_GEN_CHEATS =		L"GENERAL_CHEATS";
+const std::wstring LOCALE_GEN_OPTIONS =		L"GENERAL_OPTIONS";
+const std::wstring LOCALE_GEN_ABOUT =		L"GENERAL_ABOUT";
+const std::wstring LOCALE_GEN_HELP =		L"GENERAL_HELP";
+
+const std::wstring LOCALE_ABT_THANKS =		L"ABOUT_THANKS";
+const std::wstring LOCALE_ABT_ARTEMIS =		L"ABOUT_ARTEMIS";
+
 
 extern Mini2D::Image * TEX_BGIMG;
 extern Mini2D::Image * TEX_CHEAT;
