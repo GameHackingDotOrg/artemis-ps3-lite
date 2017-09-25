@@ -84,6 +84,71 @@ namespace Menu {
 
 		int _selectedIndex;					// Actively selected icon
 	};
+
+	class About : public IMenu {
+	public:
+
+		/*
+		 * About Constructor
+		 *
+		 * mini:
+		 *		Instance of Mini2D
+		 * windowManager:
+		 *		Instance of WindowManager
+		 * prevId:
+		 *		The 64-bit id of the Window opening this new Window
+		 */
+		About(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
+
+		~About();
+
+		// Getters and Setters
+		virtual const WindowState& State() const;
+  		virtual void State(const WindowState& newState);
+
+  		virtual const long& Id() const;
+  		virtual void Id(const long& newId);
+
+  		virtual const long& PreviousId() const;
+  		virtual void PreviousId(const long& newPreviousId);
+
+		// Implementations of pure virtual methods from IMenu
+		virtual void Draw(float deltaTime);
+		virtual void Pad(int port, padData pData);
+		virtual bool IsSubmenu();
+
+	private:
+		// Mini2D instance
+		Mini2D::Mini * _mini;
+
+		// Manager of the Windows
+		WindowManager * _windowManager;
+
+		// State of the Window
+		WindowState _windowState;
+
+		// Unique identifier of the Window
+		long _id;
+
+		// Unique identifier of the Window that opened this Window
+		long _previousId;
+
+		// Locations
+		Mini2D::Vector2 _locHeaderLine;
+		Mini2D::Vector2 _locHeaderLogo;
+		Mini2D::Vector2 _locHeaderLeft;
+		Mini2D::Vector2 _locHeaderRight;
+		Mini2D::Vector2 _locThank;
+		Mini2D::Vector2 _locThankFoot;
+
+		// Dimensions
+		Mini2D::Vector2 _dimHeaderLine;
+		Mini2D::Vector2 _dimHeaderLogo;
+
+		// Font size
+		float _fontHeaderLeft;
+		float _fontHeaderRight;
+	};
 }
 
 #endif /* MENUS_HPP_ */
