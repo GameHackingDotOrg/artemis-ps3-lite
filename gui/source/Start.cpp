@@ -197,6 +197,13 @@ namespace Menu {
 			if (_selectedIndex > 3)
 				_selectedIndex = 0;
 		}
+		else if (pData.BTN_CROSS && State() == WINDOW_STATE_ACTIVE) {
+			switch (_selectedIndex) {
+				case 3:
+					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::About(_mini, _windowManager, Id())));
+					break;
+			}
+		}
 	}
 
 	//---------------------------------------------------------------------------
