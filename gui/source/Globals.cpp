@@ -1,14 +1,14 @@
 /*
- * Globals.hpp
+ * Globals.cpp
  *
  *
  *  Serves as a place for common methods and variables.
  */
 
-#include <Mini2D/Mini.hpp>					// Mini class
-#include <Mini2D/Image.hpp>					// Image class
-#include <Mini2D/Font.hpp>					// Font class
-#include <Mini2D/Units.hpp>					// Vector2
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
+#include <Mini2D/Units.hpp>
 
 using namespace Mini2D;
 
@@ -50,9 +50,9 @@ Image * TEX_TITLESCR_LINK;
 
 Font * FONT_DEFAULT;
 
-float FONT_SMALL =						0.0105;
-float FONT_MEDIUM =						FONT_SMALL * 1.5;
-float FONT_LARGE =						FONT_MEDIUM * 1.5;
+float FONT_SMALL =   0.0105;
+float FONT_MEDIUM =  FONT_SMALL * 1.5;
+float FONT_LARGE =   FONT_MEDIUM * 1.5;
 
-Vector2 LOC_CENTER =					Vector2(0.5, 0.5);
-Vector2 DIM_FULL =						Vector2(1.0, 1.0);
+Vector2 LOC_CENTER = Vector2(0.5, 0.5);
+Vector2 DIM_FULL =   Vector2(1.0, 1.0);

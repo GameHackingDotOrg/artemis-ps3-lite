@@ -13,9 +13,10 @@
 
 #include <Mini2D/Font.hpp>
 
-namespace Config {
-
-	class Locale {
+namespace Config
+{
+	class Locale
+	{
 	public:
 
 		/*
@@ -48,6 +49,7 @@ namespace Config {
 		 */
 		const char * FilePath();
 	private:
+		
 		// Key value pair container
 		std::map<std::wstring, std::wstring> _map;
 

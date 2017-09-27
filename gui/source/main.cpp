@@ -8,17 +8,17 @@
  *  Also contains methods for dpad acceleration and other pad effects.
  */
 
-#include <stdio.h>							// printf()
-#include <io/pad.h>							// Pad stuff
+#include <stdio.h>
+#include <io/pad.h>
 
-#include <Mini2D/Mini.hpp>					// Mini
-#include <Mini2D/Image.hpp>					// Image class from Mini2D
-#include <Mini2D/Font.hpp>					// Font class from Mini2D
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
 
-#include "Menu/IMenu.hpp"					// IMenu interface declaration
-#include "Menu/Menus.hpp"					// Declaration of all menus
-#include "Menu/WindowManager.hpp"			// WindowManager declaration
-#include "Globals.hpp"						// Images, Fonts
+#include "Menu/IMenu.hpp"
+#include "Menu/Menus.hpp"
+#include "Menu/WindowManager.hpp"
+#include "Globals.hpp"
 
 using namespace Mini2D;
 
@@ -47,8 +47,8 @@ void unloadData();
 //---------------------------------------------------------------------------
 // Program Start
 //---------------------------------------------------------------------------
-int main(s32 argc, const char* argv[]) {
-
+int main(s32 argc, const char* argv[])
+{
 	// Initialize Mini2D
 	mini = new Mini((Mini::PadCallback_f)&padUpdate, (Mini::DrawCallback_f)&drawUpdate, (Mini::ExitCallback_f)&exit);
 
@@ -77,8 +77,8 @@ int main(s32 argc, const char* argv[]) {
 //---------------------------------------------------------------------------
 // Called every frame to draw contents onto screen
 //---------------------------------------------------------------------------
-int drawUpdate(float deltaTime, unsigned long frame) {
-
+int drawUpdate(float deltaTime, unsigned long frame)
+{
 	// Decrement dpadIgnore timer
 	if (dpadIgnore >= 0)
 		dpadIgnore -= deltaTime;
@@ -93,8 +93,8 @@ int drawUpdate(float deltaTime, unsigned long frame) {
 //---------------------------------------------------------------------------
 // Processes pad and forwards the result to the window manager
 //---------------------------------------------------------------------------
-void padUpdate(int changed, int port, padData pData) {
-
+void padUpdate(int changed, int port, padData pData)
+{
 	// If L3 and R3 are pressed, close Artemis Lite
 	if (pData.BTN_L3 && pData.BTN_R3 && (changed & Mini::BTN_CHANGED_L3 || changed & Mini::BTN_CHANGED_R3))
 		doExit = -1;
@@ -104,7 +104,8 @@ void padUpdate(int changed, int port, padData pData) {
 		memcpy(&psuedoPadData[port], &pData, sizeof(padData));
 
 	// Determine if dpad is in use or not
-	if (changed & (Mini::BTN_CHANGED_UP | Mini::BTN_CHANGED_DOWN | Mini::BTN_CHANGED_LEFT | Mini::BTN_CHANGED_RIGHT)) {
+	if (changed & (Mini::BTN_CHANGED_UP | Mini::BTN_CHANGED_DOWN | Mini::BTN_CHANGED_LEFT | Mini::BTN_CHANGED_RIGHT))
+	{
 		dpadIgnoreState = pData.BTN_UP || pData.BTN_DOWN || pData.BTN_LEFT || pData.BTN_RIGHT;
 		dpadIgnore = 0;
 	}
@@ -117,7 +118,8 @@ void padUpdate(int changed, int port, padData pData) {
 
 	// If we have a dpad held down, then pass dpad values everytime dpadIgnore hits <= 0
 	// Otherwise if no dpad button is held down, then just copy everything
-	if (dpadIgnoreState && dpadIgnore <= 0) {
+	if (dpadIgnoreState && dpadIgnore <= 0)
+	{
 		// Copy the dpad data from pData to our buffer
 		padCopy(&psuedoPadData[port], &pData, 1);
 
@@ -130,10 +132,9 @@ void padUpdate(int changed, int port, padData pData) {
 		// From 20 - Infinity, we send the dpad 40 times a second
 		dpadIgnore = dpadIgnoreState > 20 ? 0.025 : (dpadIgnoreState > 6 ? 0.1 : 0.25);
 	}
-	else if (!dpadIgnoreState) {
+	else if (!dpadIgnoreState)
+	{
 		padCopy(&psuedoPadData[port], &pData, 0);
-
-
 	}
 
 	// Forward pad to active Window
@@ -143,18 +144,21 @@ void padUpdate(int changed, int port, padData pData) {
 //---------------------------------------------------------------------------
 // Unload and exit
 //---------------------------------------------------------------------------
-void exit() {
+void exit()
+{
 
 	printf("Artemis Lite::Exiting\n");
 
-	if (windowManager) {
+	if (windowManager)
+	{
 		delete windowManager;
 		windowManager = NULL;
 	}
 
 	unloadData();
 
-	if (mini) {
+	if (mini)
+	{
 		delete mini;
 		mini = NULL;
 	}
@@ -165,13 +169,15 @@ void exit() {
 //---------------------------------------------------------------------------
 // Copies the pad data from source to destination
 //---------------------------------------------------------------------------
-void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
+void padCopy(padData * destination, padData * source, bool copyDpadOnly)
+{
 
 	if (!source || !destination)
 		return;
 
 	// Copy only the dpad values from source
-	if (copyDpadOnly) {
+	if (copyDpadOnly)
+	{
 		destination->BTN_UP = source->BTN_UP;
 		destination->BTN_DOWN = source->BTN_DOWN;
 		destination->BTN_LEFT = source->BTN_LEFT;
@@ -186,15 +192,15 @@ void padCopy(padData * destination, padData * source, bool copyDpadOnly) {
 //---------------------------------------------------------------------------
 // Load textures, fonts
 //---------------------------------------------------------------------------
-void loadData(Mini2D::Mini * mini) {
-
+void loadData(Mini2D::Mini * mini)
+{
 	// Load fonts
 	FONT_DEFAULT = new Font(mini);
 	FONT_DEFAULT->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 48);
 
 	// Initialize default variables
-	LocToScreen2(LOC_CENTER, mini);
-	LocToScreen2(DIM_FULL, mini);
+	LOC_TO_SCREEN(LOC_CENTER, mini);
+	LOC_TO_SCREEN(DIM_FULL, mini);
 
 	// Initialize font sizes
 	FONT_SMALL *= mini->MAXW;
@@ -319,184 +325,221 @@ void loadData(Mini2D::Mini * mini) {
 //---------------------------------------------------------------------------
 // Unload textures, fonts
 //---------------------------------------------------------------------------
-void unloadData() {
+void unloadData()
+{
 
-	if (FONT_DEFAULT) {
+	if (FONT_DEFAULT)
+	{
 		delete FONT_DEFAULT;
 		FONT_DEFAULT = NULL;
 	}
 
-	if (TEX_BGIMG) {
+	if (TEX_BGIMG)
+	{
 		delete TEX_BGIMG;
 		TEX_BGIMG = NULL;
 	}
 
-	if (TEX_CHEAT) {
+	if (TEX_CHEAT)
+	{
 		delete TEX_CHEAT;
 		TEX_CHEAT = NULL;
 	}
 
-	if (TEX_CIRCLE_ERROR_DARK) {
+	if (TEX_CIRCLE_ERROR_DARK)
+	{
 		delete TEX_CIRCLE_ERROR_DARK;
 		TEX_CIRCLE_ERROR_DARK = NULL;
 	}
 
-	if (TEX_CIRCLE_ERROR_LIGHT) {
+	if (TEX_CIRCLE_ERROR_LIGHT)
+	{
 		delete TEX_CIRCLE_ERROR_LIGHT;
 		TEX_CIRCLE_ERROR_LIGHT = NULL;
 	}
 
-	if (TEX_CIRCLE_LOADING_BG) {
+	if (TEX_CIRCLE_LOADING_BG)
+	{
 		delete TEX_CIRCLE_LOADING_BG;
 		TEX_CIRCLE_LOADING_BG = NULL;
 	}
 
-	if (TEX_CIRCLE_LOADING_SEEK) {
+	if (TEX_CIRCLE_LOADING_SEEK)
+	{
 		delete TEX_CIRCLE_LOADING_SEEK;
 		TEX_CIRCLE_LOADING_SEEK = NULL;
 	}
 
-	if (TEX_EDIT_ICO_ADD) {
+	if (TEX_EDIT_ICO_ADD)
+	{
 		delete TEX_EDIT_ICO_ADD;
 		TEX_EDIT_ICO_ADD = NULL;
 	}
 
-	if (TEX_EDIT_ICO_DEL) {
+	if (TEX_EDIT_ICO_DEL)
+	{
 		delete TEX_EDIT_ICO_DEL;
 		TEX_EDIT_ICO_DEL = NULL;
 	}
 
-	if (TEX_EDIT_SHADOW) {
+	if (TEX_EDIT_SHADOW)
+	{
 		delete TEX_EDIT_SHADOW;
 		TEX_EDIT_SHADOW = NULL;
 	}
 
-	if (TEX_FOOTER_ICO_CIRCLE) {
+	if (TEX_FOOTER_ICO_CIRCLE)
+	{
 		delete TEX_FOOTER_ICO_CIRCLE;
 		TEX_FOOTER_ICO_CIRCLE = NULL;
 	}
 
-	if (TEX_FOOTER_ICO_CROSS) {
+	if (TEX_FOOTER_ICO_CROSS)
+	{
 		delete TEX_FOOTER_ICO_CROSS;
 		TEX_FOOTER_ICO_CROSS = NULL;
 	}
 
-	if (TEX_FOOTER_ICO_LT) {
+	if (TEX_FOOTER_ICO_LT)
+	{
 		delete TEX_FOOTER_ICO_LT;
 		TEX_FOOTER_ICO_LT = NULL;
 	}
 
-	if (TEX_FOOTER_ICO_RT) {
+	if (TEX_FOOTER_ICO_RT)
+	{
 		delete TEX_FOOTER_ICO_RT;
 		TEX_FOOTER_ICO_RT = NULL;
 	}
 
-	if (TEX_FOOTER_ICO_SQUARE) {
+	if (TEX_FOOTER_ICO_SQUARE)
+	{
 		delete TEX_FOOTER_ICO_SQUARE;
 		TEX_FOOTER_ICO_SQUARE = NULL;
 	}
 
-	if (TEX_FOOTER_ICO_TRIANGLE) {
+	if (TEX_FOOTER_ICO_TRIANGLE)
+	{
 		delete TEX_FOOTER_ICO_TRIANGLE;
 		TEX_FOOTER_ICO_TRIANGLE = NULL;
 	}
 
-	if (TEX_HEADER_DOT) {
+	if (TEX_HEADER_DOT)
+	{
 		delete TEX_HEADER_DOT;
 		TEX_HEADER_DOT = NULL;
 	}
 
-	if (TEX_HEADER_ICO_ABT) {
+	if (TEX_HEADER_ICO_ABT)
+	{
 		delete TEX_HEADER_ICO_ABT;
 		TEX_HEADER_ICO_ABT = NULL;
 	}
 
-	if (TEX_HEADER_ICO_CHT) {
+	if (TEX_HEADER_ICO_CHT)
+	{
 		delete TEX_HEADER_ICO_CHT;
 		TEX_HEADER_ICO_CHT = NULL;
 	}
 
-	if (TEX_HEADER_ICO_OPT) {
+	if (TEX_HEADER_ICO_OPT)
+	{
 		delete TEX_HEADER_ICO_OPT;
 		TEX_HEADER_ICO_OPT = NULL;
 	}
 
-	if (TEX_HEADER_ICO_XMB) {
+	if (TEX_HEADER_ICO_XMB)
+	{
 		delete TEX_HEADER_ICO_XMB;
 		TEX_HEADER_ICO_XMB = NULL;
 	}
 
-	if (TEX_HEADER_LINE) {
+	if (TEX_HEADER_LINE)
+	{
 		delete TEX_HEADER_LINE;
 		TEX_HEADER_LINE = NULL;
 	}
 
-	if (TEX_HELP) {
+	if (TEX_HELP)
+	{
 		delete TEX_HELP;
 		TEX_HELP = NULL;
 	}
 
-	if (TEX_MARK_ARROW) {
+	if (TEX_MARK_ARROW)
+	{
 		delete TEX_MARK_ARROW;
 		TEX_MARK_ARROW = NULL;
 	}
 
-	if (TEX_MARK_LINE) {
+	if (TEX_MARK_LINE)
+	{
 		delete TEX_MARK_LINE;
 		TEX_MARK_LINE = NULL;
 	}
 
-	if (TEX_OPT_OFF) {
+	if (TEX_OPT_OFF)
+	{
 		delete TEX_OPT_OFF;
 		TEX_OPT_OFF = NULL;
 	}
 
-	if (TEX_OPT_ON) {
+	if (TEX_OPT_ON)
+	{
 		delete TEX_OPT_ON;
 		TEX_OPT_ON = NULL;
 	}
 
-	if (TEX_SCROLL_BG) {
+	if (TEX_SCROLL_BG)
+	{
 		delete TEX_SCROLL_BG;
 		TEX_SCROLL_BG = NULL;
 	}
 
-	if (TEX_SCROLL_LOCK) {
+	if (TEX_SCROLL_LOCK)
+	{
 		delete TEX_SCROLL_LOCK;
 		TEX_SCROLL_LOCK = NULL;
 	}
 
-	if (TEX_TITLESCR_ICO_ABT) {
+	if (TEX_TITLESCR_ICO_ABT)
+	{
 		delete TEX_TITLESCR_ICO_ABT;
 		TEX_TITLESCR_ICO_ABT = NULL;
 	}
 
-	if (TEX_TITLESCR_ICO_CHT) {
+	if (TEX_TITLESCR_ICO_CHT)
+	{
 		delete TEX_TITLESCR_ICO_CHT;
 		TEX_TITLESCR_ICO_CHT = NULL;
 	}
 
-	if (TEX_TITLESCR_ICO_OPT) {
+	if (TEX_TITLESCR_ICO_OPT)
+	{
 		delete TEX_TITLESCR_ICO_OPT;
 		TEX_TITLESCR_ICO_OPT = NULL;
 	}
 
-	if (TEX_TITLESCR_ICO_XMB) {
+	if (TEX_TITLESCR_ICO_XMB)
+	{
 		delete TEX_TITLESCR_ICO_XMB;
 		TEX_TITLESCR_ICO_XMB = NULL;
 	}
 
-	if (TEX_TITLESCR_LOGO) {
+	if (TEX_TITLESCR_LOGO)
+	{
 		delete TEX_TITLESCR_LOGO;
 		TEX_TITLESCR_LOGO = NULL;
 	}
 
-	if (TEX_TITLESCR_LABEL) {
+	if (TEX_TITLESCR_LABEL)
+	{
 		delete TEX_TITLESCR_LABEL;
 		TEX_TITLESCR_LABEL = NULL;
 	}
 
-	if (TEX_TITLESCR_LINK) {
+	if (TEX_TITLESCR_LINK)
+	{
 		delete TEX_TITLESCR_LINK;
 		TEX_TITLESCR_LINK = NULL;
 	}

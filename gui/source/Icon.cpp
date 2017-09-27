@@ -5,19 +5,21 @@
  *  A simple class for drawing an Image with a label under it.
  */
 
-#include "Menu/Elements/Icon.hpp"			// Icon class declaration
+#include "Menu/Elements/Icon.hpp"
 
 using namespace Mini2D;
 
 namespace Menu
 {
-	namespace Elements {
-
+	namespace Elements
+	{
 		//---------------------------------------------------------------------------
 		// Setup
 		//---------------------------------------------------------------------------
-		Icon::Icon(Image * icon, const std::wstring& label) : _icon(icon), _label(label) {
-
+		Icon::Icon(Image * icon, const std::wstring& label) :
+		_icon(icon),
+		_label(label)
+		{
 			// Set defaults
 			Location.X = 0;
 			Location.Y = 0;
@@ -31,16 +33,16 @@ namespace Menu
 		//---------------------------------------------------------------------------
 		// Clean clean
 		//---------------------------------------------------------------------------
-		Icon::~Icon() {
-
+		Icon::~Icon()
+		{
 			_icon = NULL;
 		}
 
 		//---------------------------------------------------------------------------
 		// Draw the Icon
 		//---------------------------------------------------------------------------
-		void Icon::Draw(Font * font, unsigned int RGBA) {
-
+		void Icon::Draw(Font * font, unsigned int RGBA)
+		{
 			// We're just gonna move the label under the image and add the FontSize for some extra buffering
 			// This is mostly arbitrary
 			// But I like the look of it and it scales well

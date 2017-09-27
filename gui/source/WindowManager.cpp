@@ -12,16 +12,19 @@
 
 using namespace Mini2D;
 
-namespace Menu {
-
+namespace Menu
+{
 	static long uniqueCounter = 0;
 
 	//---------------------------------------------------------------------------
 	// Load up the config, locale, and font
 	//---------------------------------------------------------------------------
-	WindowManager::WindowManager(Mini * mini) : _mini(mini), _activeWindow(-1) {
-
-		if (!_mini) {
+	WindowManager::WindowManager(Mini * mini) :
+	_mini(mini),
+	_activeWindow(-1)
+	{
+		if (!_mini)
+		{
 			printf("Artemis Lite::WindowManager::Invalid Mini\n");
 			return;
 		}
@@ -37,8 +40,8 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Clean up
 	//---------------------------------------------------------------------------
-	WindowManager::~WindowManager() {
-
+	WindowManager::~WindowManager()
+	{
 		// Delete all of our windows
 		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
 			if ((*it))
@@ -48,18 +51,21 @@ namespace Menu {
 		_windows.clear();
 
 		// Delete our config
-		if (_config) {
+		if (_config)
+		{
 			delete _config;
 			_config = NULL;
 		}
 
 		// Delete our config
-		if (_locale) {
+		if (_locale)
+		{
 			delete _locale;
 			_locale = NULL;
 		}
 
-		if (_font && _font != FONT_DEFAULT) {
+		if (_font && _font != FONT_DEFAULT)
+		{
 			delete _font;
 			_font = NULL;
 
@@ -73,15 +79,15 @@ namespace Menu {
 	// Draws the active window (and any windows it hovers over)
 	// Returns true when the main window is closed (signalling to close the app)
 	//---------------------------------------------------------------------------
-	bool WindowManager::Draw(float deltaTime) {
-
+	bool WindowManager::Draw(float deltaTime)
+	{
 		IMenu * window = getWindowById(_activeWindow);
 		if (!window)
 			return false;
 
 		// Find new active window if current is inactive
-		if (window->State() == WINDOW_STATE_INACTIVE) {
-
+		if (window->State() == WINDOW_STATE_INACTIVE)
+		{
 			// Set window to previous Window
 			// The previous Window opened the current (inactive) Window
 			window = getWindowById(window->PreviousId());
@@ -109,8 +115,8 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Forwards the pad data to the active Window
 	//---------------------------------------------------------------------------
-	void WindowManager::Pad(int port, padData * pData) {
-
+	void WindowManager::Pad(int port, padData * pData)
+	{
 		IMenu * window = getWindowById(_activeWindow);
 		if (!window)
 			return;
@@ -122,12 +128,14 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Set WindowState of Window with ID 'id' to WINDOW_STATE_OPENING
 	//---------------------------------------------------------------------------
-	bool WindowManager::OpenWindow(long id) {
-
+	bool WindowManager::OpenWindow(long id)
+	{
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then make it active
-		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->Id() == id) {
+		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
+		{
+			if ((*it)->Id() == id)
+			{
 				(*it)->State(WINDOW_STATE_OPENING);
 				_activeWindow = id;
 				return true;
@@ -140,12 +148,14 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Set WindowState of Window with ID 'id' to WINDOW_STATE_CLOSING
 	//---------------------------------------------------------------------------
-	bool WindowManager::CloseWindow(long id) {
-
+	bool WindowManager::CloseWindow(long id)
+	{
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then set its state to WINDOW_STATE_CLOSING
-		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->Id() == id) {
+		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
+		{
+			if ((*it)->Id() == id)
+			{
 				(*it)->State(WINDOW_STATE_CLOSING);
 				return true;
 			}
@@ -157,8 +167,8 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Add Window to _windows
 	//---------------------------------------------------------------------------
-	long WindowManager::AddWindow(Menu::IMenu * window) {
-
+	long WindowManager::AddWindow(Menu::IMenu * window)
+	{
 		if (!window)
 			return -1;
 
@@ -177,13 +187,15 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Update all settings from _config
 	//---------------------------------------------------------------------------
-	void WindowManager::Update() {
+	void WindowManager::Update()
+	{
 		std::wstring fontPath;
 
 		if (_locale)
 			delete _locale;
 
-		if (_font && _font != FONT_DEFAULT) {
+		if (_font && _font != FONT_DEFAULT)
+		{
 			delete _font;
 			_font = NULL;
 
@@ -193,11 +205,12 @@ namespace Menu {
 		}
 
 		_locale = new Config::Locale(_config->GetCString("translation"));
-		if (_locale) {
-
+		if (_locale)
+		{
 			// Load FONT parameter from locale and attempt to load it
 			// If it is set to 'default' then load the default font
-			if ((fontPath = _locale->GetValue(L"FONT")) != L"default" && fontPath.size() > 0) {
+			if ((fontPath = _locale->GetValue(L"FONT")) != L"default" && fontPath.size() > 0)
+			{
 				_font = new Font(_mini);
 				if (_font->Load((char*)(ARTEMIS_PATH "Locales/" + IO::UTF8::FromUTF32(fontPath)).c_str(), 48) != Font::FONT_SUCCESS)
 					printf("Artemis Lite::WindowManager::Error loading font %s\n", IO::UTF8::FromUTF32(_locale->GetValue(L"FONT")).c_str());
@@ -210,7 +223,8 @@ namespace Menu {
 				_font->AddChar(CHAR_LEFT, TEX_FOOTER_ICO_LT, 4);
 				_font->AddChar(CHAR_RIGHT, TEX_FOOTER_ICO_RT, 4);
 			}
-			else {
+			else
+			{
 				_font = FONT_DEFAULT;
 			}
 		}
@@ -220,18 +234,18 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Get Methods
 	//---------------------------------------------------------------------------
-	Config::Locale * WindowManager::GetLocale() {
-
+	Config::Locale * WindowManager::GetLocale()
+	{
 		return _locale;
 	}
 
-	Config::Config * WindowManager::GetConfig() {
-
+	Config::Config * WindowManager::GetConfig()
+	{
 		return _config;
 	}
 
-	Font * WindowManager::GetFont() {
-
+	Font * WindowManager::GetFont()
+	{
 		return _font;
 	}
 
@@ -239,11 +253,12 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Returns the Window given an ID
 	//---------------------------------------------------------------------------
-	IMenu * WindowManager::getWindowById(long id) {
-
+	IMenu * WindowManager::getWindowById(long id)
+	{
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then return the pointer to the Window
-		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
+		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
+		{
 			if ((*it)->Id() == id)
 				return *it;
 		}
@@ -254,12 +269,14 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Removes the window from _windows given an ID
 	//---------------------------------------------------------------------------
-	void WindowManager::removeWindowById(long id) {
-
+	void WindowManager::removeWindowById(long id)
+	{
 		// Iterate through _windows
 		// If a Window's ID matches 'id' then delete that Window and remove it from _windows
-		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++) {
-			if ((*it)->Id() == id) {
+		for(std::vector<IMenu *>::iterator it = _windows.begin(); it != _windows.end(); it++)
+		{
+			if ((*it)->Id() == id)
+			{
 				delete *it;
 				_windows.erase(it);
 				return;
@@ -271,8 +288,8 @@ namespace Menu {
 	// Draws the previous window if the current window is a submenu
 	// It will draw multiple layers of submenus
 	//---------------------------------------------------------------------------
-	void WindowManager::recursiveDrawWindows(IMenu * window, float deltaTime) {
-
+	void WindowManager::recursiveDrawWindows(IMenu * window, float deltaTime)
+	{
 		if (window->PreviousId() >= 0 && window->IsSubmenu())
 			recursiveDrawWindows(getWindowById(window->PreviousId()), deltaTime);
 

@@ -9,71 +9,53 @@
 #ifndef GLOBALS_HPP_
 #define GLOBALS_HPP_
 
-#include <Mini2D/Mini.hpp>					// Mini class
-#include <Mini2D/Image.hpp>					// Image class
-#include <Mini2D/Font.hpp>					// Font class
-#include <Mini2D/Units.hpp>					// Vector2
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
+#include <Mini2D/Units.hpp>
 
 // Textures
-#include "bgimg_png.h"						//
-#include "cheat_png.h"						//
-#include "circle_error_dark_png.h"			//
-#include "circle_error_light_png.h"			//
-#include "circle_loading_bg_png.h"			//
-#include "circle_loading_seek_png.h"		//
-#include "edit_ico_add_png.h"				//
-#include "edit_ico_del_png.h"				//
-#include "edit_shadow_png.h"				//
-#include "footer_ico_circle_png.h"			//
-#include "footer_ico_cross_png.h"			//
-#include "footer_ico_lt_png.h"				//
-#include "footer_ico_rt_png.h"				//
-#include "footer_ico_square_png.h"			//
-#include "footer_ico_triangle_png.h"		//
-#include "header_dot_png.h"					//
-#include "header_ico_abt_png.h"				//
-#include "header_ico_cht_png.h"				//
-#include "header_ico_opt_png.h"				//
-#include "header_ico_xmb_png.h"				//
-#include "header_line_png.h"				//
-#include "help_png.h"						//
-#include "mark_arrow_png.h"					//
-#include "mark_line_png.h"					//
-#include "opt_off_png.h"					//
-#include "opt_on_png.h"						//
-#include "scroll_bg_png.h"					//
-#include "scroll_lock_png.h"				//
-#include "titlescr_ico_abt_png.h"			//
-#include "titlescr_ico_cht_png.h"			//
-#include "titlescr_ico_opt_png.h"			//
-#include "titlescr_ico_xmb_png.h"			//
-#include "titlescr_logo_png.h"				//
-#include "titlescr_label_png.h"				//
-#include "titlescr_link_png.h"				//
+#include "bgimg_png.h"
+#include "cheat_png.h"
+#include "circle_error_dark_png.h"
+#include "circle_error_light_png.h"
+#include "circle_loading_bg_png.h"
+#include "circle_loading_seek_png.h"
+#include "edit_ico_add_png.h"
+#include "edit_ico_del_png.h"
+#include "edit_shadow_png.h"
+#include "footer_ico_circle_png.h"
+#include "footer_ico_cross_png.h"
+#include "footer_ico_lt_png.h"
+#include "footer_ico_rt_png.h"
+#include "footer_ico_square_png.h"
+#include "footer_ico_triangle_png.h"
+#include "header_dot_png.h"
+#include "header_ico_abt_png.h"
+#include "header_ico_cht_png.h"
+#include "header_ico_opt_png.h"
+#include "header_ico_xmb_png.h"
+#include "header_line_png.h"
+#include "help_png.h"
+#include "mark_arrow_png.h"
+#include "mark_line_png.h"
+#include "opt_off_png.h"
+#include "opt_on_png.h"
+#include "scroll_bg_png.h"
+#include "scroll_lock_png.h"
+#include "titlescr_ico_abt_png.h"
+#include "titlescr_ico_cht_png.h"
+#include "titlescr_ico_opt_png.h"
+#include "titlescr_ico_xmb_png.h"
+#include "titlescr_logo_png.h"
+#include "titlescr_label_png.h"
+#include "titlescr_link_png.h"
 
-#include "comfortaa_bold_ttf.h"				//
+#include "comfortaa_bold_ttf.h"
 
-
-/*
- * LocToScreen:
- *		Multiplies a Vector2's X and Y by _mini->MAXW and _mini->MAXH respectively
- *
- * loc:
- *		Vector2 to scale
- */
-#define LocToScreen(loc) 			loc.X *= _mini->MAXW; loc.Y *= _mini->MAXH;
 
 /*
- * DimToScreen:
- *		Multiplies a Vector2's X and Y by _mini->MAXW
- *
- * dim:
- *		Vector2 to scale
- */
-#define DimToScreen(dim) 			dim *= _mini->MAXW;
-
-/*
- * LocToScreen2:
+ * LOC_TO_SCREEN:
  *		Multiplies a Vector2's X and Y by the max screen width and height respectively
  *
  * loc:
@@ -81,10 +63,10 @@
  * mini:
  *		Mini2D instance
  */
-#define LocToScreen2(loc, mini) 	loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
+#define LOC_TO_SCREEN(loc, mini)             loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
 
 /*
- * LocToScreen2:
+ * DIM_TO_SCREEN:
  *		Multiplies a Vector2's X and Y by the max screen width
  *
  * dim:
@@ -92,27 +74,27 @@
  * mini:
  *		Mini2D instance
  */
-#define DimToScreen2(dim, mini) 			dim *= mini->MAXW;
+#define DIM_TO_SCREEN(dim, mini)             dim *= mini->MAXW;
 
 
-#define MENU_SELECTED 						0x000000FF
-#define MENU_UNSELECTED 					0x00000040
+#define MENU_SELECTED                       0x000000FF
+#define MENU_UNSELECTED                     0x00000040
 
-#define CHAR_CROSS							(wchar_t)0x0010
-#define CHAR_TRIANGLE						(wchar_t)0x0011
-#define CHAR_CIRCLE							(wchar_t)0x0012
-#define CHAR_SQUARE							(wchar_t)0x0013
-#define CHAR_LEFT							(wchar_t)0x0014
-#define CHAR_RIGHT							(wchar_t)0x0015
+#define CHAR_CROSS                          (wchar_t)0x0010
+#define CHAR_TRIANGLE                       (wchar_t)0x0011
+#define CHAR_CIRCLE                         (wchar_t)0x0012
+#define CHAR_SQUARE                         (wchar_t)0x0013
+#define CHAR_LEFT                           (wchar_t)0x0014
+#define CHAR_RIGHT                          (wchar_t)0x0015
 
-const std::wstring LOCALE_GEN_LAUNCH =		L"GENERAL_LAUNCH";
-const std::wstring LOCALE_GEN_CHEATS =		L"GENERAL_CHEATS";
-const std::wstring LOCALE_GEN_OPTIONS =		L"GENERAL_OPTIONS";
-const std::wstring LOCALE_GEN_ABOUT =		L"GENERAL_ABOUT";
-const std::wstring LOCALE_GEN_HELP =		L"GENERAL_HELP";
+const std::wstring LOCALE_GEN_LAUNCH =      L"GENERAL_LAUNCH";
+const std::wstring LOCALE_GEN_CHEATS =      L"GENERAL_CHEATS";
+const std::wstring LOCALE_GEN_OPTIONS =     L"GENERAL_OPTIONS";
+const std::wstring LOCALE_GEN_ABOUT =       L"GENERAL_ABOUT";
+const std::wstring LOCALE_GEN_HELP =        L"GENERAL_HELP";
 
-const std::wstring LOCALE_ABT_THANKS =		L"ABOUT_THANKS";
-const std::wstring LOCALE_ABT_ARTEMIS =		L"ABOUT_ARTEMIS";
+const std::wstring LOCALE_ABT_THANKS =      L"ABOUT_THANKS";
+const std::wstring LOCALE_ABT_ARTEMIS =     L"ABOUT_ARTEMIS";
 
 
 extern Mini2D::Image * TEX_BGIMG;

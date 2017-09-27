@@ -6,20 +6,26 @@
  *  It displays the base icons to navigate throughout Artemis Lite.
  */
 
-#include "Menu/IMenu.hpp"					// IMenu declaration
-#include "Menu/Menus.hpp"					// Start declaration
-#include "Menu/Elements/Icon.hpp"			// Icon declaration
-#include "Globals.hpp"						// Images, LocToScreen(), DimToScreen(), LOC_CENTER, DIM_FULL, Font Sizes
+#include "Menu/IMenu.hpp"
+#include "Menu/Menus.hpp"
+#include "Menu/Elements/Icon.hpp"
+#include "Globals.hpp"
 
 using namespace Mini2D;
 
-namespace Menu {
-
+namespace Menu
+{
 	//---------------------------------------------------------------------------
 	// Setup all menu variables
 	//---------------------------------------------------------------------------
-	Start::Start(Mini * mini, WindowManager * windowManager, long prevId) : _mini(mini), _windowManager(windowManager), _windowState(WINDOW_STATE_INACTIVE), _id(-1), _previousId(prevId), _selectedIndex(0) {
-
+	Start::Start(Mini * mini, WindowManager * windowManager, long prevId) :
+	_mini(mini),
+	_windowManager(windowManager),
+	_windowState(WINDOW_STATE_INACTIVE),
+	_id(-1),
+	_previousId(prevId),
+	_selectedIndex(0)
+	{
 		if (!_mini || !_windowManager)
 			return;
 
@@ -48,18 +54,18 @@ namespace Menu {
 		_iconAbt  = new Elements::Icon(TEX_TITLESCR_ICO_ABT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_ABOUT));
 
 		// Translate location and dimension to screen space
-		LocToScreen(_locLogo);
-		LocToScreen(_locLabel);
-		LocToScreen(_locLink);
-		LocToScreen(_locXmb);
-		LocToScreen(_locCht);
-		LocToScreen(_locOpt);
-		LocToScreen(_locAbt);
+		LOC_TO_SCREEN(_locLogo, _mini);
+		LOC_TO_SCREEN(_locLabel, _mini);
+		LOC_TO_SCREEN(_locLink, _mini);
+		LOC_TO_SCREEN(_locXmb, _mini);
+		LOC_TO_SCREEN(_locCht, _mini);
+		LOC_TO_SCREEN(_locOpt, _mini);
+		LOC_TO_SCREEN(_locAbt, _mini);
 
-		DimToScreen(_dimIco);
-		DimToScreen(_dimLogo);
-		DimToScreen(_dimLabel);
-		DimToScreen(_dimLink);
+		DIM_TO_SCREEN(_dimIco, _mini);
+		DIM_TO_SCREEN(_dimLogo, _mini);
+		DIM_TO_SCREEN(_dimLabel, _mini);
+		DIM_TO_SCREEN(_dimLink, _mini);
 
 		// Move the description label down below the logo
 		_locLabel.Y += _locLogo.Y + _dimLogo.Y * 0.5;
@@ -68,25 +74,29 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Clean up
 	//---------------------------------------------------------------------------
-	Start::~Start() {
-
+	Start::~Start()
+	{
 		// Delete all our allocations
-		if (_iconXmb) {
+		if (_iconXmb)
+		{
 			delete _iconXmb;
 			_iconXmb = NULL;
 		}
 
-		if (_iconCht) {
+		if (_iconCht)
+		{
 			delete _iconXmb;
 			_iconXmb = NULL;
 		}
 
-		if (_iconOpt) {
+		if (_iconOpt)
+		{
 			delete _iconOpt;
 			_iconOpt = NULL;
 		}
 
-		if (_iconAbt) {
+		if (_iconAbt)
+		{
 			delete _iconAbt;
 			_iconAbt = NULL;
 		}
@@ -95,34 +105,41 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Getters and Setters
 	//---------------------------------------------------------------------------
-	const WindowState& Start::State() const {
+	const WindowState& Start::State() const
+	{
 		return _windowState;
 	}
 
-	void Start::State(const WindowState& newState) {
+	void Start::State(const WindowState& newState)
+	{
 		_windowState = newState;
 	}
 
-	const long& Start::Id() const {
+	const long& Start::Id() const
+	{
 		return _id;
 	}
 
-	void Start::Id(const long& newId) {
+	void Start::Id(const long& newId)
+	{
 		_id = newId;
 	}
 
-	const long& Start::PreviousId() const {
+	const long& Start::PreviousId() const
+	{
 		return _previousId;
 	}
 
-	void Start::PreviousId(const long& newPreviousId) {
+	void Start::PreviousId(const long& newPreviousId)
+	{
 		_previousId = newPreviousId;
 	}
 
 	//---------------------------------------------------------------------------
 	// Draws the menu
 	//---------------------------------------------------------------------------
-	void Start::Draw(float deltaTime) {
+	void Start::Draw(float deltaTime)
+	{
 		Font * font;
 
 		if (!TEX_BGIMG || !_iconXmb || !_iconCht || !_iconOpt || !_iconAbt || !_windowManager || !_windowManager->GetLocale() || !_windowManager->GetFont())
@@ -184,21 +201,26 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Updates the selected icon based on pad input
 	//---------------------------------------------------------------------------
-	void Start::Pad(int port, padData pData) {
+	void Start::Pad(int port, padData pData)
+	{
 
 		// Scroll through the list of icons
-		if (pData.BTN_LEFT && !pData.BTN_RIGHT) {
+		if (pData.BTN_LEFT && !pData.BTN_RIGHT)
+		{
 			_selectedIndex--;
 			if (_selectedIndex < 0)
 				_selectedIndex = 3;
 		}
-		else if (pData.BTN_RIGHT && !pData.BTN_LEFT) {
+		else if (pData.BTN_RIGHT && !pData.BTN_LEFT)
+		{
 			_selectedIndex++;
 			if (_selectedIndex > 3)
 				_selectedIndex = 0;
 		}
-		else if (pData.BTN_CROSS && State() == WINDOW_STATE_ACTIVE) {
-			switch (_selectedIndex) {
+		else if (pData.BTN_CROSS && State() == WINDOW_STATE_ACTIVE)
+		{
+			switch (_selectedIndex)
+			{
 				case 3:
 					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::About(_mini, _windowManager, Id())));
 					break;
@@ -209,7 +231,8 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	// Tells the WindowManager that this is not drawn on top of the previous window
 	//---------------------------------------------------------------------------
-	bool Start::IsSubmenu() {
+	bool Start::IsSubmenu()
+	{
 		return false;
 	}
 

@@ -12,17 +12,13 @@ using namespace Mini2D;
 
 namespace Menu
 {
-	namespace Elements {
-
+	namespace Elements
+	{
 		//---------------------------------------------------------------------------
 		// Setup
 		//---------------------------------------------------------------------------
-		WindowFrame::WindowFrame(Mini * mini,
-			Image * logo,
-			const std::wstring& title,
-			const std::wstring& label,
-			Mini2D::Vector2 center,
-			Mini2D::Vector2 size) :
+		WindowFrame::WindowFrame(Mini * mini, Image * logo, const std::wstring& title, const std::wstring& label,
+			Mini2D::Vector2 center, Mini2D::Vector2 size) :
 		_mini(mini),
 		_logo(logo),
 		_title(title),
@@ -40,8 +36,8 @@ namespace Menu
 			_dimLogo.Set(_dimContainer * 0.035);
 
 			// Translate the logo size and location to screen space
-			LocToScreen(_locLogo);
-			DimToScreen(_dimLogo);
+			LOC_TO_SCREEN(_locLogo, _mini);
+			DIM_TO_SCREEN(_dimLogo, _mini);
 
 			// Place the header line on the right end of the logo
 			_locLine.Set(_locLogo.X + (_dimLogo.X * 0.45), _locLogo.Y);
@@ -66,7 +62,7 @@ namespace Menu
 		}
 
 		//---------------------------------------------------------------------------
-		// Draw the Icon
+		// Draw the WindowFrame
 		//---------------------------------------------------------------------------
 		void WindowFrame::Draw(Font * font)
 		{

@@ -13,10 +13,12 @@
 #include <Mini2D/Font.hpp>
 #include <Mini2D/Units.hpp>
 
-namespace Menu {
-	namespace Elements {
-
-		class WindowFrame {
+namespace Menu
+{
+	namespace Elements
+	{
+		class WindowFrame
+		{
 		public:
 
 			/*
@@ -35,13 +37,8 @@ namespace Menu {
 			 * size:
 			 *		Frame size
 			 */
-			WindowFrame(Mini2D::Mini * mini,
-				Mini2D::Image * logo,
-				const std::wstring& title,
-				const std::wstring& label,
-				Mini2D::Vector2 center = Mini2D::Vector2(0.5, 0.5),
-				Mini2D::Vector2 size = Mini2D::Vector2(1, 1));
-
+			WindowFrame(Mini2D::Mini * mini, Mini2D::Image * logo, const std::wstring& title, const std::wstring& label,
+				Mini2D::Vector2 center = Mini2D::Vector2(0.5, 0.5), Mini2D::Vector2 size = Mini2D::Vector2(1, 1));
 			~WindowFrame();
 
 			/*

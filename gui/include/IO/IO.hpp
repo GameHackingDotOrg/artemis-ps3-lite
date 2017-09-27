@@ -8,7 +8,8 @@
 #ifndef IO_HPP_
 #define IO_HPP_
 
-namespace IO {
+namespace IO
+{
 
 	/*
 	 * FileExists:
@@ -18,7 +19,6 @@ namespace IO {
 	 *		Path to variable in config (eg: "group0.group1.var0")
 	 */
 	bool FileExists(const char * filePath);
-
 }
 
 #endif /* IO_HPP_ */

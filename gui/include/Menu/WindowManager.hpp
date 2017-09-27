@@ -10,23 +10,29 @@
 #define WINDOW_MANAGER_HPP_
 
 
-#include <vector>							// std::vector<>
+#include <vector>
 
-#include <Mini2D/Mini.hpp>					// Mini class
-#include <Mini2D/Image.hpp>					// Image class
-#include <Mini2D/Font.hpp>					// Font class
-#include <Mini2D/Units.hpp>					// RectangleF, Vector2
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
+#include <Mini2D/Units.hpp>
 
-#include "Menu/IMenu.hpp"					// IMenu declaration
-#include "Config/Locale.hpp"				//
-#include "Config/Config.hpp"				//
+#include "Menu/IMenu.hpp"
+#include "Config/Locale.hpp"
+#include "Config/Config.hpp"
 
-namespace Menu {
-
-	class WindowManager {
+namespace Menu
+{
+	class WindowManager
+	{
 	public:
 
-		// Contructors
+		/*
+		 * Constructor
+		 *
+		 * mini:
+		 *		Mini instance
+		 */
 		WindowManager(Mini2D::Mini * mini);
 		~WindowManager();
 
@@ -113,12 +119,27 @@ namespace Menu {
 		Mini2D::Font * GetFont();
 
 	private:
+
+		// Mini instance
 		Mini2D::Mini * _mini;
-		std::vector<IMenu *> _windows;		// Collection of Windows
-		long _activeWindow;					// ID of the active Window
-		Config::Config * _config;			// Active config
-		Config::Locale * _locale;			// Active locale
-		Mini2D::Font * _font;				// Active font
+
+		// Collection of Windows
+		std::vector<IMenu *> _windows;
+
+		// ID of the active Window
+		long _activeWindow;
+
+		// Active config
+		Config::Config * _config;
+
+		// Active locale
+		Config::Locale * _locale;
+
+		// Active font
+		Mini2D::Font * _font;
+
+		// RSX texture pointer
+		// This is used to reuse RSX memory when we change locale and use a different font
 		u32 * _texturePointer;
 
 		// Returns the Window given an ID

@@ -8,17 +8,18 @@
 #ifndef IMENU_HPP_
 #define IMENU_HPP_
 
-#include <Mini2D/Mini.hpp>					// Mini class
-#include <Mini2D/Image.hpp>					// Image class
-#include <Mini2D/Units.hpp>					// RectangleF, Vector2
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Units.hpp>
 
-namespace Menu {
-
-	enum WindowState {
-		WINDOW_STATE_INACTIVE = 0,			// Window not actively drawn
-		WINDOW_STATE_CLOSING,				// Window is closing
-		WINDOW_STATE_ACTIVE,				// Window is active
-		WINDOW_STATE_OPENING				// Window is opening
+namespace Menu
+{
+	enum WindowState
+	{
+		WINDOW_STATE_INACTIVE = 0,  // Window not actively drawn
+		WINDOW_STATE_CLOSING,       // Window is closing
+		WINDOW_STATE_ACTIVE,        // Window is active
+		WINDOW_STATE_OPENING        // Window is opening
 	};
 
 	class IMenu

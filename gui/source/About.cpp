@@ -13,14 +13,12 @@
 
 using namespace Mini2D;
 
-namespace Menu {
-
+namespace Menu
+{
 	//---------------------------------------------------------------------------
 	// Setup all menu variables
 	//---------------------------------------------------------------------------
-	About::About(Mini * mini,
-		WindowManager * windowManager,
-		long prevId) :
+	About::About(Mini * mini, WindowManager * windowManager, long prevId) :
 	_mini(mini),
 	_windowManager(windowManager),
 	_windowState(WINDOW_STATE_INACTIVE),
@@ -39,7 +37,8 @@ namespace Menu {
 	//---------------------------------------------------------------------------
 	About::~About()
 	{
-		if (_windowFrame) {
+		if (_windowFrame)
+		{
 			delete _windowFrame;
 			_windowFrame = NULL;
 		}
@@ -101,15 +100,13 @@ namespace Menu {
 	}
 
 	//---------------------------------------------------------------------------
-	// Updates the selected icon based on pad input
+	// Close the window if Circle is pressed
 	//---------------------------------------------------------------------------
-	void About::Pad(int port,
-		padData pData)
+	void About::Pad(int port, padData pData)
 	{
 		// Scroll through the list of icons
-		if (pData.BTN_CIRCLE) {
+		if (pData.BTN_CIRCLE)
 			_windowManager->CloseWindow(Id());
-		}
 	}
 
 	//---------------------------------------------------------------------------

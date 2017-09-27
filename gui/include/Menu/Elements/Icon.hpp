@@ -1,5 +1,5 @@
 /*
- * Icon.cpp
+ * Icon.hpp
  *
  *
  *  A simple class for drawing an Image with a label under it.
@@ -8,20 +8,30 @@
 #ifndef ICON_HPP_
 #define ICON_HPP_
 
-#include <Mini2D/Mini.hpp>					// Mini class
-#include <Mini2D/Image.hpp>					// Image class
-#include <Mini2D/Font.hpp>					// Font class
-#include <Mini2D/Units.hpp>					// Vector2
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Font.hpp>
+#include <Mini2D/Units.hpp>
 
-namespace Menu {
-	namespace Elements {
-
-		class Icon {
+namespace Menu
+{
+	namespace Elements
+	{
+		class Icon
+		{
 		public:
-			Mini2D::Vector2 Location;		// Location of Icon
-			Mini2D::Vector2 Dimension;		// Size of Icon
-			Mini2D::Vector2 LabelOffset;	// Offset from Location
-			float FontSize;					// Font size of label
+
+			// Location of Icon
+			Mini2D::Vector2 Location;
+
+			// Size of Icon
+			Mini2D::Vector2 Dimension;
+
+			// Offset from Location
+			Mini2D::Vector2 LabelOffset;
+
+			// Font size of label
+			float FontSize;
 
 			/*
 			 * Icon Constructor
@@ -32,7 +42,6 @@ namespace Menu {
 			 *		String to print under image
 			 */
 			Icon(Mini2D::Image * icon, const std::wstring& label);
-
 			~Icon();
 
 			/*
@@ -47,8 +56,12 @@ namespace Menu {
 			void Draw(Mini2D::Font * font, unsigned int RGBA = 0x000000FF);
 
 		private:
-			Mini2D::Image * _icon;			// Image to draw
-			const std::wstring& _label;		// String to draw under _icon
+
+			// Image to draw
+			Mini2D::Image * _icon;
+
+			// String to draw under _icon
+			const std::wstring& _label;
 		};
 	}
 }

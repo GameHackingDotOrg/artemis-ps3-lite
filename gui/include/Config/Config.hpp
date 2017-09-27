@@ -10,9 +10,10 @@
 
 #include <libconfig.h>
 
-namespace Config {
-
-	class Config {
+namespace Config
+{
+	class Config
+	{
 	public:
 
 		/*

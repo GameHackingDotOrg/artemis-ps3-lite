@@ -10,9 +10,10 @@
 
 #include <string>
 
-namespace IO {
-
-	class UTF8 {
+namespace IO
+{
+	class UTF8
+	{
 	public:
 
 		/*
