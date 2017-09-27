@@ -8,13 +8,14 @@
 #ifndef MENUS_HPP_
 #define MENUS_HPP_
 
-#include <Mini2D/Mini.hpp>					// Mini class
-#include <Mini2D/Image.hpp>					// Image class
-#include <Mini2D/Units.hpp>					// RectangleF, Vector2
+#include <Mini2D/Mini.hpp>
+#include <Mini2D/Image.hpp>
+#include <Mini2D/Units.hpp>
 
-#include "Menu/IMenu.hpp"					// IMenu declaration
-#include "Menu/Elements/Icon.hpp"			// Icon declaration
-#include "Menu/WindowManager.hpp"			// WindowManager class
+#include "Menu/IMenu.hpp"
+#include "Menu/Elements/Icon.hpp"
+#include "Menu/Elements/WindowFrame.hpp"
+#include "Menu/WindowManager.hpp"
 
 namespace Menu {
 
@@ -127,11 +128,17 @@ namespace Menu {
 		// State of the Window
 		WindowState _windowState;
 
+		// Window frame instance
+		Elements::WindowFrame * _windowFrame;
+
 		// Unique identifier of the Window
 		long _id;
 
 		// Unique identifier of the Window that opened this Window
 		long _previousId;
+
+		// WindowFrame label
+		std::wstring _windowFrameLabel;
 
 		// Locations
 		Mini2D::Vector2 _locHeaderLine;
