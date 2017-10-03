@@ -29,3 +29,6 @@ GENERAL_ABOUT               About
 # About Menu
 ABOUT_THANKS                Thank you for using Artemis!
 ABOUT_ARTEMIS               a cross platform hacking system
+ABOUT_LEARN                 Learn more about Project Artemis
+ABOUT_CONTRIBUTE            Want to contribute?
+ABOUT_CONTRIBUTORS          Contributors

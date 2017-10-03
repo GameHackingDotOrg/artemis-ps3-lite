@@ -63,7 +63,7 @@
  * mini:
  *		Mini2D instance
  */
-#define LOC_TO_SCREEN(loc, mini)             loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
+#define LOC_TO_SCREEN(loc, mini)            loc.X *= mini->MAXW; loc.Y *= mini->MAXH;
 
 /*
  * DIM_TO_SCREEN:
@@ -74,7 +74,7 @@
  * mini:
  *		Mini2D instance
  */
-#define DIM_TO_SCREEN(dim, mini)             dim *= mini->MAXW;
+#define DIM_TO_SCREEN(dim, mini)            dim *= mini->MAXW;
 
 
 #define MENU_SELECTED                       0x000000FF
@@ -95,7 +95,12 @@ const std::wstring LOCALE_GEN_HELP =        L"GENERAL_HELP";
 
 const std::wstring LOCALE_ABT_THANKS =      L"ABOUT_THANKS";
 const std::wstring LOCALE_ABT_ARTEMIS =     L"ABOUT_ARTEMIS";
+const std::wstring LOCALE_ABT_LEARN =       L"ABOUT_LEARN";
+const std::wstring LOCALE_ABT_CONTRIBUTE =  L"ABOUT_CONTRIBUTE";
+const std::wstring LOCALE_ABT_CONTRIBUTORS =L"ABOUT_CONTRIBUTORS";
 
+const std::wstring GENERAL_ARTEMIS_LINK =   L"https://gamehacking.org/artemis";
+const std::wstring GENERAL_GITHUB_LINK =    L"https://github.com/GameHackingDotOrg";
 
 extern Mini2D::Image * TEX_BGIMG;
 extern Mini2D::Image * TEX_CHEAT;
@@ -141,5 +146,7 @@ extern float FONT_LARGE;
 
 extern Mini2D::Vector2 LOC_CENTER;
 extern Mini2D::Vector2 DIM_FULL;
+
+extern std::wstring CONTRIBUTORS[];
 
 #endif /* GLOBALS_HPP_ */

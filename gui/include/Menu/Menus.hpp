@@ -14,6 +14,7 @@
 
 #include "Menu/IMenu.hpp"
 #include "Menu/Elements/Icon.hpp"
+#include "Menu/Elements/LabelPair.hpp"
 #include "Menu/Elements/WindowFrame.hpp"
 #include "Menu/WindowManager.hpp"
 
@@ -151,21 +152,16 @@ namespace Menu
 		// WindowFrame label
 		std::wstring _windowFrameLabel;
 
+		// Label Pairs
+		Elements::LabelPair * _lpThank;
+		Elements::LabelPair * _lpLearn;
+		Elements::LabelPair * _lpContribute;
+
 		// Locations
-		Mini2D::Vector2 _locHeaderLine;
-		Mini2D::Vector2 _locHeaderLogo;
-		Mini2D::Vector2 _locHeaderLeft;
-		Mini2D::Vector2 _locHeaderRight;
 		Mini2D::Vector2 _locThank;
-		Mini2D::Vector2 _locThankFoot;
-
-		// Dimensions
-		Mini2D::Vector2 _dimHeaderLine;
-		Mini2D::Vector2 _dimHeaderLogo;
-
-		// Font size
-		float _fontHeaderLeft;
-		float _fontHeaderRight;
+		Mini2D::Vector2 _locLearn;
+		Mini2D::Vector2 _locContribute;
+		Mini2D::Vector2 _locContributors;
 	};
 }
 
