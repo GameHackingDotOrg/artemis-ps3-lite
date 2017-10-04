@@ -24,6 +24,7 @@ namespace Menu
 	_windowState(WINDOW_STATE_INACTIVE),
 	_id(-1),
 	_previousId(prevId),
+	_animationTime(0),
 	_selectedIndex(0)
 	{
 		if (!_mini || !_windowManager)
@@ -141,18 +142,34 @@ namespace Menu
 	void Start::Draw(float deltaTime)
 	{
 		Font * font;
+		int rgba = 0x1A000000, a = 0x00;
 
 		if (!TEX_BGIMG || !_iconXmb || !_iconCht || !_iconOpt || !_iconAbt || !_windowManager || !_windowManager->GetLocale() || !_windowManager->GetFont())
 			return;
 
 		font = _windowManager->GetFont();
 
-		// For now we aren't going to have open/closing animations
-		// We can just set these to ACTIVE and INACTIVE immediately
-		if (State() == WINDOW_STATE_OPENING)
-			State(WINDOW_STATE_ACTIVE);
-		if (State() == WINDOW_STATE_CLOSING)
-			State(WINDOW_STATE_INACTIVE);
+		// Set rgba based on window state and how long we've been in that state
+		switch (State())
+		{
+			case WINDOW_STATE_OPENING:
+				a = ANI_TIME_TO_A(_animationTime, MENU_ANIMATION_DURATION);
+
+				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
+					State(WINDOW_STATE_ACTIVE);
+				break;
+			case WINDOW_STATE_CLOSING:
+				a = ANI_TIME_TO_A(MENU_ANIMATION_DURATION - _animationTime, MENU_ANIMATION_DURATION);
+				printf("t: %f, a: %d\n", _animationTime, a);
+				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
+					State(WINDOW_STATE_INACTIVE);
+				break;
+			case WINDOW_STATE_ACTIVE:
+			case WINDOW_STATE_INACTIVE:
+				_animationTime = 0;
+				a = 0x000000FF;
+				break;
+		}
 
 		// Draw Background
 		TEX_BGIMG->DrawRegion.Location.Set(LOC_CENTER);
@@ -162,40 +179,40 @@ namespace Menu
 		// Draw logo and logo label
 		TEX_TITLESCR_LOGO->DrawRegion.Location.Set(_locLogo);
 		TEX_TITLESCR_LOGO->DrawRegion.Dimension.Set(_dimLogo);
-		TEX_TITLESCR_LOGO->Draw(0x000000FF);
+		TEX_TITLESCR_LOGO->Draw(rgba | a);
 
 		TEX_TITLESCR_LABEL->DrawRegion.Location.Set(_locLabel);
 		TEX_TITLESCR_LABEL->DrawRegion.Dimension.Set(_dimLabel);
-		TEX_TITLESCR_LABEL->Draw(0x000000FF);
+		TEX_TITLESCR_LABEL->Draw(rgba | a);
 
 		// Print icons
 		_iconXmb->Location.Set(_locXmb);
 		_iconXmb->Dimension.Set(_dimIco);
 		_iconXmb->FontSize = _fontIco;
 		_iconXmb->LabelOffset.Set(0.0025 * _mini->MAXW, 0);
-		_iconXmb->Draw(font, _selectedIndex == 0 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconXmb->Draw(font, rgba | (int)((float)(a / 255.0) * (_selectedIndex == 0 ? MENU_SELECTED : MENU_UNSELECTED)));
 
 		_iconCht->Location.Set(_locCht);
 		_iconCht->Dimension.Set(_dimIco);
 		_iconCht->FontSize = _fontIco;
 		_iconCht->LabelOffset.Set(0.0025 * _mini->MAXW, 0);
-		_iconCht->Draw(font, _selectedIndex == 1 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconCht->Draw(font, rgba | (int)((float)(a / 255.0) * (_selectedIndex == 1 ? MENU_SELECTED : MENU_UNSELECTED)));
 
 		_iconOpt->Location.Set(_locOpt);
 		_iconOpt->Dimension.Set(_dimIco);
 		_iconOpt->FontSize = _fontIco;
 		_iconOpt->LabelOffset.Set(0.01 * _mini->MAXW, 0);
-		_iconOpt->Draw(font, _selectedIndex == 2 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconOpt->Draw(font, rgba | (int)((float)(a / 255.0) * (_selectedIndex == 2 ? MENU_SELECTED : MENU_UNSELECTED)));
 
 		_iconAbt->Location.Set(_locAbt);
 		_iconAbt->Dimension.Set(_dimIco);
 		_iconAbt->FontSize = _fontIco;
-		_iconAbt->Draw(font, _selectedIndex == 3 ? MENU_SELECTED : MENU_UNSELECTED);
+		_iconAbt->Draw(font, rgba | (int)((float)(a / 255.0) * (_selectedIndex == 3 ? MENU_SELECTED : MENU_UNSELECTED)));
 
 		// Print link
 		TEX_TITLESCR_LINK->DrawRegion.Location.Set(_locLink);
 		TEX_TITLESCR_LINK->DrawRegion.Dimension.Set(_dimLink);
-		TEX_TITLESCR_LINK->Draw(0x000000FF);
+		TEX_TITLESCR_LINK->Draw(rgba | a);
 	}
 
 	//---------------------------------------------------------------------------

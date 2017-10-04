@@ -69,6 +69,9 @@ namespace Menu
 		// Unique identifier of the Window that opened this Window
 		long _previousId;
 
+		// Animation time
+		float _animationTime;
+
 		// Icons
 		Elements::Icon * _iconXmb;
 		Elements::Icon * _iconCht;
@@ -152,6 +155,7 @@ namespace Menu
 		// WindowFrame label
 		std::wstring _windowFrameLabel;
 
+		// Animation time
 		float _animationTime;
 
 		// Label Pairs
