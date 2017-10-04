@@ -160,14 +160,14 @@ namespace Menu
 				break;
 			case WINDOW_STATE_CLOSING:
 				a = ANI_TIME_TO_A(MENU_ANIMATION_DURATION - _animationTime, MENU_ANIMATION_DURATION);
-				printf("t: %f, a: %d\n", _animationTime, a);
+
 				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
 					State(WINDOW_STATE_INACTIVE);
 				break;
 			case WINDOW_STATE_ACTIVE:
 			case WINDOW_STATE_INACTIVE:
 				_animationTime = 0;
-				a = 0x000000FF;
+				a = 0xFF;
 				break;
 		}
 

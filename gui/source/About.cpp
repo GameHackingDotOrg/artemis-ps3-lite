@@ -108,7 +108,7 @@ namespace Menu
 	void About::Draw(float deltaTime)
 	{
 		Font * font;
-		int x = 0, rgba = 0x00000000;
+		int x = 0, rgba = 0x1A000000, a = 0x00;
 		Vector2 locContributors = Vector2(_locContributors.X, _locContributors.Y + (FONT_MEDIUM * 1.25));
 
 		if (!TEX_BGIMG || !_windowManager || !_windowManager->GetLocale() || !(font = _windowManager->GetFont()))
@@ -119,35 +119,35 @@ namespace Menu
 		switch (State())
 		{
 			case WINDOW_STATE_OPENING:
-				rgba = ANI_TIME_TO_A(_animationTime, MENU_ANIMATION_DURATION);
+				a = ANI_TIME_TO_A(_animationTime, MENU_ANIMATION_DURATION);
 
 				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
 					State(WINDOW_STATE_ACTIVE);
 				break;
 			case WINDOW_STATE_CLOSING:
-				rgba = ANI_TIME_TO_A(MENU_ANIMATION_DURATION - _animationTime, MENU_ANIMATION_DURATION);
-				
+				a = ANI_TIME_TO_A(MENU_ANIMATION_DURATION - _animationTime, MENU_ANIMATION_DURATION);
+
 				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
 					State(WINDOW_STATE_INACTIVE);
 				break;
 			case WINDOW_STATE_ACTIVE:
 			case WINDOW_STATE_INACTIVE:
 				_animationTime = 0;
-				rgba = 0x000000FF;
+				a = 0xFF;
 				break;
 		}
 
 		// Draw the window frame first
-		_windowFrame->Draw(font, rgba);
+		_windowFrame->Draw(font, rgba | a);
 
 		// Draw our label pairs
-		_lpThank->Draw(font, font, rgba, _lpThank->FontSizeBottom * 0.25);
-		_lpContribute->Draw(font, FONT_DEFAULT, rgba, _lpContribute->FontSizeBottom * 0.25);
-		_lpLearn->Draw(font, FONT_DEFAULT, rgba, _lpLearn->FontSizeBottom * 0.25);
+		_lpThank->Draw(font, font, rgba | a, _lpThank->FontSizeBottom * 0.25);
+		_lpContribute->Draw(font, FONT_DEFAULT, rgba | a, _lpContribute->FontSizeBottom * 0.25);
+		_lpLearn->Draw(font, FONT_DEFAULT, rgba | a, _lpLearn->FontSizeBottom * 0.25);
 
 		// Finally we can draw our contributors list
 		font->TextAlign = Font::PRINT_ALIGN_CENTER;
-		font->ForeColor = rgba;
+		font->ForeColor = rgba | a;
 		font->PrintLine(_windowManager->GetLocale()->GetValue(LOCALE_ABT_CONTRIBUTORS), NULL, _locContributors, FONT_MEDIUM);
 
 		// Loop through the array and print name
@@ -155,7 +155,7 @@ namespace Menu
 		{
 			// Draw name
 			FONT_DEFAULT->TextAlign = Font::PRINT_ALIGN_CENTER;
-			FONT_DEFAULT->ForeColor = rgba;
+			FONT_DEFAULT->ForeColor = rgba | a;
 			FONT_DEFAULT->PrintLine(CONTRIBUTORS[x], NULL, locContributors, FONT_SMALL);
 
 			// Increment
