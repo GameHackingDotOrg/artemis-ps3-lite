@@ -82,12 +82,16 @@ namespace Menu
 	bool WindowManager::Draw(float deltaTime)
 	{
 		IMenu * window = getWindowById(_activeWindow);
+		bool isClosingWindowSubmenu = false;
 		if (!window)
 			return false;
 
 		// Find new active window if current is inactive
 		if (window->State() == WINDOW_STATE_INACTIVE)
 		{
+			//
+			isClosingWindowSubmenu = window->IsSubmenu();
+
 			// Set window to previous Window
 			// The previous Window opened the current (inactive) Window
 			window = getWindowById(window->PreviousId());
@@ -102,8 +106,11 @@ namespace Menu
 			// Set _activeWindow
 			_activeWindow = window->Id();
 
-			// Set WindowState to WINDOW_STATE_OPENING
-			window->State(WINDOW_STATE_OPENING);
+			// Set WindowState to WINDOW_STATE_OPENING if we didn't close a submenu
+			if (!isClosingWindowSubmenu)
+				window->State(WINDOW_STATE_OPENING);
+			else
+				window->State(WINDOW_STATE_ACTIVE);
 		}
 
 		// Draw all windows
