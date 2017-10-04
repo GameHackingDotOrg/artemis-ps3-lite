@@ -67,6 +67,24 @@ namespace Menu
 			delete _windowFrame;
 			_windowFrame = NULL;
 		}
+
+		if (_lpThank)
+		{
+			delete _lpThank;
+			_lpThank = NULL;
+		}
+
+		if (_lpLearn)
+		{
+			delete _lpLearn;
+			_lpLearn = NULL;
+		}
+
+		if (_lpContribute)
+		{
+			delete _lpContribute;
+			_lpContribute = NULL;
+		}
 	}
 
 	//---------------------------------------------------------------------------
