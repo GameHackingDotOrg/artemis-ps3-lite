@@ -76,9 +76,34 @@
  */
 #define DIM_TO_SCREEN(dim, mini)            dim *= mini->MAXW;
 
+/*
+ * ANI_TIME_TO_A:
+ *		Translates the amount of time the animation has been running into the appropriate alpha value
+ *
+ * aniTime:
+ *		Amount of time the animation has been active
+ * totalTime:
+ *		Duration of the animation
+ */
+#define ANI_TIME_TO_A(aniTime, totalTime)   CLAMP_FLOAT((aniTime > totalTime) ? 0xFF : ((aniTime / totalTime) * 255), 0, 255)
+
+/*
+ * CLAMP_FLOAT:
+ * 		Clamps the value between the high and low
+ *
+ * v:
+ *		Value to clamp
+ * l:
+ *		Low bounds
+ * h:
+ *		High bounds
+ */
+#define CLAMP_FLOAT(v, l, h)                (v > h) ? h : ((v < l) ? l : v);
 
 #define MENU_SELECTED                       0x000000FF
 #define MENU_UNSELECTED                     0x00000040
+
+#define MENU_ANIMATION_DURATION             0.5
 
 #define CHAR_CROSS                          (wchar_t)0x0010
 #define CHAR_TRIANGLE                       (wchar_t)0x0011

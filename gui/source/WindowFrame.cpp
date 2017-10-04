@@ -64,7 +64,7 @@ namespace Menu
 		//---------------------------------------------------------------------------
 		// Draw the WindowFrame
 		//---------------------------------------------------------------------------
-		void WindowFrame::Draw(Font * font)
+		void WindowFrame::Draw(Font * font, unsigned int RGBA)
 		{
 			if (!_mini || !_logo || !font)
 				return;
@@ -78,26 +78,26 @@ namespace Menu
 			TEX_HEADER_LINE->DrawRegion.Location.Set(_locLine);
 			TEX_HEADER_LINE->DrawRegion.Location.X += (_locXLineStop - _locLine.X) * 0.5;
 			TEX_HEADER_LINE->DrawRegion.Dimension.Set(Vector2(_locXLineStop - _locLine.X, TEX_HEADER_LINE->GetHeight()));
-			TEX_HEADER_LINE->Draw();
+			TEX_HEADER_LINE->Draw(RGBA);
 
 			// Draw header dot at end of line
 			TEX_HEADER_DOT->DrawRegion.Location.Set(Vector2(_locXLineStop, _locLine.Y));
 			TEX_HEADER_DOT->DrawRegion.Dimension.Set(Vector2(TEX_HEADER_DOT->GetWidth(), TEX_HEADER_DOT->GetHeight()));
-			TEX_HEADER_DOT->Draw();
+			TEX_HEADER_DOT->Draw(RGBA);
 
 			// Draw the logo
 			_logo->DrawRegion.Location.Set(_locLogo);
 			_logo->DrawRegion.Dimension.Set(_dimLogo);
-			_logo->Draw(0x000000FF);
+			_logo->Draw(RGBA);
 
 			// Draw the title
 			font->TextAlign = Font::PRINT_ALIGN_BOTTOMLEFT;
-			font->ForeColor = 0x000000FF;
+			font->ForeColor = RGBA;
 			font->PrintLine(_title, NULL, _locTitle, FONT_SMALL * 2);
 
 			// Draw the label
 			font->TextAlign = Font::PRINT_ALIGN_BOTTOMRIGHT;
-			font->ForeColor = 0x000000FF;
+			font->ForeColor = RGBA;
 			font->PrintLine(_label, NULL, _locLabel, FONT_SMALL);
 		}
 	}

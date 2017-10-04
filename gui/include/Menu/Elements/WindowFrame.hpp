@@ -47,8 +47,10 @@ namespace Menu
 			 *
 			 * Font:
 			 *		Font to use for printing the title and label
+			 * RGBA:
+			 *		Color
 			 */
-			void Draw(Mini2D::Font * font);
+			void Draw(Mini2D::Font * font, unsigned int RGBA = 0x000000FF);
 
 		private:
 

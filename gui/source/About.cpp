@@ -24,7 +24,8 @@ namespace Menu
 	_windowState(WINDOW_STATE_INACTIVE),
 	_id(-1),
 	_previousId(prevId),
-	_windowFrameLabel(IO::UTF8::ToUTF32("v" ARTEMIS_VERSION))
+	_windowFrameLabel(IO::UTF8::ToUTF32("v" ARTEMIS_VERSION)),
+	_animationTime(0)
 	{
 		if (!_mini || !_windowManager || !_windowManager->GetLocale())
 			return;
@@ -107,28 +108,46 @@ namespace Menu
 	void About::Draw(float deltaTime)
 	{
 		Font * font;
-		int x = 0;
+		int x = 0, rgba = 0x00000000;
 		Vector2 locContributors = Vector2(_locContributors.X, _locContributors.Y + (FONT_MEDIUM * 1.25));
 
 		if (!TEX_BGIMG || !_windowManager || !_windowManager->GetLocale() || !(font = _windowManager->GetFont()))
 			return;
 
-		// For now we aren't going to have open/closing animations
-		// We can just set these to ACTIVE and INACTIVE immediately
-		if (State() == WINDOW_STATE_OPENING)
-			State(WINDOW_STATE_ACTIVE);
-		if (State() == WINDOW_STATE_CLOSING)
-			State(WINDOW_STATE_INACTIVE);
+
+		// Set rgba based on window state and how long we've been in that state
+		switch (State())
+		{
+			case WINDOW_STATE_OPENING:
+				rgba = ANI_TIME_TO_A(_animationTime, MENU_ANIMATION_DURATION);
+
+				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
+					State(WINDOW_STATE_ACTIVE);
+				break;
+			case WINDOW_STATE_CLOSING:
+				rgba = ANI_TIME_TO_A(MENU_ANIMATION_DURATION - _animationTime, MENU_ANIMATION_DURATION);
+				
+				if ((_animationTime += deltaTime) > MENU_ANIMATION_DURATION)
+					State(WINDOW_STATE_INACTIVE);
+				break;
+			case WINDOW_STATE_ACTIVE:
+			case WINDOW_STATE_INACTIVE:
+				_animationTime = 0;
+				rgba = 0x000000FF;
+				break;
+		}
 
 		// Draw the window frame first
-		_windowFrame->Draw(font);
+		_windowFrame->Draw(font, rgba);
 
 		// Draw our label pairs
-		_lpThank->Draw(font, font, 0x000000FF, _lpThank->FontSizeBottom * 0.25);
-		_lpContribute->Draw(font, FONT_DEFAULT, 0x000000FF, _lpContribute->FontSizeBottom * 0.25);
-		_lpLearn->Draw(font, FONT_DEFAULT, 0x000000FF, _lpLearn->FontSizeBottom * 0.25);
+		_lpThank->Draw(font, font, rgba, _lpThank->FontSizeBottom * 0.25);
+		_lpContribute->Draw(font, FONT_DEFAULT, rgba, _lpContribute->FontSizeBottom * 0.25);
+		_lpLearn->Draw(font, FONT_DEFAULT, rgba, _lpLearn->FontSizeBottom * 0.25);
 
 		// Finally we can draw our contributors list
+		font->TextAlign = Font::PRINT_ALIGN_CENTER;
+		font->ForeColor = rgba;
 		font->PrintLine(_windowManager->GetLocale()->GetValue(LOCALE_ABT_CONTRIBUTORS), NULL, _locContributors, FONT_MEDIUM);
 
 		// Loop through the array and print name
@@ -136,7 +155,7 @@ namespace Menu
 		{
 			// Draw name
 			FONT_DEFAULT->TextAlign = Font::PRINT_ALIGN_CENTER;
-			FONT_DEFAULT->ForeColor = 0x000000FF;
+			FONT_DEFAULT->ForeColor = rgba;
 			FONT_DEFAULT->PrintLine(CONTRIBUTORS[x], NULL, locContributors, FONT_SMALL);
 
 			// Increment

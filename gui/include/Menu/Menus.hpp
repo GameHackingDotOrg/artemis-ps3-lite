@@ -140,17 +140,19 @@ namespace Menu
 		// State of the Window
 		WindowState _windowState;
 
-		// Window frame instance
-		Elements::WindowFrame * _windowFrame;
-
 		// Unique identifier of the Window
 		long _id;
 
 		// Unique identifier of the Window that opened this Window
 		long _previousId;
 
+		// Window frame instance
+		Elements::WindowFrame * _windowFrame;
+
 		// WindowFrame label
 		std::wstring _windowFrameLabel;
+
+		float _animationTime;
 
 		// Label Pairs
 		Elements::LabelPair * _lpThank;
