@@ -18,11 +18,12 @@ namespace Menu
 		// Setup
 		//---------------------------------------------------------------------------
 		WindowFrame::WindowFrame(Mini * mini, Image * logo, const std::wstring& title, const std::wstring& label,
-			Mini2D::Vector2 center, Mini2D::Vector2 size) :
+			const std::wstring& footer, Mini2D::Vector2 center, Mini2D::Vector2 size) :
 		_mini(mini),
 		_logo(logo),
 		_title(title),
-		_label(label)
+		_label(label),
+		_footer(footer)
 		{
 			if (!_mini || !_logo)
 				return;
@@ -34,6 +35,10 @@ namespace Menu
 			// Place logo on the top left of the container
 			_locLogo.Set(_locContainer.X - (_dimContainer.X * 0.47), _locContainer.Y - (_dimContainer.Y * 0.425));
 			_dimLogo.Set(_dimContainer * 0.035);
+
+			// Place the footer at the bottom
+			_locFooter.Set(_locContainer.X, _locContainer.Y + (_dimContainer.Y * 0.45));
+			LOC_TO_SCREEN(_locFooter, _mini);
 
 			// Translate the logo size and location to screen space
 			LOC_TO_SCREEN(_locLogo, _mini);
@@ -99,6 +104,11 @@ namespace Menu
 			font->TextAlign = Font::PRINT_ALIGN_BOTTOMRIGHT;
 			font->ForeColor = RGBA;
 			font->PrintLine(_label, NULL, _locLabel, FONT_SMALL);
+
+			// Draw footer
+			font->TextAlign = Font::PRINT_ALIGN_CENTER;
+			font->ForeColor = RGBA;
+			font->PrintLine(_footer, NULL, _locFooter, FONT_MEDIUM);
 		}
 	}
 }

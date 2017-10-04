@@ -12,11 +12,10 @@
 
 #include "Config/Locale.hpp"
 #include "IO/UTF8.hpp"
+#include "Globals.hpp"
 
 namespace Config
 {
-	static const std::wstring wstringEmpty = L"";
-
 	//---------------------------------------------------------------------------
 	// Process locale at filePath
 	//---------------------------------------------------------------------------
@@ -43,7 +42,7 @@ namespace Config
 		if (_map.count(key))
 			return _map[key];
 
-		return wstringEmpty;
+		return WSTRING_EMPTY;
 	}
 
 	//---------------------------------------------------------------------------

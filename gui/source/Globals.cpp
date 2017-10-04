@@ -57,6 +57,8 @@ float FONT_LARGE =   FONT_MEDIUM * 1.5;
 Vector2 LOC_CENTER = Vector2(0.5, 0.5);
 Vector2 DIM_FULL =   Vector2(1.0, 1.0);
 
+std::wstring WSTRING_EMPTY = L"";
+
 // Make sure to end the array with an empty wstring
 std::wstring CONTRIBUTORS[] =
 {

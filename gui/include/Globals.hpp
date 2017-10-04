@@ -205,6 +205,8 @@ extern float FONT_LARGE;
 extern Mini2D::Vector2 LOC_CENTER;
 extern Mini2D::Vector2 DIM_FULL;
 
+extern const std::wstring WSTRING_EMPTY;
+
 extern std::wstring CONTRIBUTORS[];
 
 #endif /* GLOBALS_HPP_ */

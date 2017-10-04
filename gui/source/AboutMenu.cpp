@@ -31,7 +31,7 @@ namespace Menu
 			return;
 
 		// Initialize our elements
-		_windowFrame = new Elements::WindowFrame(_mini, TEX_HEADER_ICO_ABT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_ABOUT), _windowFrameLabel);
+		_windowFrame = new Elements::WindowFrame(_mini, TEX_HEADER_ICO_ABT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_ABOUT), _windowFrameLabel, WSTRING_EMPTY);
 		_lpThank = new Elements::LabelPair(_windowManager->GetLocale()->GetValue(LOCALE_ABT_THANKS), _windowManager->GetLocale()->GetValue(LOCALE_ABT_ARTEMIS));
 		_lpLearn = new Elements::LabelPair(_windowManager->GetLocale()->GetValue(LOCALE_ABT_LEARN), GENERAL_ARTEMIS_LINK);
 		_lpContribute = new Elements::LabelPair(_windowManager->GetLocale()->GetValue(LOCALE_ABT_CONTRIBUTE), GENERAL_GITHUB_LINK);

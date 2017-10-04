@@ -32,13 +32,15 @@ namespace Menu
 			 *		String to print next to the logo
 			 * label:
 			 *		String to print on the top right
+			 * footer:
+			 *		String to print on the bottom
 			 * center:
 			 *		Frame location
 			 * size:
 			 *		Frame size
 			 */
 			WindowFrame(Mini2D::Mini * mini, Mini2D::Image * logo, const std::wstring& title, const std::wstring& label,
-				Mini2D::Vector2 center = Mini2D::Vector2(0.5, 0.5), Mini2D::Vector2 size = Mini2D::Vector2(1, 1));
+				const std::wstring& footer, Mini2D::Vector2 center = Mini2D::Vector2(0.5, 0.5), Mini2D::Vector2 size = Mini2D::Vector2(1, 1));
 			~WindowFrame();
 
 			/*
@@ -66,12 +68,16 @@ namespace Menu
 			// String to draw on the top right of the header
 			const std::wstring& _label;
 
+			// String to draw on the bottom
+			const std::wstring& _footer;
+
 			// Locations
 			Mini2D::Vector2 _locContainer;
 			Mini2D::Vector2 _locLogo;
 			Mini2D::Vector2 _locTitle;
 			Mini2D::Vector2 _locLabel;
 			Mini2D::Vector2 _locLine;
+			Mini2D::Vector2 _locFooter;
 
 			// Dimensions
 			Mini2D::Vector2 _dimLogo;

@@ -30,7 +30,9 @@ namespace Menu
 			return;
 
 		// Initialize our elements
-		_windowFrame = new Elements::WindowFrame(_mini, TEX_HEADER_ICO_ABT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_CHEATS), _windowManager->GetLocale()->GetValue(LOCALE_CHT_GAMELIST));
+		_windowFrame = new Elements::WindowFrame(_mini, TEX_HEADER_ICO_ABT, _windowManager->GetLocale()->GetValue(LOCALE_GEN_CHEATS),
+		                                                                    _windowManager->GetLocale()->GetValue(LOCALE_CHT_GAMELIST),
+																			_windowManager->GetLocale()->GetValue(LOCALE_GEN_HELP));
 	}
 
 	//---------------------------------------------------------------------------
