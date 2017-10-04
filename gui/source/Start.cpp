@@ -238,6 +238,9 @@ namespace Menu
 		{
 			switch (_selectedIndex)
 			{
+				case 1:
+					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::GameListView(_mini, _windowManager, Id())));
+					break;
 				case 3:
 					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::About(_mini, _windowManager, Id())));
 					break;

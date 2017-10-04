@@ -21,7 +21,10 @@ GENERAL_OPTIONS             Options
 GENERAL_ABOUT               About
 
 # Cheats Menu
-
+CHEAT_GAMELIST              game list
+CHEAT_LOAD                  loading, please wait...
+CHEAT_LOAD_DESC             Seeking and reading cheats list
+CHEAT_LOAD_ERR              Couldn't load cheat files!
 
 # Options Menu
 
