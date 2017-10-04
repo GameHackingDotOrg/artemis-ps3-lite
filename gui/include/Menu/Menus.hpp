@@ -20,6 +20,64 @@
 
 namespace Menu
 {
+
+	// Lists controller mapping for a specific menu
+	class HelpMenu : public IMenu
+	{
+	public:
+
+		/*
+		 * HelpMenu Constructor
+		 *
+		 * mini:
+		 *		Instance of Mini2D
+		 * windowManager:
+		 *		Instance of WindowManager
+		 * prevId:
+		 *		The 64-bit id of the Window opening this new Window
+		 */
+		HelpMenu(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
+		~HelpMenu();
+
+		// Getters and Setters
+		virtual const WindowState& State() const;
+  		virtual void State(const WindowState& newState);
+
+  		virtual const long& Id() const;
+  		virtual void Id(const long& newId);
+
+  		virtual const long& PreviousId() const;
+  		virtual void PreviousId(const long& newPreviousId);
+
+		// Implementations of pure virtual methods from IMenu
+		virtual void Draw(float deltaTime);
+		virtual void Pad(int port, padData pData);
+		virtual bool IsSubmenu();
+
+	private:
+
+		// Mini2D instance
+		Mini2D::Mini * _mini;
+
+		// Manager of the Windows
+		WindowManager * _windowManager;
+
+		// State of the Window
+		WindowState _windowState;
+
+		// Unique identifier of the Window
+		long _id;
+
+		// Unique identifier of the Window that opened this Window
+		long _previousId;
+
+		// Window frame instance
+		Elements::WindowFrame * _windowFrame;
+
+		// Animation time
+		float _animationTime;
+	};
+
 	class Start : public IMenu
 	{
 	public:
