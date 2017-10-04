@@ -1,5 +1,5 @@
 /*
- * Start.cpp
+ * StartMenu.cpp
  *
  *
  *  Start is the initial menu displayed to the user.
@@ -18,7 +18,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Setup all menu variables
 	//---------------------------------------------------------------------------
-	Start::Start(Mini * mini, WindowManager * windowManager, long prevId) :
+	StartMenu::StartMenu(Mini * mini, WindowManager * windowManager, long prevId) :
 	_mini(mini),
 	_windowManager(windowManager),
 	_windowState(WINDOW_STATE_INACTIVE),
@@ -75,7 +75,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Clean up
 	//---------------------------------------------------------------------------
-	Start::~Start()
+	StartMenu::~StartMenu()
 	{
 		// Delete all our allocations
 		if (_iconXmb)
@@ -106,32 +106,32 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Getters and Setters
 	//---------------------------------------------------------------------------
-	const WindowState& Start::State() const
+	const WindowState& StartMenu::State() const
 	{
 		return _windowState;
 	}
 
-	void Start::State(const WindowState& newState)
+	void StartMenu::State(const WindowState& newState)
 	{
 		_windowState = newState;
 	}
 
-	const long& Start::Id() const
+	const long& StartMenu::Id() const
 	{
 		return _id;
 	}
 
-	void Start::Id(const long& newId)
+	void StartMenu::Id(const long& newId)
 	{
 		_id = newId;
 	}
 
-	const long& Start::PreviousId() const
+	const long& StartMenu::PreviousId() const
 	{
 		return _previousId;
 	}
 
-	void Start::PreviousId(const long& newPreviousId)
+	void StartMenu::PreviousId(const long& newPreviousId)
 	{
 		_previousId = newPreviousId;
 	}
@@ -139,7 +139,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Draws the menu
 	//---------------------------------------------------------------------------
-	void Start::Draw(float deltaTime)
+	void StartMenu::Draw(float deltaTime)
 	{
 		Font * font;
 		int rgba = 0x1A000000, a = 0x00;
@@ -218,7 +218,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Updates the selected icon based on pad input
 	//---------------------------------------------------------------------------
-	void Start::Pad(int port, padData pData)
+	void StartMenu::Pad(int port, padData pData)
 	{
 
 		// Scroll through the list of icons
@@ -239,10 +239,10 @@ namespace Menu
 			switch (_selectedIndex)
 			{
 				case 1:
-					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::GameListView(_mini, _windowManager, Id())));
+					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::GameListMenu(_mini, _windowManager, Id())));
 					break;
 				case 3:
-					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::About(_mini, _windowManager, Id())));
+					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::AboutMenu(_mini, _windowManager, Id())));
 					break;
 			}
 		}
@@ -251,7 +251,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Tells the WindowManager that this is not drawn on top of the previous window
 	//---------------------------------------------------------------------------
-	bool Start::IsSubmenu()
+	bool StartMenu::IsSubmenu()
 	{
 		return false;
 	}

@@ -78,12 +78,12 @@ namespace Menu
 		float _animationTime;
 	};
 
-	class Start : public IMenu
+	class StartMenu : public IMenu
 	{
 	public:
 
 		/*
-		 * Start Constructor
+		 * StartMenu Constructor
 		 *
 		 * mini:
 		 *		Instance of Mini2D
@@ -92,8 +92,8 @@ namespace Menu
 		 * prevId:
 		 *		The 64-bit id of the Window opening this new Window
 		 */
-		Start(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
-		~Start();
+		StartMenu(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
+		~StartMenu();
 
 		// Getters and Setters
 		virtual const WindowState& State() const;
@@ -158,12 +158,12 @@ namespace Menu
 		int _selectedIndex;
 	};
 
-	class About : public IMenu
+	class AboutMenu : public IMenu
 	{
 	public:
 
 		/*
-		 * About Constructor
+		 * AboutMenu Constructor
 		 *
 		 * mini:
 		 *		Instance of Mini2D
@@ -172,8 +172,8 @@ namespace Menu
 		 * prevId:
 		 *		The 64-bit id of the Window opening this new Window
 		 */
-		About(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
-		~About();
+		AboutMenu(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
+		~AboutMenu();
 
 		// Getters and Setters
 		virtual const WindowState& State() const;
@@ -229,12 +229,12 @@ namespace Menu
 	};
 
 	// Loads and lists games we have cheats for
-	class GameListView : public IMenu
+	class GameListMenu : public IMenu
 	{
 	public:
 
 		/*
-		 * GameView Constructor
+		 * GameListMenu Constructor
 		 *
 		 * mini:
 		 *		Instance of Mini2D
@@ -243,8 +243,8 @@ namespace Menu
 		 * prevId:
 		 *		The 64-bit id of the Window opening this new Window
 		 */
-		GameListView(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
-		~GameListView();
+		GameListMenu(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
+		~GameListMenu();
 
 		// Getters and Setters
 		virtual const WindowState& State() const;

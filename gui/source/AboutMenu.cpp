@@ -1,5 +1,5 @@
 /*
- * About.cpp
+ * AboutMenu.cpp
  *
  *
  *  This menu displays information about Project Artemis and Artemis PS3 Lite.
@@ -18,7 +18,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Setup all menu variables
 	//---------------------------------------------------------------------------
-	About::About(Mini * mini, WindowManager * windowManager, long prevId) :
+	AboutMenu::AboutMenu(Mini * mini, WindowManager * windowManager, long prevId) :
 	_mini(mini),
 	_windowManager(windowManager),
 	_windowState(WINDOW_STATE_INACTIVE),
@@ -60,7 +60,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Clean up
 	//---------------------------------------------------------------------------
-	About::~About()
+	AboutMenu::~AboutMenu()
 	{
 		if (_windowFrame)
 		{
@@ -90,32 +90,32 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Getters and Setters
 	//---------------------------------------------------------------------------
-	const WindowState& About::State() const
+	const WindowState& AboutMenu::State() const
 	{
 		return _windowState;
 	}
 
-	void About::State(const WindowState& newState)
+	void AboutMenu::State(const WindowState& newState)
 	{
 		_windowState = newState;
 	}
 
-	const long& About::Id() const
+	const long& AboutMenu::Id() const
 	{
 		return _id;
 	}
 
-	void About::Id(const long& newId)
+	void AboutMenu::Id(const long& newId)
 	{
 		_id = newId;
 	}
 
-	const long& About::PreviousId() const
+	const long& AboutMenu::PreviousId() const
 	{
 		return _previousId;
 	}
 
-	void About::PreviousId(const long& newPreviousId)
+	void AboutMenu::PreviousId(const long& newPreviousId)
 	{
 		_previousId = newPreviousId;
 	}
@@ -123,7 +123,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Draws the menu
 	//---------------------------------------------------------------------------
-	void About::Draw(float deltaTime)
+	void AboutMenu::Draw(float deltaTime)
 	{
 		Font * font;
 		int x = 0, rgba = 0x1A000000, a = 0x00;
@@ -185,7 +185,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Close the window if Circle is pressed
 	//---------------------------------------------------------------------------
-	void About::Pad(int port, padData pData)
+	void AboutMenu::Pad(int port, padData pData)
 	{
 		// Scroll through the list of icons
 		if (pData.BTN_CIRCLE)
@@ -195,7 +195,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Tells the WindowManager that this is not drawn on top of the previous window
 	//---------------------------------------------------------------------------
-	bool About::IsSubmenu()
+	bool AboutMenu::IsSubmenu()
 	{
 		return false;
 	}

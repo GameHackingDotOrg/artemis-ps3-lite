@@ -1,5 +1,5 @@
 /*
- * GameListView.cpp
+ * GameListMenu.cpp
  *
  *
  *  This menu loads and then displays the games list
@@ -18,7 +18,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Setup all menu variables
 	//---------------------------------------------------------------------------
-	GameListView::GameListView(Mini * mini, WindowManager * windowManager, long prevId) :
+	GameListMenu::GameListMenu(Mini * mini, WindowManager * windowManager, long prevId) :
 	_mini(mini),
 	_windowManager(windowManager),
 	_windowState(WINDOW_STATE_INACTIVE),
@@ -36,7 +36,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Clean up
 	//---------------------------------------------------------------------------
-	GameListView::~GameListView()
+	GameListMenu::~GameListMenu()
 	{
 		if (_windowFrame)
 		{
@@ -48,32 +48,32 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Getters and Setters
 	//---------------------------------------------------------------------------
-	const WindowState& GameListView::State() const
+	const WindowState& GameListMenu::State() const
 	{
 		return _windowState;
 	}
 
-	void GameListView::State(const WindowState& newState)
+	void GameListMenu::State(const WindowState& newState)
 	{
 		_windowState = newState;
 	}
 
-	const long& GameListView::Id() const
+	const long& GameListMenu::Id() const
 	{
 		return _id;
 	}
 
-	void GameListView::Id(const long& newId)
+	void GameListMenu::Id(const long& newId)
 	{
 		_id = newId;
 	}
 
-	const long& GameListView::PreviousId() const
+	const long& GameListMenu::PreviousId() const
 	{
 		return _previousId;
 	}
 
-	void GameListView::PreviousId(const long& newPreviousId)
+	void GameListMenu::PreviousId(const long& newPreviousId)
 	{
 		_previousId = newPreviousId;
 	}
@@ -81,7 +81,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Draws the menu
 	//---------------------------------------------------------------------------
-	void GameListView::Draw(float deltaTime)
+	void GameListMenu::Draw(float deltaTime)
 	{
 		Font * font;
 		int x = 0, rgba = 0x1A000000, a = 0x00;
@@ -119,7 +119,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Close the window if Circle is pressed
 	//---------------------------------------------------------------------------
-	void GameListView::Pad(int port, padData pData)
+	void GameListMenu::Pad(int port, padData pData)
 	{
 		// Scroll through the list of icons
 		if (pData.BTN_CIRCLE)
@@ -129,7 +129,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Tells the WindowManager that this is not drawn on top of the previous window
 	//---------------------------------------------------------------------------
-	bool GameListView::IsSubmenu()
+	bool GameListMenu::IsSubmenu()
 	{
 		return false;
 	}

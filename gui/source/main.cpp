@@ -57,7 +57,7 @@ int main(s32 argc, const char* argv[])
 
 	// Initialize our Window Manager with a fresh instance of the Start Menu
 	windowManager = new Menu::WindowManager(mini);
-	windowManager->OpenWindow(windowManager->AddWindow(new Menu::Start(mini, windowManager, -1)));
+	windowManager->OpenWindow(windowManager->AddWindow(new Menu::StartMenu(mini, windowManager, -1)));
 
 	// Here we set the deadzone of the analog sticks
 	// The clear color
