@@ -132,6 +132,34 @@ const std::wstring LOCALE_ABT_CONTRIBUTORS =L"ABOUT_CONTRIBUTORS";
 const std::wstring GENERAL_ARTEMIS_LINK =   L"https://gamehacking.org/artemis";
 const std::wstring GENERAL_GITHUB_LINK =    L"https://github.com/GameHackingDotOrg";
 
+const std::wstring LOCALE_HLP[] =
+{
+    L"",
+    L"HELP_EDIT_ENTRY",
+    L"HELP_ADD_ENTRY",
+	L"HELP_DELETE",
+	L"HELP_NAVIGATION",
+	L"HELP_XMB",
+	L"HELP_SELECT",
+	L"HELP_BACK",
+	L"HELP_HELP",
+	L"HELP_VIEW"
+};
+enum LOCALE_HLP_ENUM
+{
+	HLP_EMPTY = 0,
+	HLP_EDIT_ENTRY,
+	HLP_ADD_ENTRY,
+	HLP_DELETE,
+	HLP_NAVIGATION,
+	HLP_XMB,
+	HLP_SELECT,
+	HLP_BACK,
+	HLP_HELP,
+	HLP_VIEW
+};
+
+
 extern Mini2D::Image * TEX_BGIMG;
 extern Mini2D::Image * TEX_CHEAT;
 extern Mini2D::Image * TEX_CIRCLE_ERROR_DARK;

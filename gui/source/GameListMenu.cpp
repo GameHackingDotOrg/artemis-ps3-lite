@@ -124,6 +124,8 @@ namespace Menu
 		// Scroll through the list of icons
 		if (pData.BTN_CIRCLE)
 			_windowManager->CloseWindow(Id());
+		else if (pData.BTN_TRIANGLE)
+			_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::HelpMenu(_mini, _windowManager, Id(), HLP_SELECT, HLP_BACK, HLP_HELP, HLP_VIEW, HLP_ADD_ENTRY, HLP_EDIT_ENTRY, HLP_XMB, HLP_DELETE, HLP_NAVIGATION)));
 	}
 
 	//---------------------------------------------------------------------------

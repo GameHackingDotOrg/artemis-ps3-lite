@@ -20,6 +20,17 @@ GENERAL_CHEATS              Cheats
 GENERAL_OPTIONS             Options
 GENERAL_ABOUT               About
 
+# Help
+HELP_EDIT_ENTRY             edit entry
+HELP_ADD_ENTRY              add entry
+HELP_DELETE                 delete
+HELP_NAVIGATION             navigation
+HELP_XMB                    back to XMB
+HELP_SELECT                 select
+HELP_BACK                   back
+HELP_HELP                   help
+HELP_VIEW                   view
+
 # Cheats Menu
 CHEAT_GAMELIST              game list
 CHEAT_LOAD                  loading, please wait...

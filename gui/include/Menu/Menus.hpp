@@ -36,7 +36,7 @@ namespace Menu
 		 * prevId:
 		 *		The 64-bit id of the Window opening this new Window
 		 */
-		HelpMenu(Mini2D::Mini * mini, WindowManager * windowManager, long prevId);
+		HelpMenu(Mini2D::Mini * mini, WindowManager * windowManager, long prevId, int mCross = 0, int mCirc = 0, int mTri = 0, int mSqr = 0, int mR1 = 0, int mL1 = 0, int mStart = 0, int mSel = 0, int mNav = 0);
 		~HelpMenu();
 
 		// Getters and Setters
@@ -76,6 +76,13 @@ namespace Menu
 
 		// Animation time
 		float _animationTime;
+
+		// LOCALE_HLP array indicies for each mappable button
+		int _mCross, _mCirc, _mTri, _mSqr, _mR1, _mL1, _mStart, _mSel, _mNav;
+
+
+		// Draws the mapping at the specified location
+		void drawMap(Mini2D::Font * font, float fontSize, float x, float y, int map, unsigned int RGBA);
 	};
 
 	class StartMenu : public IMenu
