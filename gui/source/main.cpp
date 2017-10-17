@@ -196,7 +196,7 @@ void loadData(Mini2D::Mini * mini)
 {
 	// Load fonts
 	FONT_DEFAULT = new Font(mini);
-	FONT_DEFAULT->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 48);
+	FONT_DEFAULT->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 64);
 
 	// Initialize default variables
 	LOC_TO_SCREEN(LOC_CENTER, mini);
