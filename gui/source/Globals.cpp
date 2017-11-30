@@ -67,3 +67,7 @@ std::wstring CONTRIBUTORS[] =
 	L"Daniel \"Dnawrkshp\" Gerendasy",
 	L""
 };
+
+const char * CHEAT_DIRECTORIES[] = {
+	ARTEMIS_PATH "Cheats/"
+};

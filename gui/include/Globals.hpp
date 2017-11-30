@@ -209,4 +209,6 @@ extern const std::wstring WSTRING_EMPTY;
 
 extern std::wstring CONTRIBUTORS[];
 
+extern const char * CHEAT_DIRECTORIES[];
+
 #endif /* GLOBALS_HPP_ */
