@@ -9,6 +9,7 @@
 #include "Menu/IMenu.hpp"
 #include "Menu/Menus.hpp"
 #include "Menu/Elements/Icon.hpp"
+#include "Cheats/GameList.hpp"
 #include "Globals.hpp"
 
 using namespace Mini2D;
@@ -29,6 +30,9 @@ namespace Menu
 	{
 		if (!_mini || !_windowManager)
 			return;
+
+		// Game List
+		_gameList = new Cheats::GameList((const char **)CHEAT_DIRECTORIES, 1);
 
 		// Define our icon font size
 		_fontIco = FONT_MEDIUM;
@@ -245,7 +249,16 @@ namespace Menu
 
 					// Open our progress wheel on top of the game list menu
 					// Have the wheel load the user's cheats
-					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::ProgressMenu(_mini, _windowManager, newId, Id(), NULL, NULL, 10)));
+					_windowManager->OpenWindow(
+						_windowManager->AddWindow(
+							new Menu::ProgressMenu(
+								_mini,
+								_windowManager,
+								newId,
+								Id(),
+								(Menu::ProgressMenu::IncrementCallback_t)Cheats::GameList::ReadIncrement,
+								(void*)_gameList,
+								_gameList->ReadTotalEntries())));
 					break;
 				case 3:
 					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::AboutMenu(_mini, _windowManager, Id())));

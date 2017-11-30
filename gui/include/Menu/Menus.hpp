@@ -17,6 +17,7 @@
 #include "Menu/Elements/LabelPair.hpp"
 #include "Menu/Elements/WindowFrame.hpp"
 #include "Menu/WindowManager.hpp"
+#include "Cheats/GameList.hpp"
 
 namespace Menu
 {
@@ -31,7 +32,7 @@ namespace Menu
 		//  long represents the total number of increments
 		//  long represents the current index
 		//  Returns false if failed
-		typedef bool (*IncrementCallback_t)(void*,long,long);
+		typedef bool (*IncrementCallback_t)(void*,unsigned long,unsigned long);
 
 		/*
 		 * ProgressMenu Constructor
@@ -43,7 +44,7 @@ namespace Menu
 		 * prevId:
 		 *		The 64-bit id of the Window opening this new Window
 		 */
-		ProgressMenu(Mini2D::Mini * mini, WindowManager * windowManager, long successId, long failId, IncrementCallback_t callback, void * userData, long length);
+		ProgressMenu(Mini2D::Mini * mini, WindowManager * windowManager, long successId, long failId, IncrementCallback_t callback, void * userData, unsigned long length);
 		~ProgressMenu();
 
 		// Getters and Setters
@@ -90,7 +91,9 @@ namespace Menu
 		// Callback arguments
 		IncrementCallback_t _callback;
 		void * _userData;
-		long _length;
+		unsigned long _length;
+		unsigned long _index;
+		bool _failed;
 	};
 
 	// Lists controller mapping for a specific menu
@@ -235,6 +238,9 @@ namespace Menu
 
 		// Actively selected icon
 		int _selectedIndex;
+
+		// Collection of games and their cheats
+		Cheats::GameList * _gameList;
 	};
 
 	class AboutMenu : public IMenu

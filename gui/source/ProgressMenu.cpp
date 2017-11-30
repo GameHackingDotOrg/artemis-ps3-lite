@@ -17,7 +17,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	// Setup all menu variables
 	//---------------------------------------------------------------------------
-	ProgressMenu::ProgressMenu(Mini * mini, WindowManager * windowManager, long successId, long failId, IncrementCallback_t callback, void * userData, long length) :
+	ProgressMenu::ProgressMenu(Mini * mini, WindowManager * windowManager, long successId, long failId, IncrementCallback_t callback, void * userData, unsigned long length) :
 	_mini(mini),
 	_windowManager(windowManager),
 	_windowState(WINDOW_STATE_INACTIVE),
@@ -27,7 +27,9 @@ namespace Menu
 	_animationTime(0),
 	_callback(callback),
 	_userData(userData),
-	_length(length)
+	_length(length),
+	_index(0),
+	_failed(false)
 	{
 		if (!_mini || !_windowManager || !_windowManager->GetLocale())
 			return;
@@ -111,6 +113,12 @@ namespace Menu
 		TEX_BGIMG->DrawRegion.Location.Set(LOC_CENTER);
 		TEX_BGIMG->DrawRegion.Dimension.Set(DIM_FULL);
 		TEX_BGIMG->Draw();
+
+
+		if (_index > _length && !_failed && _callback)
+		{
+			_failed = !_callback(_userData, _length, _index++);
+		}
 	}
 
 	//---------------------------------------------------------------------------
