@@ -13,6 +13,7 @@
 #include <Mini2D/Image.hpp>
 #include <Mini2D/Font.hpp>
 #include <Mini2D/Units.hpp>
+#include <Mini2D/Sound.hpp>
 
 // Textures
 #include "bgimg_png.h"
@@ -51,8 +52,11 @@
 #include "titlescr_label_png.h"
 #include "titlescr_link_png.h"
 
+// font
 #include "comfortaa_bold_ttf.h"
 
+// audio
+#include "bgm_mp3.h"
 
 /*
  * LOC_TO_SCREEN:
@@ -197,6 +201,8 @@ extern Mini2D::Image * TEX_TITLESCR_LABEL;
 extern Mini2D::Image * TEX_TITLESCR_LINK;
 
 extern Mini2D::Font * FONT_DEFAULT;
+
+extern Mini2D::Sound * SND_BGM;
 
 extern float FONT_SMALL;
 extern float FONT_MEDIUM;

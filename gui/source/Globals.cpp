@@ -9,6 +9,7 @@
 #include <Mini2D/Image.hpp>
 #include <Mini2D/Font.hpp>
 #include <Mini2D/Units.hpp>
+#include <Mini2D/Sound.hpp>
 
 using namespace Mini2D;
 
@@ -49,6 +50,8 @@ Image * TEX_TITLESCR_LABEL;
 Image * TEX_TITLESCR_LINK;
 
 Font * FONT_DEFAULT;
+
+Sound * SND_BGM;
 
 float FONT_SMALL =   0.0105;
 float FONT_MEDIUM =  FONT_SMALL * 1.5;

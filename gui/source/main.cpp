@@ -14,6 +14,7 @@
 #include <Mini2D/Mini.hpp>
 #include <Mini2D/Image.hpp>
 #include <Mini2D/Font.hpp>
+#include <Mini2D/Sound.hpp>
 
 #include "Menu/IMenu.hpp"
 #include "Menu/Menus.hpp"
@@ -58,6 +59,9 @@ int main(s32 argc, const char* argv[])
 	// Initialize our Window Manager with a fresh instance of the Start Menu
 	windowManager = new Menu::WindowManager(mini);
 	windowManager->OpenWindow(windowManager->AddWindow(new Menu::StartMenu(mini, windowManager, -1)));
+
+	// Start music
+	// SND_BGM->PlayInfinite(64, 64);
 
 	// Here we set the deadzone of the analog sticks
 	// The clear color
@@ -198,6 +202,10 @@ void loadData(Mini2D::Mini * mini)
 	FONT_DEFAULT = new Font(mini);
 	FONT_DEFAULT->Load((void*)comfortaa_bold_ttf, comfortaa_bold_ttf_size, 64);
 
+	// Load sounds
+	SND_BGM = new Sound(mini);
+	SND_BGM->Load(bgm_mp3, bgm_mp3_size, 315);
+
 	// Initialize default variables
 	LOC_TO_SCREEN(LOC_CENTER, mini);
 	LOC_TO_SCREEN(DIM_FULL, mini);
@@ -332,6 +340,12 @@ void unloadData()
 	{
 		delete FONT_DEFAULT;
 		FONT_DEFAULT = NULL;
+	}
+
+	if (SND_BGM)
+	{
+		delete SND_BGM;
+		SND_BGM = NULL;
 	}
 
 	if (TEX_BGIMG)
