@@ -55,6 +55,10 @@ ppu/
 lib/
 obj/
 
+# VS Code
+# =========================
+.vscode/
+
 # Miscellaneous
 # =========================
 *.zip
