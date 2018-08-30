@@ -17,9 +17,84 @@
 #include "Menu/Elements/LabelPair.hpp"
 #include "Menu/Elements/WindowFrame.hpp"
 #include "Menu/WindowManager.hpp"
+#include "Cheats/GameList.hpp"
 
 namespace Menu
 {
+
+	// Displays a progress wheel and uses a callback to increment
+	class ProgressMenu : public IMenu
+	{
+	public:
+
+		// Callback function type
+		//  void* represents userData
+		//  long represents the total number of increments
+		//  long represents the current index
+		//  Returns false if failed
+		typedef bool (*IncrementCallback_t)(void*,unsigned long,unsigned long);
+
+		/*
+		 * ProgressMenu Constructor
+		 *
+		 * mini:
+		 *		Instance of Mini2D
+		 * windowManager:
+		 *		Instance of WindowManager
+		 * prevId:
+		 *		The 64-bit id of the Window opening this new Window
+		 */
+		ProgressMenu(Mini2D::Mini * mini, WindowManager * windowManager, long successId, long failId, IncrementCallback_t callback, void * userData, unsigned long length);
+		~ProgressMenu();
+
+		// Getters and Setters
+		virtual const WindowState& State() const;
+  		virtual void State(const WindowState& newState);
+
+  		virtual const long& Id() const;
+  		virtual void Id(const long& newId);
+
+  		virtual const long& PreviousId() const;
+  		virtual void PreviousId(const long& newPreviousId);
+
+		// Implementations of pure virtual methods from IMenu
+		virtual void Draw(float deltaTime);
+		virtual void Pad(int port, padData pData);
+		virtual bool IsSubmenu();
+
+	private:
+
+		// Mini2D instance
+		Mini2D::Mini * _mini;
+
+		// Manager of the Windows
+		WindowManager * _windowManager;
+
+		// State of the Window
+		WindowState _windowState;
+
+		// Unique identifier of the Window
+		long _id;
+
+		// Unique identifier of the Window to open if this succeeds
+		long _previousId;
+
+		// Unique identifier of the Window to open if this fails
+		long _failId;
+
+		// Window frame instance
+		Elements::WindowFrame * _windowFrame;
+
+		// Animation time
+		float _animationTime;
+
+		// Callback arguments
+		IncrementCallback_t _callback;
+		void * _userData;
+		unsigned long _length;
+		unsigned long _index;
+		bool _failed;
+	};
 
 	// Lists controller mapping for a specific menu
 	class HelpMenu : public IMenu
@@ -163,6 +238,9 @@ namespace Menu
 
 		// Actively selected icon
 		int _selectedIndex;
+
+		// Collection of games and their cheats
+		Cheats::GameList * _gameList;
 	};
 
 	class AboutMenu : public IMenu

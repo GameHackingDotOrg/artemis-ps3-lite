@@ -118,15 +118,15 @@ namespace Menu
 		TEX_HELP->Draw(0xFFFFFF00 | a);
 
 		// Draw mappings
-		drawMap(font, FONT_MEDIUM, 0.53101851, 454.5/1080.0, _mNav, rgba | a);
-		drawMap(font, FONT_MEDIUM, 0.87407407, 324.5/1080.0, _mSel, rgba | a);
-		drawMap(font, FONT_MEDIUM, 0.87361111, 739.5/1080.0, _mStart, rgba | a);
-		drawMap(font, FONT_MEDIUM, 1.23657407, 324.5/1080.0, _mR1, rgba | a);
-		drawMap(font, FONT_MEDIUM, 0.61342592, 269.5/1080.0, _mL1, rgba | a);
-		drawMap(font, FONT_MEDIUM, 1.08981481, 738.5/1080.0, _mCross, rgba | a);
-		drawMap(font, FONT_MEDIUM, 1.17222222, 643.5/1080.0, _mCirc, rgba | a);
-		drawMap(font, FONT_MEDIUM, 1.30555555, 436.5/1080.0, _mTri, rgba | a);
-		drawMap(font, FONT_MEDIUM, 1.04120370, 324.5/1080.0, _mSqr, rgba | a);
+		drawMap(font, FONT_MEDIUM, 570.50/1080.0, 454.5/1080.0, _mNav, rgba | a);
+		drawMap(font, FONT_MEDIUM, 938.50/1080.0, 324.5/1080.0, _mSel, rgba | a);
+		drawMap(font, FONT_MEDIUM, 937.00/1080.0, 736.0/1080.0, _mStart, rgba | a);
+		drawMap(font, FONT_MEDIUM, 1326.0/1080.0, 324.5/1080.0, _mR1, rgba | a);
+		drawMap(font, FONT_MEDIUM, 659.50/1080.0, 269.5/1080.0, _mL1, rgba | a);
+		drawMap(font, FONT_MEDIUM, 1169.0/1080.0, 735.0/1080.0, _mCross, rgba | a);
+		drawMap(font, FONT_MEDIUM, 1257.0/1080.0, 640.0/1080.0, _mCirc, rgba | a);
+		drawMap(font, FONT_MEDIUM, 1399.5/1080.0, 436.5/1080.0, _mTri, rgba | a);
+		drawMap(font, FONT_MEDIUM, 1117.0/1080.0, 324.5/1080.0, _mSqr, rgba | a);
 	}
 
 	void HelpMenu::drawMap(Font * font, float fontSize, float x, float y, int map, unsigned int RGBA)

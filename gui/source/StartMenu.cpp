@@ -9,6 +9,7 @@
 #include "Menu/IMenu.hpp"
 #include "Menu/Menus.hpp"
 #include "Menu/Elements/Icon.hpp"
+#include "Cheats/GameList.hpp"
 #include "Globals.hpp"
 
 using namespace Mini2D;
@@ -29,6 +30,9 @@ namespace Menu
 	{
 		if (!_mini || !_windowManager)
 			return;
+
+		// Game List
+		_gameList = new Cheats::GameList((const char **)CHEAT_DIRECTORIES, 1);
 
 		// Define our icon font size
 		_fontIco = FONT_MEDIUM;
@@ -220,6 +224,7 @@ namespace Menu
 	//---------------------------------------------------------------------------
 	void StartMenu::Pad(int port, padData pData)
 	{
+		long newId = 0;
 
 		// Scroll through the list of icons
 		if (pData.BTN_LEFT && !pData.BTN_RIGHT)
@@ -239,7 +244,21 @@ namespace Menu
 			switch (_selectedIndex)
 			{
 				case 1:
-					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::GameListMenu(_mini, _windowManager, Id())));
+					// Add our game list menu
+					newId = _windowManager->AddWindow(new Menu::GameListMenu(_mini, _windowManager, Id()));
+
+					// Open our progress wheel on top of the game list menu
+					// Have the wheel load the user's cheats
+					_windowManager->OpenWindow(
+						_windowManager->AddWindow(
+							new Menu::ProgressMenu(
+								_mini,
+								_windowManager,
+								newId,
+								Id(),
+								(Menu::ProgressMenu::IncrementCallback_t)Cheats::GameList::ReadIncrement,
+								(void*)_gameList,
+								_gameList->ReadTotalEntries())));
 					break;
 				case 3:
 					_windowManager->OpenWindow(_windowManager->AddWindow(new Menu::AboutMenu(_mini, _windowManager, Id())));

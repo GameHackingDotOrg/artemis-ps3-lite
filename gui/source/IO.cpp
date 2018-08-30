@@ -10,6 +10,10 @@
 #include <sstream>
 #include <iostream>
 #include <cstring>
+#include <vector>
+#include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 #include "IO/IO.hpp"
 #include "IO/UTF8.hpp"
@@ -28,6 +32,29 @@ namespace IO
 			return true;
 
 		return false;
+	}
+
+	std::vector<std::string> GetFiles(const char * directoryPath, std::string extension)
+	{
+		DIR *d;
+	    struct dirent *dir;
+		std::vector<std::string> files;
+
+	    if ((d = opendir(directoryPath)))
+	    {
+	        while ((dir = readdir(d)))
+			{
+				std::string fullPath = std::string(directoryPath).append(dir->d_name);
+	            if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0)
+					if (fullPath.size() >= extension.size() && fullPath.compare(fullPath.size() - extension.size(), extension.size(), extension) == 0)
+						if (FileExists(fullPath.c_str()))
+							files.push_back(fullPath);
+			}
+
+	        closedir(d);
+	    }
+
+	    return files;
 	}
 
 

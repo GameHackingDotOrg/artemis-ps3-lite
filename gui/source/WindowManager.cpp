@@ -219,7 +219,7 @@ namespace Menu
 			if ((fontPath = _locale->GetValue(L"FONT")) != L"default" && fontPath.size() > 0)
 			{
 				_font = new Font(_mini);
-				if (_font->Load((char*)(ARTEMIS_PATH "Locales/" + IO::UTF8::FromUTF32(fontPath)).c_str(), 48) != Font::FONT_SUCCESS)
+				if (_font->Load((char*)(ARTEMIS_PATH "Locales/" + IO::UTF8::FromUTF32(fontPath)).c_str(), 64) != Font::FONT_SUCCESS)
 					printf("Artemis Lite::WindowManager::Error loading font %s\n", IO::UTF8::FromUTF32(_locale->GetValue(L"FONT")).c_str());
 
 				// Load custom characters into font
