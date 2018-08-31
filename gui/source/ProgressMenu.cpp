@@ -1,14 +1,15 @@
 /*
- * HelpMenu.cpp
+ * ProgressMenu.cpp
  *
  *
- *  This menu displays controller mappings
+ *  
  */
 
 #include "Menu/IMenu.hpp"
 #include "Menu/Menus.hpp"
 #include "Globals.hpp"
 #include "IO/UTF8.hpp"
+#include <math.h>
 
 using namespace Mini2D;
 
@@ -25,6 +26,7 @@ namespace Menu
 	_previousId(successId),
 	_failId(failId),
 	_animationTime(0),
+	_detailKey(0),
 	_callback(callback),
 	_userData(userData),
 	_length(length),
@@ -33,6 +35,24 @@ namespace Menu
 	{
 		if (!_mini || !_windowManager || !_windowManager->GetLocale())
 			return;
+
+		// Set dimensions
+		_dimWheel.Set(0.1, 0.1);
+
+		// Set locations
+		_locGeneric.Set(0.5, 0.35);
+		_locWheel.Set(0.5, 0.5);
+		_locPercent.Set(0.5, 0.5);
+		_locDetail.Set(0.5, 0.65);
+
+
+		// Translate location and dimension to screen space
+		LOC_TO_SCREEN(_locGeneric, _mini);
+		LOC_TO_SCREEN(_locWheel, _mini);
+		LOC_TO_SCREEN(_locPercent, _mini);
+		LOC_TO_SCREEN(_locDetail, _mini);
+
+		DIM_TO_SCREEN(_dimWheel, _mini);
 	}
 
 	//---------------------------------------------------------------------------
@@ -82,9 +102,9 @@ namespace Menu
 	void ProgressMenu::Draw(float deltaTime)
 	{
 		Font * font;
-		int rgba = 0xFFECDE00, a = 0x00;
-
-		if (!TEX_BGIMG || !_windowManager || !_windowManager->GetLocale() || !(font = _windowManager->GetFont()))
+		int rgba = _failed ? 0x9D000000 : 0x1A000000, a = 0x00;
+		
+		if (!TEX_BGIMG || !TEX_CIRCLE_LOADING_BG || !TEX_CIRCLE_ERROR_DARK || !TEX_CIRCLE_LOADING_SEEK || !_windowManager || !_windowManager->GetLocale() || !(font = _windowManager->GetFont()))
 			return;
 
 		// Set rgba based on window state and how long we've been in that state
@@ -114,12 +134,50 @@ namespace Menu
 		TEX_BGIMG->DrawRegion.Dimension.Set(DIM_FULL);
 		TEX_BGIMG->Draw();
 
+		// Draw Generic message
+		font->TextAlign = Font::PRINT_ALIGN_CENTER;
+		font->ForeColor = rgba | a;
+		font->PrintLine(_windowManager->GetLocale()->GetValue(_failed ? LOCALE_PRG_GENERIC_ERROR : LOCALE_PRG_GENERIC), NULL, _locGeneric, FONT_MEDIUM);
 
-		if (_index > _length && !_failed && _callback)
+		// Draw Wheel
+		if (!_failed)
 		{
-			_failed = !_callback(_userData, _length, _index++);
+			TEX_CIRCLE_LOADING_BG->DrawRegion.Location.Set(_locWheel);
+			TEX_CIRCLE_LOADING_BG->DrawRegion.Dimension.Set(_dimWheel);
+			TEX_CIRCLE_LOADING_BG->Draw(rgba | a);
+
+			TEX_CIRCLE_LOADING_SEEK->DrawRegion.Location.Set(_locWheel);
+			TEX_CIRCLE_LOADING_SEEK->DrawRegion.Dimension.Set(_dimWheel);
+			TEX_CIRCLE_LOADING_SEEK->DrawRegion.RectangleAngle = fmod(TEX_CIRCLE_LOADING_SEEK->DrawRegion.RectangleAngle - (deltaTime * 100), 360.0);
+			TEX_CIRCLE_LOADING_SEEK->Draw(rgba | a);
+
+			// Draw Percent message
+			font->PrintFormat(_locPercent, FONT_MEDIUM, false, false, 10, L"%.0f%c", 100 * (float)_index / (float)(_length <= 0 ? 1 : _length), '\045');
+		}
+		else 
+		{
+			TEX_CIRCLE_ERROR_DARK->DrawRegion.Location.Set(_locWheel);
+			TEX_CIRCLE_ERROR_DARK->DrawRegion.Dimension.Set(_dimWheel);
+			TEX_CIRCLE_ERROR_DARK->Draw(0xE4E4E400 | a);
+		}
+
+		// Draw Detail message
+		if (_detailKey)
+			font->PrintLine(_windowManager->GetLocale()->GetValue(*_detailKey), NULL, _locDetail, FONT_MEDIUM);
+
+		// Increment
+		if (_index < _length && !_failed && _callback)
+		{
+			_failed = !_callback(_index++, _length, &_detailKey, _userData);
+		}
+		else if (!_failed && _callback)
+		{
+			// Success, exit to proper window
+			if (State() == WINDOW_STATE_ACTIVE)
+				_windowManager->CloseWindow(Id());
 		}
 	}
+
 
 	//---------------------------------------------------------------------------
 	// Close the window if Circle is pressed

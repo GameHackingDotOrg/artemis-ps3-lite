@@ -32,7 +32,7 @@ namespace Menu
 		//  long represents the total number of increments
 		//  long represents the current index
 		//  Returns false if failed
-		typedef bool (*IncrementCallback_t)(void*,unsigned long,unsigned long);
+		typedef bool (*IncrementCallback_t)(unsigned long, unsigned long, const std::wstring **, void*);
 
 		/*
 		 * ProgressMenu Constructor
@@ -82,11 +82,20 @@ namespace Menu
 		// Unique identifier of the Window to open if this fails
 		long _failId;
 
-		// Window frame instance
-		Elements::WindowFrame * _windowFrame;
-
 		// Animation time
 		float _animationTime;
+
+		// Locale key for detail message rendered under the wheel
+		const std::wstring * _detailKey;
+
+		// Locations
+		Mini2D::Vector2 _locGeneric;
+		Mini2D::Vector2 _locWheel;
+		Mini2D::Vector2 _locPercent;
+		Mini2D::Vector2 _locDetail;
+
+		// Dimensions
+		Mini2D::Vector2 _dimWheel;
 
 		// Callback arguments
 		IncrementCallback_t _callback;

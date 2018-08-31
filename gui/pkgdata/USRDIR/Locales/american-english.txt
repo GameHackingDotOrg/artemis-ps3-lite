@@ -31,9 +31,12 @@ HELP_BACK                   back
 HELP_HELP                   help
 HELP_VIEW                   view
 
+# Progress Wheel
+PROGRESS_GENERIC            loading, please wait...
+PROGRESS_GENERIC_ERROR      ERROR
+
 # Cheats Menu
 CHEAT_GAMELIST              game list
-CHEAT_LOAD                  loading, please wait...
 CHEAT_LOAD_DESC             Seeking and reading cheats list
 CHEAT_LOAD_ERR              Couldn't load cheat files!
 

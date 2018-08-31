@@ -58,8 +58,10 @@ namespace Cheats
 		return _files.size();
 	}
 
-	bool GameList::ReadIncrement(void * userData, unsigned long count, unsigned long index)
+	bool GameList::ReadIncrement(unsigned long index, unsigned long count, const std::wstring ** detailKey, void * userData)
 	{
+		*detailKey = &LOCALE_CHT_LOAD_ERR;
+		
 		GameList * gameList = (GameList*)userData;
 		if (gameList == NULL)
 			return false;
@@ -91,6 +93,7 @@ namespace Cheats
 			gameList->GameEntries.insert(std::make_pair (filePath, entry));
 		}
 
+		*detailKey = &LOCALE_CHT_LOAD_DESC;
 		return true;
 	}
 }

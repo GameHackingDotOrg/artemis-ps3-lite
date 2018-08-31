@@ -45,17 +45,19 @@ namespace Cheats
 		 * ReadIncrement:
 		 *		ProgressWheel callback for reading cheats in steps
 		 *
-		 * userData:
-		 *		Instance of GameList
-		 * count:
-		 *		Number of files to read
 		 * index:
 		 *		Which file to read
+		 * count:
+		 *		Number of files to read
+		 * detailKey:
+		 *		Detail message locale key
+		 * userData:
+		 *		Instance of GameList
 		 *
 		 * Return:
 		 *		False if failed
 		 */
-		static bool ReadIncrement(void * userData, unsigned long count, unsigned long index);
+		static bool ReadIncrement(unsigned long index, unsigned long count, const std::wstring ** detailKey, void * userData);
 
 	private:
 		// Directories to parse cheats from

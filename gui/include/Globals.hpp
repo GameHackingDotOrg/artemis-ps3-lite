@@ -122,8 +122,11 @@ const std::wstring LOCALE_GEN_OPTIONS =     L"GENERAL_OPTIONS";
 const std::wstring LOCALE_GEN_ABOUT =       L"GENERAL_ABOUT";
 const std::wstring LOCALE_GEN_HELP =        L"GENERAL_HELP";
 
+
+const std::wstring LOCALE_PRG_GENERIC =     L"PROGRESS_GENERIC";
+const std::wstring LOCALE_PRG_GENERIC_ERROR=L"PROGRESS_GENERIC_ERROR";
+
 const std::wstring LOCALE_CHT_GAMELIST =    L"CHEAT_GAMELIST";
-const std::wstring LOCALE_CHT_LOAD =        L"CHEAT_LOAD";
 const std::wstring LOCALE_CHT_LOAD_DESC =   L"CHEAT_LOAD_DESC";
 const std::wstring LOCALE_CHT_LOAD_ERR =    L"CHEAT_LOAD_ERR";
 
