@@ -26,7 +26,7 @@ include $(PSL1GHT)/ppu_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	source ../lua
 DATA		:=	data
 INCLUDES	:=	include
 PKGFILES 	:=	$(CURDIR)/pkgdata
@@ -49,7 +49,7 @@ endef
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-O3 -Wall -mcpu=cell -DARTEMIS_VERSION=\"$(VERSIONSTR)\" -DARTEMIS_PATH=\"//dev_hdd0/game/$(APPID)/USRDIR/\" $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-O3 -Wall -mcpu=cell -DLUA_C89_NUMBERS -DARTEMIS_VERSION=\"$(VERSIONSTR)\" -DARTEMIS_PATH=\"//dev_hdd0/game/$(APPID)/USRDIR/\" $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 
 LDFLAGS		=	$(MACHDEP) -Wl,-Map,$(notdir $@).map
