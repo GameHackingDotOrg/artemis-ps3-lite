@@ -92,6 +92,7 @@ SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 PNGFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 JPGFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.jpg)))
 TTFFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.ttf)))
+MP3FILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.mp3)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bin)))
 
 #---------------------------------------------------------------------------------
@@ -107,9 +108,10 @@ export OFILES	:=	$(addsuffix .o,$(PNGFILES)) \
 					$(addsuffix .o,$(JPGFILES)) \
 					$(addsuffix .o,$(BINFILES)) \
 					$(addsuffix .o,$(TTFFILES)) \
+					$(addsuffix .o,$(MP3FILES)) \
 					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o)
-	
+
 #---------------------------------------------------------------------------------
 # build a list of include paths
 #---------------------------------------------------------------------------------
@@ -183,6 +185,11 @@ $(OUTPUT).elf:	$(OFILES)
 	@$(bin2o)
 #---------------------------------------------------------------------------------
 %.ttf.o	:	%.ttf
+#---------------------------------------------------------------------------------
+	@echo '[BIN2O]  $(notdir $<)'
+	@$(bin2o)
+#---------------------------------------------------------------------------------
+%.mp3.o	:	%.mp3
 #---------------------------------------------------------------------------------
 	@echo '[BIN2O]  $(notdir $<)'
 	@$(bin2o)

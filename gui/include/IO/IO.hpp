@@ -8,6 +8,8 @@
 #ifndef IO_HPP_
 #define IO_HPP_
 
+#include <vector>
+
 namespace IO
 {
 
@@ -15,10 +17,21 @@ namespace IO
 	 * FileExists:
 	 *		Check if the file exists
 	 *
-	 * path:
-	 *		Path to variable in config (eg: "group0.group1.var0")
+	 * filePath:
+	 *		File Path
 	 */
 	bool FileExists(const char * filePath);
+
+	/*
+ 	 * GetFiles:
+ 	 *		Grabs all the files in a directory
+ 	 *
+ 	 * directoryPath:
+ 	 *		Path to directory
+	 * extension:
+	 *		Extension of files (set to NULL to ignore)
+ 	 */
+	std::vector<std::string> GetFiles(const char * directoryPath, std::string extension);
 }
 
 #endif /* IO_HPP_ */
